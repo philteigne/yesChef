@@ -14,6 +14,8 @@ As a user I would like to regenerate a recipe suggestion if I don't like the ini
 Stretch
 ---
 
+As a user I would like to make and access an account with a username and password.
+
 As a user I would like to tweak a recipe suggestion and make slight changes to recipes that I already like.
 
 As a user I would like to ask a chatbot for basic cooking and recipe assistance.
