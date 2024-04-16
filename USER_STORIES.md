@@ -27,3 +27,9 @@ As a user I would like to add items to pantry automatically based on a scan of m
 As a user I would like to automatically update my pantry when I make a recipe.
 
 As a user I would like to share, rank, and comment on recipes by other users. (or share recipe easily on other sites)
+
+As a user I'd like to ask an AI assistant about small roadblocks in my cooking, like substitutions.
+
+As a user I'd like to convert measurement units.
+
+
