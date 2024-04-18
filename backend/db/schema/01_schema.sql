@@ -3,6 +3,7 @@
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS ingredients CASCADE;
 DROP TABLE IF EXISTS recipes CASCADE;
+DROP TABLE IF EXISTS recipe_ingredients;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -13,7 +14,9 @@ CREATE TABLE users (
 CREATE TABLE ingredients (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) on DELETE CASCADE,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    quantity NUMERIC(5,2) NOT NULL,
+    units TEXT NOT NULL
 );
 
 CREATE TABLE recipes (
@@ -21,6 +24,13 @@ CREATE TABLE recipes (
   saved_by INTEGER REFERENCES users(id) on DELETE CASCADE,
   title VARCHAR(255) NOT NULL,
   tags VARCHAR(255) NOT NULL,
-  ingredients TEXT NOT NULL,
   steps TEXT NOT NULL
+);
+
+CREATE TABLE recipe_ingredients (
+  recipe_id INTEGER REFERENCES recipes(id) ON DELETE CASCADE,
+  ingredient_id INTEGER REFERENCES ingredients(id) ON DELETE CASCADE,
+  quantity NUMERIC(5,2),
+  units TEXT,
+  PRIMARY KEY (recipe_id, ingredient_id)
 );
