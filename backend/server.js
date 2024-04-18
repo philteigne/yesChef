@@ -29,7 +29,7 @@ app.use(express.static('public'));
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const savedRecipesApiRoutes = require('./routes/savedRecipesApi');
-const ingredientsApiRoutes = require('./routes/ingredientsApiRoutes');
+const ingredientsApiRoutes = require('./routes/ingredientsApi');
 const usersRoutes = require('./routes/users');
 
 // Mount all resource routes
