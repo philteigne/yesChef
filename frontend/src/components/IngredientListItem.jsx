@@ -1,6 +1,12 @@
-const IngredientListItem = () => {
+import React from "react";
+
+const IngredientListItem = ({ingredient}) => {
   return (
-    <div></div>
+    <div>
+      <li>
+        {ingredient.name}
+      </li>
+    </div>
   )
 }
 
