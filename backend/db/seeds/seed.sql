@@ -46,7 +46,7 @@ INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUE
 
   -- Chocolate Cake
 INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (2, 1, 250.00, 'grams');
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (2, 2, 200.00, 'grams')
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (2, 2, 200.00, 'grams');
 INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (2, 9, 50.00, 'grams');
 INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (2, 7, 3.00, 'units');
 INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (2, 6, 100.00, 'grams');

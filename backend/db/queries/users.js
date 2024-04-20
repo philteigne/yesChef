@@ -7,9 +7,17 @@ const getUsers = () => {
     });
 };
 
-const getSavedRecipes = (userId) => {
-  // return all saved recipes with a userId
-}
+const getSavedRecipes = (userID) => {
+  const queryText = 'SELECT * FROM recipes WHERE saved_by = $1;';
+  return db.query(queryText, [userID])
+    .then(data => {
+      return data.rows;
+    })
+    .catch(err => {
+      console.error('Error executing query', err.stack);
+      throw err;
+    });
+};
 
 const addRecipe = (userId, selectedRecipe) => {
   // Add a new recipe entry with user_id
