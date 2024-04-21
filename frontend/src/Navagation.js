@@ -5,7 +5,7 @@ import './navagation.css';
 
 export default function ButtonAppBar() {
   const pages = [<HomeIcon fontSize="large"/>, 'Create Recipes', 'Login']
-  
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -13,6 +13,7 @@ export default function ButtonAppBar() {
         <Grid container alignItems="center" spacing={2}>
           <Grid item>
           <Typography
+            id="app-logo"
             variant="h4"
             noWrap
             component="a"
