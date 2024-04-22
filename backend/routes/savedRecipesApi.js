@@ -1,29 +1,21 @@
 const express = require('express');
 const router  = express.Router();
-const userQueries = require('../db/queries/users');
+const { getSavedRecipes } = require('../db/queries/users');
+
+
 
 router.get('/:userId', (req, res) => {
   // return all saved recipes with a user_id that matches the current users id
   const userId = req.params.userId;
 
-  const mockSavedRecipes = [
-    {
-      id: 1,
-      title: "Chicken Broccoli Stir-Fry with Rice",
-      tags: ["Asian"],
-      ingredients: ["1 lb chicken breast", "2 cups broccoli florets", "2 cups cooked rice"],
-      steps: ["Heat oil, cook chicken","Garnish and enjoy!"]
-    },
-    {
-      id: 2,
-      title: "Avocado Toast",
-      tags: ["Breakfast", "Healthy"],
-      ingredients: ["2 slices whole grain bread", "1 ripe avocado", "1 small tomato, sliced", "Salt and black pepper to taste"],
-      steps: ["Toast bread", "Mash avocado", "spread on bread"]
-    }
-  ]
-
-  res.json(mockSavedRecipes);
+  getSavedRecipes(userId)
+  .then(recipes => {
+    res.json(recipes);
+  })
+  .catch(error => {
+    console.error('Error fetching saved recipes:', error);
+    res.status(500).json({ error: "Internal server error" });
+  });
 
 });
 

@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from 'react';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
 
-import { getSavedRecipes } from '/Users/spencerlewis/lighthouse/final_project/reverseRecipeLookup/backend/db/queries/users.js';
-
-function UserRecipes({ userId }) {
+function RecipeListView() {
   const [recipes, setRecipes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const userId = 1;
+
   useEffect(() => {
-    setIsLoading(true);
-    getSavedRecipes(userId)
-      .then(recipes => {
-        setRecipes(recipes);
+    fetch(`/api/saved-recipes/${userId}`)  
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        setRecipes(data);
         setIsLoading(false);
       })
       .catch(err => {
@@ -24,22 +31,28 @@ function UserRecipes({ userId }) {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
-      <h2>Saved Recipes</h2>
+    <div style={{ margin: '20px' }}>
+      <Typography variant="h4" component="h2" gutterBottom>
+        Saved Recipes
+      </Typography>
       {recipes.length > 0 ? (
-        <ul>
-          {recipes.map(recipe => (
-            <li key={recipe.id}>
-              <h3>{recipe.title}</h3>
-              <p>{recipe.tags}</p>
-            </li>
-          ))}
-        </ul>
+        <Paper style={{ maxWidth: 600, margin: 'auto', padding: '20px' }}>
+          <List>
+            {recipes.map(recipe => (
+              <ListItem key={recipe.id} divider>
+                <ListItemText
+                  primary={<Typography variant="h6">{recipe.title}</Typography>}
+                  secondary={recipe.tags}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Paper>
       ) : (
-        <p>No recipes found.</p>
+        <Typography variant="subtitle1">No recipes found.</Typography>
       )}
     </div>
   );
 }
 
-export default UserRecipes;
+export default RecipeListView;

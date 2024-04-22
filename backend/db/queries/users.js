@@ -7,9 +7,9 @@ const getUsers = () => {
     });
 };
 
-const getSavedRecipes = (userID) => {
+const getSavedRecipes = (userId) => {
   const queryText = 'SELECT * FROM recipes WHERE saved_by = $1;';
-  return db.query(queryText, [userID])
+  return db.query(queryText, [userId])
     .then(data => {
       return data.rows;
     })
@@ -50,4 +50,4 @@ const editIngredientName = (userId, ingredientId) => {
 const deleteIngredient = (userId, ingredientId) => {
   // Delete saved ingredient from users ingredients list
 }
-module.exports = { getUsers };
+module.exports = { getSavedRecipes };
