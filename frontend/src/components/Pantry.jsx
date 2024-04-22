@@ -7,7 +7,8 @@ const Pantry = () => {
       <div>
         <h2>Pantry</h2>
         <div>
-          
+          <button>Categories</button>
+          <button>All</button>
         </div>
       </div>
       <IngredientList />
