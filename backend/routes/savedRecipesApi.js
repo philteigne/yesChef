@@ -4,7 +4,7 @@ const { getSavedRecipes } = require('../db/queries/users');
 
 
 
-router.get('/:userId', (req, res) => {
+router.get('/user/:userId', (req, res) => {
   // return all saved recipes with a user_id that matches the current users id
   const userId = req.params.userId;
 

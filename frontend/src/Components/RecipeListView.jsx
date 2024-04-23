@@ -17,7 +17,7 @@ function RecipeListView() {
   const userId = 1;
 
   useEffect(() => {
-    fetch(`/api/saved-recipes/${userId}`)
+    fetch(`/api/saved-recipes/user/${userId}`)
       .then((response) => {
         return response.json();
       })
