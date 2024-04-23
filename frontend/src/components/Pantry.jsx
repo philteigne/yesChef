@@ -7,7 +7,7 @@ import { Box, Stack } from '@mui/material';
 import CategoryIcon from '@mui/icons-material/Category';
 
 
-const Pantry = ({ingredientListTest, deleteIngredient}) => {
+const Pantry = ({ingredientListTest, deleteIngredient, addIngredient}) => {
   return (
     <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
       <Stack
@@ -23,7 +23,7 @@ const Pantry = ({ingredientListTest, deleteIngredient}) => {
         <CategoryIcon />
       </Stack>
       <IngredientList ingredientListTest={ingredientListTest} deleteIngredient={deleteIngredient}/>
-      <AddIngredient />
+      <AddIngredient ingredientListTest={ingredientListTest} addIngredient={addIngredient} />
     </Box>
   )
 }

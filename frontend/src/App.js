@@ -30,8 +30,12 @@ function App() {
     )
   }
 
+  const addIngredient = (ingredient) => {
+    setIngredientListTest([...ingredientListTest, ingredient])
+  }
+
   return (
-    <Pantry ingredientListTest={ingredientListTest} deleteIngredient={deleteIngredient}/>
+    <Pantry ingredientListTest={ingredientListTest} deleteIngredient={deleteIngredient} addIngredient={addIngredient}/>
   );
 }
 
