@@ -7,6 +7,8 @@ import Pantry from './components/Pantry';
 // import '@fontsource/roboto/500.css';
 // import '@fontsource/roboto/700.css';
 
+import RecipeListView from './Components/RecipeListView'
+import RecipeFullView from './Components/RecipeFullView';
 
 function App() {
   const [ingredientListTest, setIngredientListTest] = useState(
@@ -36,6 +38,11 @@ function App() {
 
   return (
     <Pantry ingredientListTest={ingredientListTest} deleteIngredient={deleteIngredient} addIngredient={addIngredient}/>
+    <div className="App">
+      <RecipeListView />
+      <RecipeFullView />
+      
+    </div>
   );
 }
 

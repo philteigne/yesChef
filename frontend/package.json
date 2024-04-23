@@ -43,5 +43,6 @@
   "devDependencies": {
     "sass": "^1.75.0",
     "scss-reset": "^1.4.2"
-  }
+  },
+  "proxy": "http://localhost:8080"
 }
