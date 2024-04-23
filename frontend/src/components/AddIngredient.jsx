@@ -1,7 +1,5 @@
 import React from 'react';
 
-import '../styles/AddIngredient.scss';
-
 import { TextField, Button, FormGroup, Box, Stack } from '@mui/material';
 
 const AddIngredient = ({ingredientListTest, addIngredient}) => {

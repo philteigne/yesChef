@@ -1,5 +1,4 @@
 import React from "react";
-import '../styles/IngredientListItem.scss';
 
 import { ListItem, ListItemText, IconButton, Box } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';

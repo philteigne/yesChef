@@ -1,7 +1,6 @@
 import React from 'react';
 import IngredientList from './IngredientList';
 import AddIngredient from './AddIngredient';
-import '../styles/Pantry.scss';
 
 import { Box, Stack } from '@mui/material';
 import CategoryIcon from '@mui/icons-material/Category';

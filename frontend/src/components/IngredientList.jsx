@@ -1,6 +1,5 @@
 import React from "react";
 import IngredientListItem from "./IngredientListItem";
-import '../styles/IngredientList.scss';
 
 import { List, Box } from '@mui/material'
 
