@@ -8,8 +8,9 @@ import { applicationContext } from '../hooks/applicationContext';
 import { useContext } from 'react';
 
 const Pantry = () => {
-
+  // put
   const {ingredientListTest, deleteIngredient, addIngredient} = useContext(applicationContext)
+
   return (
     <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
       <Stack

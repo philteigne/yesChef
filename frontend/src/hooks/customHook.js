@@ -28,6 +28,7 @@ const useApplicationData = () => {
     setIngredientListTest([...ingredientListTest, ingredient])
   }
 
+  // calling useApplicationData function return these functions that changes states
   return {
     ingredientListTest,
     deleteIngredient,

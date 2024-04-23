@@ -17,6 +17,9 @@ function App() {
   
 
   return (
+    // wrapping context
+    // value contains all the functions from useApplicationData that alter states
+    
     <applicationContext.Provider value={useApplicationData()}>
       <div>
         <ButtonAppBar />
