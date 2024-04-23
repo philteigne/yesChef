@@ -4,9 +4,12 @@ import AddIngredient from './AddIngredient';
 
 import { Box, Stack } from '@mui/material';
 import CategoryIcon from '@mui/icons-material/Category';
+import { applicationContext } from '../hooks/applicationContext';
+import { useContext } from 'react';
 
+const Pantry = () => {
 
-const Pantry = ({ingredientListTest, deleteIngredient, addIngredient}) => {
+  const {ingredientListTest, deleteIngredient, addIngredient} = useContext(applicationContext)
   return (
     <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
       <Stack
