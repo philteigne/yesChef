@@ -1,12 +1,27 @@
 import React from "react";
+import '../styles/IngredientListItem.scss';
 
-const IngredientListItem = ({ingredient}) => {
+import { ListItem, ListItemText, IconButton, Box } from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete';
+
+
+const IngredientListItem = ({ingredient, deleteIngredient}) => {
+
+
   return (
-    <div>
-      <li>
-        {ingredient.name}
-      </li>
-    </div>
+    <Box sx={{ flexGrow: 1, maxWidth: 300 }}>
+      <ListItem
+        secondaryAction={
+          <IconButton edge="end" aria-label="delete" onClick={() => deleteIngredient(ingredient)}>
+            <DeleteIcon />
+          </IconButton>
+        }
+      >
+        <ListItemText
+          primary={ingredient.name}
+        />
+      </ListItem>
+    </Box>
   )
 }
 

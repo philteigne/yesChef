@@ -1,31 +1,24 @@
 import React from "react";
 import IngredientListItem from "./IngredientListItem";
+import '../styles/IngredientList.scss';
 
-const ingredientListTest = [
-  { id: 1, user_id: 1, name: 'Flour', quantity: 500.00, units: 'grams' },
-  { id: 2, user_id: 1, name: 'Sugar', quantity: 200.00, units: 'grams' },
-  { id: 3, user_id: 1, name: 'Salt', quantity: 5.00, units: 'grams' },
-  { id: 4, user_id: 1, name: 'Yeast', quantity: 15.00, units: 'grams' },
-  { id: 5, user_id: 1, name: 'Milk', quantity: 250.00, units: 'ml' },
-  { id: 6, user_id: 1, name: 'Butter', quantity: 100.00, units: 'grams' },
-  { id: 7, user_id: 1, name: 'Eggs', quantity: 3.00, units: 'units' },
-  { id: 8, user_id: 1, name: 'Baking Powder', quantity: 10.00, units: 'grams' },
-  { id: 9, user_id: 1, name: 'Cocoa Powder', quantity: 50.00, units: 'grams' },
-  { id: 10, user_id: 1, name: 'Vanilla Extract', quantity: 5.00, units: 'ml' }
-];
+import { List, Box } from '@mui/material'
 
-const IngredientList = () => {
+const IngredientList = ({ingredientListTest, deleteIngredient}) => {
   return(
-    <ul>
-      {ingredientListTest.map((ingredient) => {
-        return(
-          <IngredientListItem
-            ingredient={ingredient}
-            key={ingredient.id}
-          />
-        )
-      })}
-    </ul>
+    <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
+      <List>
+        {ingredientListTest.map((ingredient) => {
+          return(
+            <IngredientListItem
+              ingredient={ingredient}
+              key={ingredient.id}
+              deleteIngredient={deleteIngredient}
+            />
+          )
+        })}
+      </List>
+    </Box>
   )
 }
 
