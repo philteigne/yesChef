@@ -1,7 +1,7 @@
 import { AppBar, Toolbar, Typography, Button, Grid } from '@mui/material';
-import HomeIcon from './HomeIcon';
+import HomeIcon from '../HomeIcon';
 
-import './navagation.css';
+import '../navagation.css';
 
 export default function ButtonAppBar() {
   const pages = [<HomeIcon fontSize="large"/>, 'Create Recipes', 'Login']
