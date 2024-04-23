@@ -9,7 +9,7 @@ import Pantry from './Components/Pantry';
 
 import RecipeListView from './Components/RecipeListView';
 import RecipeFullView from './Components/RecipeFullView';
-import ButtonAppBar from './Components/Navagation';
+import ButtonAppBar from './Components/Navigation';
 import { Button } from '@mui/material';
 
 function App() {
