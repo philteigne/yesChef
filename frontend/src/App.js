@@ -10,6 +10,7 @@ import Pantry from './components/Pantry';
 import RecipeListView from './Components/RecipeListView'
 import RecipeFullView from './Components/RecipeFullView';
 import ButtonAppBar from './Navagation';
+import { Button } from '@mui/material';
 
 function App() {
   const [ingredientListTest, setIngredientListTest] = useState(
@@ -38,11 +39,13 @@ function App() {
   }
 
   return (
-    <Pantry ingredientListTest={ingredientListTest} deleteIngredient={deleteIngredient} addIngredient={addIngredient}/>
-    <div className="App">
-      <RecipeListView />
-      <RecipeFullView />
-      
+    <div>
+      <ButtonAppBar />
+      <Pantry ingredientListTest={ingredientListTest} deleteIngredient={deleteIngredient} addIngredient={addIngredient}/>
+      <div className="App">
+        <RecipeListView />
+        <RecipeFullView />
+      </div>
     </div>
   );
 }
