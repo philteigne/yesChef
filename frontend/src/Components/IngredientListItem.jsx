@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { applicationContext } from '../hooks/applicationContext';
-import { ListItem, ListItemText, IconButton, Box, ThemeProvider } from '@mui/material'
+import { ListItem, ListItemText, IconButton, Box } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const IngredientListItem = ({ingredient}) => {
