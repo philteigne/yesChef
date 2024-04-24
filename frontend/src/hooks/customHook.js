@@ -45,13 +45,12 @@ const useApplicationData = () => {
 
   // delete an ingredient from backend 
   useEffect(() => {
-    console.log("delete called")
     if (state.deleteIngredientState) {
       const ingredientId = state.deleteIngredientState;
       fetch(`${API_CALL_URL}ingredients/${userId}/${ingredientId}`, {
         method: 'DELETE'
       })
-      .then(() => dispatch({ type: ACTIONS.DELETE_INGREDIENTS_USER, payload: null }))
+      .then((res) => dispatch({ type: ACTIONS.DELETE_INGREDIENTS_USER, payload: null }))
     }
   }, [state.deleteIngredientState])
   
