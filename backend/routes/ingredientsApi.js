@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
-const { getIngredients, getRecipeIngredients } = require('../db/queries/users');
+const { getIngredients, deleteIngredient, getRecipeIngredients } = require('../db/queries/users');
 
 router.get('/:userId', (req, res) => {
   // Retrieve list of users ingredients list
@@ -16,6 +16,14 @@ router.get('/:userId', (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     });
 
+});
+
+router.delete('/:userId/:ingredientId', (req, res) => {
+  // Delete ingredient from users list
+  const userId = req.params.userId;
+  const ingredientId = req.params.ingredientId;
+
+  deleteIngredient(userId, ingredientId);
 });
 
 router.get('/recipe/:recipeId', (req, res) => {
