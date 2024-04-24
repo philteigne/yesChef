@@ -5,10 +5,12 @@ const userId = 1
 
 export const INITIAL_STATE = {
   ingredientList: [],
+  deleteIngredientState: null,
 }
 
 export const ACTIONS = {
-  GET_INGREDIENTS_USER: "GET_INGREDIENTS_USER" 
+  GET_INGREDIENTS_USER: "GET_INGREDIENTS_USER",
+  DELETE_INGREDIENTS_USER: "DELETE_INGREDIENTS_USER"
 }
 
 export function reducer(state, action) {
@@ -17,6 +19,11 @@ export function reducer(state, action) {
       return {
         ...state,
         ingredientList: action.payload
+      }
+    case ACTIONS.DELETE_INGREDIENTS_USER:
+      return {
+        ...state,
+        deleteIngredientState: action.payload
       }
     default:
       throw new Error(
@@ -34,21 +41,26 @@ const useApplicationData = () => {
     fetch(`${API_CALL_URL}ingredients/${userId}`)
     .then((res) => res.json())
     .then((data) => dispatch({ type: ACTIONS.GET_INGREDIENTS_USER, payload: data }))
-  }, []);
+  }, [state.deleteIngredientState]);
 
   // delete an ingredient from backend 
   useEffect(() => {
-    fetch(`${API_CALL_URL}ingredients/${userId}/`, {
-      method: 'DELETE'
-    })
-  }, [])
+    console.log("delete called")
+    if (state.deleteIngredientState) {
+      const ingredientId = state.deleteIngredientState;
+      fetch(`${API_CALL_URL}ingredients/${userId}/${ingredientId}`, {
+        method: 'DELETE'
+      })
+      .then(() => dispatch({ type: ACTIONS.DELETE_INGREDIENTS_USER, payload: null }))
+    }
+  }, [state.deleteIngredientState])
   
-  const deleteIngredient = (ingredient) => {
-    // setIngredientListTest(
-    //   ingredientListTest.filter((item) => item.id !== ingredient.id)
-    // )
-    return true
-  }
+  // const deleteIngredient = (ingredient) => {
+  //   // setIngredientListTest(
+  //   //   ingredientListTest.filter((item) => item.id !== ingredient.id)
+  //   // )
+  //   return true
+  // }
   
   const addIngredient = (ingredient) => {
     // setIngredientListTest([...ingredientListTest, ingredient])
@@ -59,7 +71,7 @@ const useApplicationData = () => {
   // calling useApplicationData function return these functions that changes states
   return {
     state,
-    deleteIngredient,
+    dispatch,
     addIngredient
   };
 }
