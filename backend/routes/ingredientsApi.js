@@ -23,7 +23,12 @@ router.delete('/:userId/:ingredientId', (req, res) => {
   const userId = req.params.userId;
   const ingredientId = req.params.ingredientId;
 
-  deleteIngredient(userId, ingredientId);
+  deleteIngredient(userId, ingredientId)
+    .then(() => res.status(200).json(null))
+    .catch(error => {
+      console.error('Error deleting ingredient:', error);
+      res.status(500).json({ error: "Internal server error" });
+    })
 });
 
 router.get('/recipe/:recipeId', (req, res) => {
