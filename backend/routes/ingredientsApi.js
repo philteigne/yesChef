@@ -1,21 +1,18 @@
 const express = require('express');
 const router  = express.Router();
 const db = require('../db/connection');
-const { getIngredients, deleteIngredient, getRecipeIngredients } = require('../db/queries/users');
+const { getIngredients, deleteIngredient, getRecipeIngredients, addIngredient } = require('../db/queries/users');
 
 router.get('/:userId', (req, res) => {
   // Retrieve list of users ingredients list
   const userId = req.params.userId;
 
   getIngredients(userId)
-    .then(recipes => {
-      res.json(recipes);
-    })
+    .then(ingredients => res.json(ingredients))
     .catch(error => {
       console.error('Error fetching saved ingredients:', error);
       res.status(500).json({ error: "Internal server error" });
     });
-
 });
 
 router.delete('/:userId/:ingredientId', (req, res) => {
@@ -23,12 +20,25 @@ router.delete('/:userId/:ingredientId', (req, res) => {
   const userId = req.params.userId;
   const ingredientId = req.params.ingredientId;
 
-  deleteIngredient(userId, ingredientId)
-    .then(() => res.status(200).json(null))
+  return deleteIngredient(userId, ingredientId)
+    .then(() => res.status(200).end())
     .catch(error => {
       console.error('Error deleting ingredient:', error);
       res.status(500).json({ error: "Internal server error" });
-    })
+    });
+});
+
+router.post('/:userId', (req, res) => {
+  const userId = req.params.userId;
+  const ingredient = req.body;
+  console.log("req.body", req.body);
+
+  addIngredient(userId, ingredient)
+    .then(() => res.status(200))
+    .catch(error => {
+      console.error('Error deleting ingredient:', error);
+      res.status(500).json({ error: "Internal server error" });
+    });
 });
 
 router.get('/recipe/:recipeId', (req, res) => {
