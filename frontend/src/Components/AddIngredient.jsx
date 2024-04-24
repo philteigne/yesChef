@@ -29,19 +29,14 @@ const AddIngredient = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
-      <FormGroup row>
+    <Box sx={{ flexGrow: 1, maxWidth: 1 }}>
         <Stack
-          spacing={{ xs: 1, sm: 2 }}
-          justifyContent="space-between"
           direction="row"
-          useFlexGap
+          justifyContent="space-between"
         >
           <Stack
-            spacing={{ xs: 1, sm: 2 }}
-            justifyContent="space-between"
             direction="row"
-            useFlexGap
+            spacing={1}
           >
             <TextField
               variant="outlined"
@@ -65,11 +60,12 @@ const AddIngredient = () => {
           <Button
             type="submit"
             onClick={handleSubmit}
+            variant="contained"
           >
             Submit
           </Button>
+
         </Stack>
-      </FormGroup>
     </Box>
   )
 }
