@@ -13,7 +13,7 @@ const IngredientList = () => {
       <List>
         {state.ingredientList.map((ingredient) => {
           return(
-            <IngredientListItem ingredient={ingredient}/>
+            <IngredientListItem ingredient={ingredient} key={ingredient.id}/>
           )
         })}
       </List>
