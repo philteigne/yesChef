@@ -29,7 +29,7 @@ const AddIngredient = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, maxWidth: 1 }}>
+    <Box sx={{ flexGrow: 1, maxWidth: 1, p: 3 }}>
         <Stack
           direction="row"
           justifyContent="space-between"
