@@ -53,10 +53,11 @@ const getIngredients = (userId) => {
   SELECT * FROM ingredients
   WHERE user_id = $1;
   `;
+
+  console.log("Querying ingredients for", userId)
   return db.query(queryText, [userId])
-    .then(data => {
-      return data.rows;
-    })
+    .then(data => data.rows)
+    // .then((data) => console.log(data))
     .catch(err => {
       console.error('Error executing query', err.stack);
       throw err;
@@ -70,15 +71,34 @@ const deleteIngredient = (userId, ingredientId) => {
   WHERE user_id = $1
   AND id = $2;
   `;
-  return db.query(queryText, [userId, ingredientId]);
+  return db.query(queryText, [userId, ingredientId])
+    .catch(err => {
+      console.error('Error executing query', err.stack);
+      throw err;
+    });
 };
 
 const addIngredient = (userId, ingredient) => {
   // Add a new ingredient to the users saved list
-}
+  const queryText = `
+  INSERT INTO ingredients (user_id, name, quantity, units)
+  VALUES ($1, $2, $3, $4);
+  `;
+  return db.query(queryText, [userId, ingredient.name, ingredient.quantity, ingredient.units])
+    .catch(err => {
+      console.error('Error executing query', err.stack);
+      throw err;
+    });
+};
 
 const editIngredientName = (userId, ingredientId) => {
   // Change the name of a users stored ingredient
-}
+};
 
-module.exports = { getSavedRecipes, getRecipeIngredients, getIngredients, deleteIngredient };
+module.exports = {
+  getSavedRecipes,
+  getRecipeIngredients,
+  getIngredients,
+  deleteIngredient,
+  addIngredient
+};
