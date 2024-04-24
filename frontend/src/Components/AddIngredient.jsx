@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import { applicationContext } from '../hooks/applicationContext';
 
-import { TextField, Button, FormGroup, Box, Stack } from '@mui/material';
+import { TextField, Button, Box, Stack } from '@mui/material';
 
 const AddIngredient = () => {
 

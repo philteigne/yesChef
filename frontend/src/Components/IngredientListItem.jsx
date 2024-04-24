@@ -2,16 +2,12 @@ import React, { useContext } from 'react';
 import { applicationContext } from '../hooks/applicationContext';
 import { ListItem, ListItemText, IconButton, Box, ThemeProvider } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete';
-import theme from '../styles/mui-themes'
-
-
 
 const IngredientListItem = ({ingredient}) => {
 
   const { dispatch } = useContext(applicationContext);
 
   return (
-    <ThemeProvider theme={theme}>
       <Box sx={{
         flexGrow: 1,
         maxWidth: 0.4,
@@ -37,7 +33,6 @@ const IngredientListItem = ({ingredient}) => {
         />
       </ListItem>
       </Box>
-    </ThemeProvider>
   )
 }
 
