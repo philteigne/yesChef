@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 
 const useApplicationData = () => {
@@ -16,10 +16,18 @@ const useApplicationData = () => {
       { id: 9, user_id: 1, name: 'Cocoa Powder', quantity: 50.00, units: 'grams' },
       { id: 10, user_id: 1, name: 'Vanilla Extract', quantity: 5.00, units: 'ml' }
     ],
+    recipes: [],
+    isLoading: false,
+    error: null,
+    recipeIngredients: []
   }
   
 
   const [ingredientListTest, setIngredientListTest] = useState(initialState.ingredientList);
+  const [recipes, setRecipes] = useState(initialState.recipes);
+  const [recipeIngredients, setRecipeIngredients] = useState(initialState.RecipeIngredients)
+  const [isLoading, setIsLoading] = useState(initialState.isLoading);
+  const [error, setError] = useState(initialState.error);
   
   const deleteIngredient = (ingredient) => {
     setIngredientListTest(
@@ -31,11 +39,49 @@ const useApplicationData = () => {
     setIngredientListTest([...ingredientListTest, ingredient])
   }
 
+  const fetchRecipes = useCallback((userId) => {
+    setIsLoading(true);
+    setError(null);
+    fetch(`/api/saved-recipes/user/${userId}`)
+      .then(response => response.json())
+      .then(data => {
+        setRecipes(data);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setIsLoading(false);
+      });
+  }, []);
+
+  const fetchIngredients = useCallback((recipeId) => {
+    setIsLoading(true);
+    setError(null);
+    fetch(`/api/ingredients/recipe/${recipeId}`)
+      .then(response => response.json())
+      .then(data => {
+        setRecipeIngredients(data);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setIsLoading(false);
+      });
+  }, []);
+
+
+
   // calling useApplicationData function return these functions that changes states
   return {
     ingredientListTest,
     deleteIngredient,
-    addIngredient
+    addIngredient,
+    recipes,
+    fetchRecipes,
+    recipeIngredients,
+    fetchIngredients,
+    isLoading,
+    error
   };
 }
 

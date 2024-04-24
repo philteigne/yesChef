@@ -8,48 +8,28 @@ import {
   ListItemText,
   Button,
 } from "@mui/material";
+import useApplicationData from "../hooks/customHook";
 
 
 function RecipeFullView() {
-  const [recipes, setRecipes] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { recipes, fetchRecipes,recipeIngredients, fetchIngredients, isLoading, error } = useApplicationData();
+
+
 
   const userId = 1;
   const recipeId = 2;
-  
-  useEffect(() => {
-    fetch(`/api/saved-recipes/user/${userId}`)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data)
-      setRecipes(data);
-      setIsLoading(false);
-    })
-    .catch((err) => {
-      setError(err.message);
-      setIsLoading(false);
-    });
-  }, [userId]);
-  const recipe = recipes[1];
 
   useEffect(() => {
-    fetch(`/api/ingredients/recipe/${recipeId}`)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data)
-      setIngredients(data)
-    })
-    .catch((err) => {
-      setError(err.message);
-      setIsLoading(false);
-    });
-  }, [recipeId]);
+    fetchRecipes(userId);
+  }, [fetchRecipes, userId]);
+  
+  useEffect(() => {
+    fetchIngredients(recipeId);
+  }, [fetchIngredients, recipeId])
+
+  const recipe = recipes[1];
+
+
   
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -77,7 +57,7 @@ return (
       </Box>
       <Paper sx={{ margin: 'auto', mt: 2, mb: 2, padding: 2 }}>
         <Typography variant="body1" component="div">
-          {Array.isArray(ingredients) ? ingredients.map(ing => `${ing.name} - ${ing.quantity} ${ing.units}`).join(', ') : "No ingredients"}
+          {Array.isArray(recipeIngredients) ? recipeIngredients.map(ing => `${ing.name} - ${ing.quantity} ${ing.units}`).join(', ') : "No ingredients"}
         </Typography>
       </Paper>
       <Paper sx={{ margin: 'auto', mt: 2, mb: 2, padding: 2 }}>

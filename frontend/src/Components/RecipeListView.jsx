@@ -1,35 +1,14 @@
-import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Typography,
-  Paper,
-  List,
-  ListItem,
-  ListItemText,
-  Button,
-} from "@mui/material";
+import React, { useEffect } from "react";
+import { Box, Typography, Paper, List, ListItem, ListItemText, Button } from "@mui/material";
+import useApplicationData from "../hooks/customHook";
 
 function RecipeListView() {
-  const [recipes, setRecipes] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-
+  const { recipes, fetchRecipes, isLoading, error } = useApplicationData();
   const userId = 1;
 
   useEffect(() => {
-    fetch(`/api/saved-recipes/user/${userId}`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setRecipes(data);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setIsLoading(false);
-      });
-  }, [userId]);
+    fetchRecipes(userId);
+  }, [fetchRecipes, userId]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -41,19 +20,14 @@ function RecipeListView() {
         border: "1px solid #ccc",
         borderRadius: "4px",
         overflow: "hidden",
-      }}
-    >
+      }}>
       <Box sx={{ padding: 2, backgroundColor: "#f5f5f5" }}>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Typography variant="h4" component="h2" gutterBottom>
             Saved Recipes
           </Typography>
           <Box>
-            <Button
-              variant="contained"
-              color="primary"
-              sx={{ marginRight: "10px" }}
-            >
+            <Button variant="contained" color="primary" sx={{ marginRight: "10px" }}>
               Button 1
             </Button>
             <Button variant="contained" color="secondary">
