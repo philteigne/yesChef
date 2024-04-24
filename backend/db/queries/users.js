@@ -47,6 +47,19 @@ const getRecipeIngredients = (recipeId) => {
     });
 }
 
+const getIngredients = (userId) => {
+  // Get a list of all ingredients belonging to userId
+  const queryText = 'SELECT * FROM ingredients WHERE user_id = $1;';
+  return db.query(queryText, [userId])
+    .then(data => {
+      return data.rows;
+    })
+    .catch(err => {
+      console.error('Error executing query', err.stack);
+      throw err;
+    });
+};
+
 const addIngredient = (userId, ingredient) => {
   // Add a new ingredient to the users saved list
 }
@@ -58,4 +71,4 @@ const editIngredientName = (userId, ingredientId) => {
 const deleteIngredient = (userId, ingredientId) => {
   // Delete saved ingredient from users ingredients list
 }
-module.exports = { getSavedRecipes, getRecipeIngredients };
+module.exports = { getSavedRecipes, getRecipeIngredients, getIngredients };
