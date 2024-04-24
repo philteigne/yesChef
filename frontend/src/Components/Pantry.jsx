@@ -11,7 +11,7 @@ import useApplicationData from '../hooks/customHook';
 const Pantry = () => {
   
   return (
-    <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
+    <Box sx={{ flexGrow: 1, maxWidth: 0.6 }}>
       <Stack
         spacing={{ xs: 1, sm: 2 }}
         justifyContent="space-between"
