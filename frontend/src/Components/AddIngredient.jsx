@@ -1,11 +1,11 @@
-import React from 'react';
-import useApplicationData from '../hooks/customHook';
+import React, {useContext} from 'react';
+import { applicationContext } from '../hooks/applicationContext';
 
 import { TextField, Button, FormGroup, Box, Stack } from '@mui/material';
 
 const AddIngredient = () => {
 
-  const { addIngredient } = useApplicationData()
+  const { dispatch } = useContext(applicationContext)
 
   const inputIngredient = {user_id: 1, quantity: 5.00, units: 'ml'};
   // inputIngredient.id = ingredientListTest[ingredientListTest.length - 1].id + 1;
@@ -33,7 +33,7 @@ const AddIngredient = () => {
             <TextField variant="outlined" label="Category" />
             <TextField variant="outlined" label="Best Before" />
           </Stack>
-          <Button type ="submit" onClick={() => addIngredient(inputIngredient)}>Submit</Button>
+          <Button type ="submit" onClick={() => dispatch({ type: "ADD_INGREDIENTS_USER", payload: inputIngredient })}>Submit</Button>
         </Stack>
       </FormGroup>
     </Box>
