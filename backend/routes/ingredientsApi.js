@@ -34,7 +34,7 @@ router.post('/:userId', (req, res) => {
   console.log("req.body", req.body);
 
   addIngredient(userId, ingredient)
-    .then(() => res.status(200))
+    .then(() => res.status(200).end())
     .catch(error => {
       console.error('Error deleting ingredient:', error);
       res.status(500).json({ error: "Internal server error" });
