@@ -65,9 +65,13 @@ const useApplicationData = () => {
   useEffect(() => {
     if (state.addIngredientState){
       const ingredient = state.addIngredientState;
+      console.log("ingredient", ingredient)
       fetch(`${API_CALL_URL}ingredients/${userId}`, {
         method: 'POST',
-        body: ingredient
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(ingredient)
       })
       .then(() => dispatch({ type: ACTIONS.ADD_INGREDIENTS_USER, payload: null }))
     }
