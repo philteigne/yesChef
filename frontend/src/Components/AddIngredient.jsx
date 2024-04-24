@@ -1,10 +1,14 @@
 import React from 'react';
+import useApplicationData from '../hooks/customHook';
 
 import { TextField, Button, FormGroup, Box, Stack } from '@mui/material';
 
-const AddIngredient = ({ingredientListTest, addIngredient}) => {
+const AddIngredient = () => {
+
+  const { addIngredient } = useApplicationData()
+
   const inputIngredient = {user_id: 1, quantity: 5.00, units: 'ml'};
-  inputIngredient.id = ingredientListTest[ingredientListTest.length - 1].id + 1;
+  // inputIngredient.id = ingredientListTest[ingredientListTest.length - 1].id + 1;
 
   return (
     <Box sx={{ flexGrow: 1, maxWidth: 752 }}>

@@ -6,11 +6,10 @@ import { Box, Stack } from '@mui/material';
 import CategoryIcon from '@mui/icons-material/Category';
 import { applicationContext } from '../hooks/applicationContext';
 import { useContext } from 'react';
+import useApplicationData from '../hooks/customHook';
 
 const Pantry = () => {
-  // put
-  const {ingredientListTest, deleteIngredient, addIngredient} = useContext(applicationContext)
-
+  
   return (
     <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
       <Stack
@@ -25,8 +24,8 @@ const Pantry = () => {
         {/* Categories button toggle between categories and all views */}
         <CategoryIcon />
       </Stack>
-      <IngredientList ingredientListTest={ingredientListTest} deleteIngredient={deleteIngredient}/>
-      <AddIngredient ingredientListTest={ingredientListTest} addIngredient={addIngredient} />
+      <IngredientList />
+      <AddIngredient />
     </Box>
   )
 }
