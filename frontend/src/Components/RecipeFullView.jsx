@@ -18,15 +18,6 @@ function RecipeFullView() {
   const userId = 1;
 
 
-  useEffect(() => {
-    fetchRecipes(userId);
-  }, [fetchRecipes, userId]);
-  
-  useEffect(() => {
-    console.log("Active recipe updated to:", activeRecipe);
-    fetchIngredients(activeRecipe);
-  }, [fetchIngredients, activeRecipe])
-
   const recipe = recipes.find(r => r.id === activeRecipe);
 
   

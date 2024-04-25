@@ -7,7 +7,8 @@ export const INITIAL_STATE = {
   ingredientList: [],
   deleteIngredientState: null,
   addIngredientState: null,
-  activeRecipe: 2
+  activeRecipe: 2,
+  userId: 1
 }
 
   const initialState = {
@@ -59,7 +60,6 @@ const useApplicationData = () => {
 
   // const [ingredientListTest, setIngredientListTest] = useState(initialState.ingredientList);
   const [recipes, setRecipes] = useState(initialState.recipes);
-  const [activeRecipe, setActiveRecipe] = useState(initialState.activeRecipe)
   const [recipeIngredients, setRecipeIngredients] = useState(initialState.recipeIngredients)
   const [isLoading, setIsLoading] = useState(initialState.isLoading);
   const [error, setError] = useState(initialState.error);
@@ -130,7 +130,15 @@ const useApplicationData = () => {
       });
   }, []);
 
-
+    // fetch current view recipe from backend
+    useEffect(() => {
+      fetchRecipes(state.userId);
+    }, [fetchRecipes, state.userId]);
+    
+    useEffect(() => {
+      console.log("Active recipe updated to:", state.activeRecipe);
+      fetchIngredients(state.activeRecipe);
+    }, [fetchIngredients, state.activeRecipe])
 
   // calling useApplicationData function return these functions that changes states
   return {
@@ -138,8 +146,6 @@ const useApplicationData = () => {
     fetchRecipes,
     recipeIngredients,
     fetchIngredients,
-    activeRecipe,
-    setActiveRecipe,
     isLoading,
     error,
     state,
