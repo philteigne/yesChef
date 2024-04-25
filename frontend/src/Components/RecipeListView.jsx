@@ -3,7 +3,7 @@ import { Box, Typography, Paper, List, ListItem, ListItemText, Button } from "@m
 import useApplicationData from "../hooks/customHook";
 
 function RecipeListView() {
-  const { recipes, fetchRecipes, isLoading, error } = useApplicationData();
+  const { recipes, fetchRecipes, setActiveRecipe, isLoading, error } = useApplicationData();
   const userId = 1;
 
   useEffect(() => {
@@ -45,8 +45,8 @@ function RecipeListView() {
                   primary={<Typography variant="h6">{recipe.title}</Typography>}
                   secondary={recipe.tags}
                 />
-                <Button variant="contained" color="secondary">
-                  Button 3
+                <Button variant="contained" color="secondary" onClick={() => {setActiveRecipe(recipe.id)}}>
+                  View Recipe
                 </Button>
               </ListItem>
             ))}

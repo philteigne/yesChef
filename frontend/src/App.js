@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React from 'react';
 import Pantry from './Components/Pantry';
 
 // import '@fontsource/roboto/300.css';

@@ -19,13 +19,15 @@ const useApplicationData = () => {
     recipes: [],
     isLoading: false,
     error: null,
+    activeRecipe: 1,
     recipeIngredients: []
   }
   
 
   const [ingredientListTest, setIngredientListTest] = useState(initialState.ingredientList);
   const [recipes, setRecipes] = useState(initialState.recipes);
-  const [recipeIngredients, setRecipeIngredients] = useState(initialState.RecipeIngredients)
+  const [activeRecipe, setActiveRecipe] = useState(initialState.activeRecipe)
+  const [recipeIngredients, setRecipeIngredients] = useState(initialState.recipeIngredients)
   const [isLoading, setIsLoading] = useState(initialState.isLoading);
   const [error, setError] = useState(initialState.error);
   
@@ -80,6 +82,8 @@ const useApplicationData = () => {
     fetchRecipes,
     recipeIngredients,
     fetchIngredients,
+    activeRecipe,
+    setActiveRecipe,
     isLoading,
     error
   };

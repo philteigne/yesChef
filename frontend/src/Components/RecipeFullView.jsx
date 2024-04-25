@@ -1,34 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Typography,
   Paper,
-  List,
-  ListItem,
-  ListItemText,
   Button,
 } from "@mui/material";
 import useApplicationData from "../hooks/customHook";
 
 
 function RecipeFullView() {
-  const { recipes, fetchRecipes,recipeIngredients, fetchIngredients, isLoading, error } = useApplicationData();
+  const { recipes, fetchRecipes, recipeIngredients, fetchIngredients, activeRecipe, isLoading, error } = useApplicationData();
 
 
 
   const userId = 1;
-  const recipeId = 2;
+
 
   useEffect(() => {
     fetchRecipes(userId);
   }, [fetchRecipes, userId]);
   
   useEffect(() => {
-    fetchIngredients(recipeId);
-  }, [fetchIngredients, recipeId])
+    console.log("Active recipe updated to:", activeRecipe);
+    fetchIngredients(activeRecipe);
+  }, [fetchIngredients, activeRecipe])
 
-  const recipe = recipes[1];
-
+  const recipe = recipes.find(r => r.id === activeRecipe);
 
   
   if (isLoading) return <div>Loading...</div>;
