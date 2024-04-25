@@ -1,19 +1,19 @@
-import React from "react";
-import IngredientListItem from "./IngredientListItem";
+import React, { useContext } from 'react';
+import IngredientListItem from './IngredientListItem';
+import { List, Box } from '@mui/material';
+import { applicationContext } from '../hooks/applicationContext';
 
-import { List, Box } from '@mui/material'
+const IngredientList = () => {
 
-const IngredientList = ({ingredientListTest, deleteIngredient}) => {
+  const { state } = useContext(applicationContext)
+  console.log("state", state)
+
   return(
     <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
       <List>
-        {ingredientListTest.map((ingredient) => {
+        {state.ingredientList.map((ingredient) => {
           return(
-            <IngredientListItem
-              ingredient={ingredient}
-              key={ingredient.id}
-              deleteIngredient={deleteIngredient}
-            />
+            <IngredientListItem ingredient={ingredient} key={ingredient.id}/>
           )
         })}
       </List>

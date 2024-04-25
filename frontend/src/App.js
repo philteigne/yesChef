@@ -15,12 +15,13 @@ import useApplicationData from './hooks/customHook';
 
 function App() {
   
+  const { state, dispatch } = useApplicationData();
 
   return (
     // wrapping context
     // value contains all the functions from useApplicationData that alter states
     
-    <applicationContext.Provider value={useApplicationData()}>
+    <applicationContext.Provider value={{state, dispatch}}>
       <div>
         <ButtonAppBar />
         <Pantry  />
