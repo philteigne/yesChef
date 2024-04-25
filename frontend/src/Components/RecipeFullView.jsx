@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import {
   Box,
   Typography,
@@ -11,12 +11,11 @@ import { applicationContext } from "../hooks/applicationContext";
 
 
 function RecipeFullView() {
-  const { recipes, fetchRecipes, recipeIngredients, fetchIngredients, isLoading, error } = useApplicationData();
+  const { recipeIngredients, isLoading, error } = useApplicationData();
 
   const { state, dispatch } = useContext(applicationContext);
-  const { activeRecipe } = state;
-  const userId = 1;
-
+  
+  const { activeRecipe, recipes } = state;
 
   const recipe = recipes.find(r => r.id === activeRecipe);
 

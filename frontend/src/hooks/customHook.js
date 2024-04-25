@@ -4,11 +4,14 @@ export const API_CALL_URL = "http://localhost:8080/api/"
 const userId = 1
 
 export const INITIAL_STATE = {
+  userId: 1,
+  // Pantry components
   ingredientList: [],
   deleteIngredientState: null,
   addIngredientState: null,
+  // Recipes Components
   activeRecipe: 2,
-  userId: 1
+  recipes: []
 }
 
   const initialState = {
@@ -22,7 +25,8 @@ export const ACTIONS = {
   GET_INGREDIENTS_USER: "GET_INGREDIENTS_USER",
   DELETE_INGREDIENTS_USER: "DELETE_INGREDIENTS_USER",
   ADD_INGREDIENTS_USER: "ADD_INGREDIENTS_USER",
-  SET_ACTIVE_RECIPE: "SET_ACTIVE_RECIPE"
+  SET_ACTIVE_RECIPE: "SET_ACTIVE_RECIPE",
+  SET_RECIPES: "SET_RECIPES"
 }
 
 export function reducer(state, action) {
@@ -49,6 +53,13 @@ export function reducer(state, action) {
         ...state,
         activeRecipe: action.payload
       }
+
+    case ACTIONS.SET_RECIPES:
+      return {
+        ...state,
+        recipes: action.payload
+      }
+
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -58,8 +69,7 @@ export function reducer(state, action) {
 
 const useApplicationData = () => {
 
-  // const [ingredientListTest, setIngredientListTest] = useState(initialState.ingredientList);
-  const [recipes, setRecipes] = useState(initialState.recipes);
+  // const [recipes, setRecipes] = useState(initialState.recipes);
   const [recipeIngredients, setRecipeIngredients] = useState(initialState.recipeIngredients)
   const [isLoading, setIsLoading] = useState(initialState.isLoading);
   const [error, setError] = useState(initialState.error);
@@ -106,7 +116,7 @@ const useApplicationData = () => {
     fetch(`/api/saved-recipes/user/${userId}`)
       .then(response => response.json())
       .then(data => {
-        setRecipes(data);
+        dispatch({type: 'SET_RECIPES', payload: data})
         setIsLoading(false);
       })
       .catch(err => {
@@ -142,11 +152,9 @@ const useApplicationData = () => {
 
   // calling useApplicationData function return these functions that changes states
   return {
-    recipes,
-    fetchRecipes,
     recipeIngredients,
-    fetchIngredients,
     isLoading,
+    fetchRecipes,
     error,
     state,
     dispatch,

@@ -4,10 +4,11 @@ import useApplicationData from "../hooks/customHook";
 import { applicationContext } from '../hooks/applicationContext';
 
 function RecipeListView() {
-  const { recipes, fetchRecipes, isLoading, error } = useApplicationData();
+  const { fetchRecipes, isLoading, error } = useApplicationData();
 
   const { state, dispatch } = useContext(applicationContext);
-  
+  const { recipes } = state;
+
   const userId = 1;
 
   useEffect(() => {
