@@ -1,9 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Box, Typography, Paper, List, ListItem, ListItemText, Button } from "@mui/material";
 import useApplicationData from "../hooks/customHook";
+import { applicationContext } from '../hooks/applicationContext';
 
 function RecipeListView() {
-  const { recipes, fetchRecipes, setActiveRecipe, isLoading, error } = useApplicationData();
+  const { recipes, fetchRecipes, isLoading, error } = useApplicationData();
+
+  const { state, dispatch } = useContext(applicationContext);
+  
   const userId = 1;
 
   useEffect(() => {
@@ -45,7 +49,7 @@ function RecipeListView() {
                   primary={<Typography variant="h6">{recipe.title}</Typography>}
                   secondary={recipe.tags}
                 />
-                <Button variant="contained" color="secondary" onClick={() => {setActiveRecipe(recipe.id)}}>
+                <Button variant="contained" color="secondary" onClick={() => {dispatch({type: 'SET_ACTIVE_RECIPE', payload: recipe.id})}}>
                   View Recipe
                 </Button>
               </ListItem>

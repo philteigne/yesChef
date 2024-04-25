@@ -7,20 +7,21 @@ export const INITIAL_STATE = {
   ingredientList: [],
   deleteIngredientState: null,
   addIngredientState: null,
+  activeRecipe: 2
 }
 
   const initialState = {
     recipes: [],
     isLoading: false,
     error: null,
-    activeRecipe: 2,
-    recipeIngredients: []
+    recipeIngredients: [],
   }
   
 export const ACTIONS = {
   GET_INGREDIENTS_USER: "GET_INGREDIENTS_USER",
   DELETE_INGREDIENTS_USER: "DELETE_INGREDIENTS_USER",
   ADD_INGREDIENTS_USER: "ADD_INGREDIENTS_USER",
+  SET_ACTIVE_RECIPE: "SET_ACTIVE_RECIPE"
 }
 
 export function reducer(state, action) {
@@ -40,6 +41,13 @@ export function reducer(state, action) {
         ...state,
         addIngredientState: action.payload,
       }
+
+    // Actions to handle recipes
+    case ACTIONS.SET_ACTIVE_RECIPE:
+      return {
+        ...state,
+        activeRecipe: action.payload
+      }
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -49,7 +57,7 @@ export function reducer(state, action) {
 
 const useApplicationData = () => {
 
-  const [ingredientListTest, setIngredientListTest] = useState(initialState.ingredientList);
+  // const [ingredientListTest, setIngredientListTest] = useState(initialState.ingredientList);
   const [recipes, setRecipes] = useState(initialState.recipes);
   const [activeRecipe, setActiveRecipe] = useState(initialState.activeRecipe)
   const [recipeIngredients, setRecipeIngredients] = useState(initialState.recipeIngredients)
@@ -126,7 +134,6 @@ const useApplicationData = () => {
 
   // calling useApplicationData function return these functions that changes states
   return {
-    ingredientListTest,
     recipes,
     fetchRecipes,
     recipeIngredients,

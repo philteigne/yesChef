@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import {
   Box,
   Typography,
@@ -6,13 +6,15 @@ import {
   Button,
 } from "@mui/material";
 import useApplicationData from "../hooks/customHook";
+import { applicationContext } from "../hooks/applicationContext";
+
 
 
 function RecipeFullView() {
-  const { recipes, fetchRecipes, recipeIngredients, fetchIngredients, activeRecipe, isLoading, error } = useApplicationData();
+  const { recipes, fetchRecipes, recipeIngredients, fetchIngredients, isLoading, error } = useApplicationData();
 
-
-
+  const { state, dispatch } = useContext(applicationContext);
+  const { activeRecipe } = state;
   const userId = 1;
 
 
