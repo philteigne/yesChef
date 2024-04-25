@@ -11,14 +11,13 @@ export const INITIAL_STATE = {
   addIngredientState: null,
   // Recipes Components
   activeRecipe: 2,
-  recipes: []
+  recipes: [],
+  recipeIngredients: []
 }
 
   const initialState = {
-    recipes: [],
     isLoading: false,
     error: null,
-    recipeIngredients: [],
   }
   
 export const ACTIONS = {
@@ -26,7 +25,8 @@ export const ACTIONS = {
   DELETE_INGREDIENTS_USER: "DELETE_INGREDIENTS_USER",
   ADD_INGREDIENTS_USER: "ADD_INGREDIENTS_USER",
   SET_ACTIVE_RECIPE: "SET_ACTIVE_RECIPE",
-  SET_RECIPES: "SET_RECIPES"
+  SET_RECIPES: "SET_RECIPES",
+  SET_RECIPE_INGREDIENTS: "SET_RECIPE_INGREDIENTS"
 }
 
 export function reducer(state, action) {
@@ -59,6 +59,11 @@ export function reducer(state, action) {
         ...state,
         recipes: action.payload
       }
+    case ACTIONS.SET_RECIPE_INGREDIENTS:
+      return {
+        ...state,
+        recipeIngredients: action.payload
+      }
 
     default:
       throw new Error(
@@ -69,8 +74,6 @@ export function reducer(state, action) {
 
 const useApplicationData = () => {
 
-  // const [recipes, setRecipes] = useState(initialState.recipes);
-  const [recipeIngredients, setRecipeIngredients] = useState(initialState.recipeIngredients)
   const [isLoading, setIsLoading] = useState(initialState.isLoading);
   const [error, setError] = useState(initialState.error);
 
@@ -131,7 +134,8 @@ const useApplicationData = () => {
     fetch(`/api/ingredients/recipe/${recipeId}`)
       .then(response => response.json())
       .then(data => {
-        setRecipeIngredients(data);
+        // setRecipeIngredients(data);
+        dispatch({type: 'SET_RECIPE_INGREDIENTS', payload: data})
         setIsLoading(false);
       })
       .catch(err => {
@@ -152,9 +156,7 @@ const useApplicationData = () => {
 
   // calling useApplicationData function return these functions that changes states
   return {
-    recipeIngredients,
     isLoading,
-    fetchRecipes,
     error,
     state,
     dispatch,

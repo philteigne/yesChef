@@ -1,19 +1,13 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { Box, Typography, Paper, List, ListItem, ListItemText, Button } from "@mui/material";
 import useApplicationData from "../hooks/customHook";
 import { applicationContext } from '../hooks/applicationContext';
 
 function RecipeListView() {
-  const { fetchRecipes, isLoading, error } = useApplicationData();
+  const { isLoading, error } = useApplicationData();
 
   const { state, dispatch } = useContext(applicationContext);
   const { recipes } = state;
-
-  const userId = 1;
-
-  useEffect(() => {
-    fetchRecipes(userId);
-  }, [fetchRecipes, userId]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;

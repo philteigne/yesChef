@@ -11,11 +11,11 @@ import { applicationContext } from "../hooks/applicationContext";
 
 
 function RecipeFullView() {
-  const { recipeIngredients, isLoading, error } = useApplicationData();
+  const { isLoading, error } = useApplicationData();
 
   const { state, dispatch } = useContext(applicationContext);
-  
-  const { activeRecipe, recipes } = state;
+
+  const { activeRecipe, recipes, recipeIngredients } = state;
 
   const recipe = recipes.find(r => r.id === activeRecipe);
 
