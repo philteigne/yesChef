@@ -139,7 +139,7 @@ const useApplicationData = () => {
 
   const fetchIngredients = useCallback((recipeId) => {
     // this is causing the page to reload
-    // dispatch({type: ACTIONS.IS_LOADING, payload: true});
+    dispatch({type: ACTIONS.IS_LOADING, payload: true});
     dispatch({type: ACTIONS.ERROR, payload: null})
     fetch(`/api/ingredients/recipe/${recipeId}`)
       .then(response => response.json())
