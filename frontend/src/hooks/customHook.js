@@ -1,4 +1,4 @@
-import { useState, useCallback, useReducer, useEffect } from 'react';
+import { useCallback, useReducer, useEffect } from 'react';
 
 export const API_CALL_URL = "http://localhost:8080/api/"
 const userId = 1
@@ -12,21 +12,21 @@ export const INITIAL_STATE = {
   // Recipes Components
   activeRecipe: 2,
   recipes: [],
-  recipeIngredients: []
+  recipeIngredients: [],
+  isLoading: false,
+  error: null
 }
 
-  const initialState = {
-    isLoading: false,
-    error: null,
-  }
-  
+
 export const ACTIONS = {
   GET_INGREDIENTS_USER: "GET_INGREDIENTS_USER",
   DELETE_INGREDIENTS_USER: "DELETE_INGREDIENTS_USER",
   ADD_INGREDIENTS_USER: "ADD_INGREDIENTS_USER",
   SET_ACTIVE_RECIPE: "SET_ACTIVE_RECIPE",
   SET_RECIPES: "SET_RECIPES",
-  SET_RECIPE_INGREDIENTS: "SET_RECIPE_INGREDIENTS"
+  SET_RECIPE_INGREDIENTS: "SET_RECIPE_INGREDIENTS",
+  IS_LOADING: "IS_LOADING",
+  ERROR: "ERROR"
 }
 
 export function reducer(state, action) {
@@ -47,7 +47,7 @@ export function reducer(state, action) {
         addIngredientState: action.payload,
       }
 
-    // Actions to handle recipes
+    // Actions to handle Recipe Components
     case ACTIONS.SET_ACTIVE_RECIPE:
       return {
         ...state,
@@ -65,6 +65,18 @@ export function reducer(state, action) {
         recipeIngredients: action.payload
       }
 
+    case ACTIONS.IS_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload
+      }
+
+    case ACTIONS.ERROR:
+      return {
+        ...state,
+        error: action.payload
+      }
+
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -73,9 +85,6 @@ export function reducer(state, action) {
 }
 
 const useApplicationData = () => {
-
-  const [isLoading, setIsLoading] = useState(initialState.isLoading);
-  const [error, setError] = useState(initialState.error);
 
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
@@ -114,33 +123,33 @@ const useApplicationData = () => {
   }, [state.addIngredientState])
 
   const fetchRecipes = useCallback((userId) => {
-    setIsLoading(true);
-    setError(null);
+    dispatch({type: ACTIONS.IS_LOADING, payload: true})
+    dispatch({type: ACTIONS.ERROR, payload: null})
     fetch(`/api/saved-recipes/user/${userId}`)
       .then(response => response.json())
       .then(data => {
         dispatch({type: 'SET_RECIPES', payload: data})
-        setIsLoading(false);
+        dispatch({type: ACTIONS.IS_LOADING, payload: false});
       })
       .catch(err => {
-        setError(err.message);
-        setIsLoading(false);
+        dispatch({type: ACTIONS.ERROR, payload: err.message})
+        dispatch({type: ACTIONS.IS_LOADING, payload: false});
       });
   }, []);
 
   const fetchIngredients = useCallback((recipeId) => {
-    setIsLoading(true);
-    setError(null);
+    // this is causing the page to reload
+    // dispatch({type: ACTIONS.IS_LOADING, payload: true});
+    dispatch({type: ACTIONS.ERROR, payload: null})
     fetch(`/api/ingredients/recipe/${recipeId}`)
       .then(response => response.json())
       .then(data => {
-        // setRecipeIngredients(data);
-        dispatch({type: 'SET_RECIPE_INGREDIENTS', payload: data})
-        setIsLoading(false);
+        dispatch({type: ACTIONS.SET_RECIPE_INGREDIENTS, payload: data});
+        dispatch({type: ACTIONS.IS_LOADING, payload: false});
       })
       .catch(err => {
-        setError(err.message);
-        setIsLoading(false);
+        dispatch({type: ACTIONS.ERROR, payload: err.message});
+        dispatch({type: ACTIONS.IS_LOADING, payload: false});
       });
   }, []);
 
@@ -156,10 +165,8 @@ const useApplicationData = () => {
 
   // calling useApplicationData function return these functions that changes states
   return {
-    isLoading,
-    error,
     state,
-    dispatch,
+    dispatch
   };
 }
 

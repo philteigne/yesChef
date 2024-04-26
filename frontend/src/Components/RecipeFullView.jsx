@@ -5,23 +5,23 @@ import {
   Paper,
   Button,
 } from "@mui/material";
-import useApplicationData from "../hooks/customHook";
+
 import { applicationContext } from "../hooks/applicationContext";
-
-
+import Loading from "./Loading";
+import Error from "./Error";
 
 function RecipeFullView() {
-  const { isLoading, error } = useApplicationData();
 
-  const { state, dispatch } = useContext(applicationContext);
 
-  const { activeRecipe, recipes, recipeIngredients } = state;
+  const { state } = useContext(applicationContext);
+
+  const { activeRecipe, recipes, recipeIngredients, isLoading, error } = state;
 
   const recipe = recipes.find(r => r.id === activeRecipe);
 
   
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (isLoading) return <Loading />
+  if (error) return <Error />
   
   if (!recipe) return <div>No recipe found</div>;
 

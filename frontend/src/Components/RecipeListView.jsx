@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
 import { Box, Typography, Paper, List, ListItem, ListItemText, Button } from "@mui/material";
-import useApplicationData from "../hooks/customHook";
 import { applicationContext } from '../hooks/applicationContext';
+import Loading from "./Loading";
+import Error from "./Error";
 
 function RecipeListView() {
-  const { isLoading, error } = useApplicationData();
 
   const { state, dispatch } = useContext(applicationContext);
-  const { recipes } = state;
+  const { recipes, isLoading, error } = state;
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (isLoading) return <Loading />
+  if (error) return <Error />
 
   return (
     <Box
