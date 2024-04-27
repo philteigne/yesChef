@@ -1,7 +1,6 @@
 import React from 'react';
 import IngredientList from './IngredientList';
 import AddIngredient from './AddIngredient';
-
 import { Box, Typography, Divider } from '@mui/material';
 import CategoryIcon from '@mui/icons-material/Category';
 
