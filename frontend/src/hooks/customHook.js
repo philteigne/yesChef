@@ -16,8 +16,7 @@ export const INITIAL_STATE = {
   isLoading: false,
   error: null,
   // Parameters Components
-  recipeRequest: null,
-  // mode: 'light'
+  recipeRequest: null
 }
 
 
@@ -87,9 +86,6 @@ export function reducer(state, action) {
         ...state,
         requestRecipe: action.payload
       }
-
-    // case ACTIONS.DARK_MODE:
-    //     return state === "light" ? "dark" : "light";
 
     default:
       throw new Error(
