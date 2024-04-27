@@ -28,7 +28,6 @@ function App() {
         <ButtonAppBar />
         <Stack
           direction="row"
-          
         >
           <Pantry  />
           <Parameters />
