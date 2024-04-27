@@ -23,7 +23,7 @@ function App() {
 
   return (
     // wrapping context
-    // value contains all the functions from useApplicationData that alter states
+    // value contains all the functions from useApplicationData that alter statesr
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <applicationContext.Provider value={{state, dispatch}}>

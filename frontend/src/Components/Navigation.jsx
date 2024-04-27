@@ -1,15 +1,14 @@
 import { AppBar, Toolbar, Typography, Button, Grid } from '@mui/material';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import HomeIcon from '../HomeIcon';
+import { useThemeContext } from '../theme/ThemeContextProvider.tsx';
 
 import '../navagation.css';
 
 export default function ButtonAppBar() {
-  const toggleDarkMode = () => {
-    // perform dispatch function and changes state
-  }
+  const { mode, toggleColorMode } = useThemeContext();
 
-  const pages = [<HomeIcon fontSize="large"/>, 'Create Recipes',<DarkModeIcon onClick={toggleDarkMode} />, 'Login']
+  const pages = [<HomeIcon fontSize="large"/>, 'Create Recipes',<DarkModeIcon onClick={toggleColorMode} />, 'Login']
 
   return (
     <AppBar position="static">
