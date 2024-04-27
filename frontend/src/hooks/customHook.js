@@ -134,7 +134,7 @@ const useApplicationData = () => {
   // request recipe with parameters
   useEffect(() => {
     if (state.requestRecipe) {
-      fetch(`${API_CALL_URL}`,{  // UPDATE API CALL URL -- POST ROUTE
+      fetch(`${API_CALL_URL}chat-gpt`,{  // UPDATE API CALL URL -- POST ROUTE
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

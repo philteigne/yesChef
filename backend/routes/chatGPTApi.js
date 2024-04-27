@@ -31,8 +31,12 @@ tags that it fits into and the steps that are required to make it.
 The data schema should follow this example \`${JSON.stringify(exampleJson)}\``
 
 router.post('/', async (req, res) => {
-  const userInput = req.body.userprompt;
-  console.log(userInput);
+  const { recipeTags, recipeFocus, recipeAvoid } = req.body;
+
+  const userPrompt = `
+    Given the ingredients: ${recipeFocus}, your task is to craft a recipe that fits the provided tags: ${recipeTags}.
+    However, please avoid incorporating the following ingredients: ${recipeAvoid}.
+  `;
 
   try {
     // Make the API request to OpenAI
@@ -42,7 +46,7 @@ router.post('/', async (req, res) => {
         model: 'gpt-3.5-turbo',
         messages: [
           { role: 'system', content: recipeSystemPrompt },
-          { role: 'user', content: userInput }
+          { role: 'user', content: userPrompt }
         ],
         // Temperature controls how unexpected the output can be, 0 being most conservative
         temperature: 0.7
