@@ -12,6 +12,8 @@ import RecipeFullView from './Components/RecipeFullView';
 import ButtonAppBar from './Components/Navigation';
 import { applicationContext } from './hooks/applicationContext';
 import useApplicationData from './hooks/customHook';
+import Parameters from './Components/Parameters';
+import { Stack } from '@mui/material'; 
 
 function App() {
   
@@ -24,7 +26,12 @@ function App() {
     <applicationContext.Provider value={{state, dispatch}}>
       <div>
         <ButtonAppBar />
-        <Pantry  />
+        <Stack
+          direction="row"
+        >
+          <Pantry  />
+          <Parameters />
+        </Stack>
         <div className="App">
           <RecipeListView />
           <RecipeFullView />

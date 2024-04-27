@@ -14,7 +14,9 @@ export const INITIAL_STATE = {
   recipes: [],
   recipeIngredients: [],
   isLoading: false,
-  error: null
+  error: null,
+  // Parameters Components
+  recipeRequest: null,
 }
 
 
@@ -25,6 +27,7 @@ export const ACTIONS = {
   SET_ACTIVE_RECIPE: "SET_ACTIVE_RECIPE",
   SET_RECIPES: "SET_RECIPES",
   SET_RECIPE_INGREDIENTS: "SET_RECIPE_INGREDIENTS",
+  REQUEST_RECIPE: "REQUEST_RECIPE",
   IS_LOADING: "IS_LOADING",
   ERROR: "ERROR"
 }
@@ -76,6 +79,12 @@ export function reducer(state, action) {
         ...state,
         error: action.payload
       }
+    
+    case ACTIONS.REQUEST_RECIPE:
+      return {
+        ...state,
+        requestRecipe: action.payload
+      }
 
     default:
       throw new Error(
@@ -121,6 +130,21 @@ const useApplicationData = () => {
       .then(() => dispatch({ type: ACTIONS.ADD_INGREDIENTS_USER, payload: null }))
     }
   }, [state.addIngredientState])
+
+  // request recipe with parameters
+  useEffect(() => {
+    if (state.requestRecipe) {
+      fetch(`${API_CALL_URL}`,{  // UPDATE API CALL URL -- POST ROUTE
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body:JSON.stringify(state.requestRecipe)
+      })
+      .then((data) => console.log(data))
+      .then(() => dispatch({ type: ACTIONS.REQUEST_RECIPE, payload: null })) // reset request state
+    }
+  }, [state.requestRecipe])
 
   const fetchRecipes = useCallback((userId) => {
     dispatch({type: ACTIONS.IS_LOADING, payload: true})
