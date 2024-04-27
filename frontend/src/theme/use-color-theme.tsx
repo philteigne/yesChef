@@ -10,6 +10,7 @@ export const useColorTheme = () => {
   const toggleColorMode = () =>
     setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
 
+  // exporting the theme to ThemeContextProvider
   const modifiedTheme = React.useMemo(
     () => createTheme(getDesignTokens(mode)),
     [mode]

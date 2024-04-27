@@ -6,8 +6,10 @@ import { useThemeContext } from '../theme/ThemeContextProvider.tsx';
 import '../navagation.css';
 
 export default function ButtonAppBar() {
-  const { mode, toggleColorMode } = useThemeContext();
-
+  // mode from useThemeContext "light", "dark"
+  
+  const { toggleColorMode } = useThemeContext();
+  
   const pages = [<HomeIcon fontSize="large"/>, 'Create Recipes',<DarkModeIcon onClick={toggleColorMode} />, 'Login']
 
   return (
