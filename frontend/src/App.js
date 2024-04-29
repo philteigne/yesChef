@@ -16,6 +16,9 @@ import Parameters from './Components/Parameters';
 import { Stack, CssBaseline } from '@mui/material'; 
 import { useThemeContext } from './theme/ThemeContextProvider.tsx';
 import { ThemeProvider } from '@emotion/react';
+import HomePage from './Components/HomePage.jsx';
+
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App() {
   const { theme } = useThemeContext();
@@ -23,25 +26,30 @@ function App() {
 
   return (
     // wrapping context
-    // value contains all the functions from useApplicationData that alter statesr
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <applicationContext.Provider value={{state, dispatch}}>
-        <div>
-          <ButtonAppBar />
-          <Stack
-            direction="row"
-          >
-            <Pantry  />
-            <Parameters />
-          </Stack>
-          <div className="App">
-            <RecipeListView />
-            <RecipeFullView />
+    // value contains all the functions from useApplicationData that alter states
+    <Router>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <applicationContext.Provider value={{state, dispatch}}>
+          <div>
+            <ButtonAppBar />
+              <Switch>
+                <Route path='/' exact component={HomePage}/>
+                <Router path="/create-recipe">
+                  <Stack direction="row">
+                    <Pantry  />
+                    <Parameters />
+                  </Stack>
+                </Router>
+                <Router path="/view-recipe">
+                  <RecipeListView />
+                  <RecipeFullView />
+                </Router>
+              </Switch>
           </div>
-        </div>
-        </applicationContext.Provider>
-      </ThemeProvider>
+          </applicationContext.Provider>
+        </ThemeProvider>
+    </Router>
   );
 }
 

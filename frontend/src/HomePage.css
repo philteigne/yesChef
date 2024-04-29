@@ -1,0 +1,29 @@
+.homepage-container {
+  background-color: orange;
+  background-size: cover;
+  background-position: center;
+  height: 100vh; /* Adjust the height as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  color: white;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.main-image {
+  display: flex;
+}
+
+img {
+  max-width: 80vh;
+  max-height: auto;
+  border-radius: 10px;
+}
+
+.app-introduction {
+  display: flex;
+  flex-direction: column;
+  padding: 10vh;
+}
