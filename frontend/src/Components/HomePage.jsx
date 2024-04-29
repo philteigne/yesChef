@@ -16,9 +16,6 @@ const HomePage = () => {
 
   return (
     <div className="homepage-container">
-      <div className="main-image">
-        <img src={mainImage} alt="person cooking with the help of AI generate recipe"></img>
-      </div>
       <div className="app-introduction">
         <h1>Welcome to Yes Chef  your personal AI recipe app</h1>
         <p>
@@ -28,6 +25,9 @@ const HomePage = () => {
           Whether you're a seasoned chef or just getting started in the kitchen, Yes Chef has everything you need to create delicious meals with ease.
         </p>
         <Button size="large" variant="contained" onClick={handleClick}>Get Started</Button>
+      </div>
+      <div className="main-image">
+        <img src={mainImage} alt="person cooking with the help of AI generate recipe"></img>
       </div>
 
     </div>
