@@ -54,6 +54,7 @@ const Parameters = () => {
               color="primary"
               value={recipeTags}
               onChange={(e) => setRecipeTags(e.target.value)}
+              sx={{ border: '5px'}}
             />
             <Typography
               variant="h2"
@@ -80,14 +81,16 @@ const Parameters = () => {
           </Stack>
         </Box>
       </Box>
-
-      <Button
-        type="submit"
-        onClick={handleSubmit}
-        variant="contained"
-      >
-        Submit
-      </Button>
+      <Stack justifyContent='center'>
+        <Button
+          type="submit"
+          onClick={handleSubmit}
+          variant="contained"
+          sx={{width: 0.5}}
+        >
+          Submit
+        </Button>
+      </Stack>
     </Stack>
 
 

@@ -18,17 +18,17 @@ As a user I would like to make and access an account with a username and passwor
 
 As a user I would like to tweak a recipe suggestion and make slight changes to recipes that I already like.
 
-As a user I would like to ask a chatbot for basic cooking and recipe assistance.
+*As a user I would like to ask a chatbot for basic cooking and recipe assistance.
 
 As a user I would like to track kitchen items that are close to expiration.
 
-As a user I would like to add items to pantry automatically based on a scan of my receipt.
+*As a user I would like to add items to pantry automatically based on a scan of my receipt.
 
 As a user I would like to automatically update my pantry when I make a recipe.
 
 As a user I would like to share, rank, and comment on recipes by other users. (or share recipe easily on other sites)
 
-As a user I'd like to ask an AI assistant about small roadblocks in my cooking, like substitutions.
+*As a user I'd like to ask an AI assistant about small roadblocks in my cooking, like substitutions.
 
 As a user I'd like to convert measurement units.
 

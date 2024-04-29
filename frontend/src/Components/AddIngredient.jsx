@@ -29,7 +29,8 @@ const AddIngredient = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, maxWidth: 1, p: 3 }}>
+    <Stack>
+      <Box sx={{ flexGrow: 1, maxWidth: 1, p: 3 }}>
         <Stack
           direction="row"
           justifyContent="space-between"
@@ -57,16 +58,17 @@ const AddIngredient = () => {
               onChange={(e) => setIngredientExpiry(e.target.value)}
             />
           </Stack>
-          <Button
-            type="submit"
-            onClick={handleSubmit}
-            variant="contained"
-          >
-            Submit
-          </Button>
-
         </Stack>
-    </Box>
+      </Box>
+        <Button
+          type="submit"
+          onClick={handleSubmit}
+          variant="contained"
+          sx={{maxWidth: 0.5}}
+        >
+          Submit
+        </Button>
+    </Stack>
   )
 }
 

@@ -78,31 +78,45 @@ const theme = createTheme({
         }
       }
     },
-    MuiTextField: {
-      defaultProps: {
-        color: 'secondary'
-      },
+    MuiButton: {
       styleOverrides: {
         root: {
-          '& .MuiInputBase-input': {
-            color: 'darkblue',
-          },
-          '& .MuiInputLabel-root': {
-            color: 'green',
-          },
-          '& .MuiOutlinedInput-root': {
-            borderWidth: 5,
-          },
+          
         }
       }
     }
-    // MuiInputBase: {
+    // MuiTextField: {
+    //   defaultProps: {
+    //     color: 'primary'
+    //   },
     //   styleOverrides: {
     //     root: {
-    //       border: `2px solid #4A4A45`,
-    //       fontFamily: 'El Messiri',
-
-    //     },
+    //       '& .MuiInputBase-input': {
+    //         color: 'darkblue',
+    //       },
+    //       '& .MuiInputLabel-root': {
+    //         color: '#4A4A45',
+    //         fontFamily: 'El Messiri',
+    //         fontWeight: 600,
+    //         fontSize: 21,
+    //       },
+    //       '& .MuiOutlinedInput-root': {
+    //         borderWidth: 5,
+    //       },
+    //       '& .MuiInputBase-input .MuiOutlinedInput-input': {
+    //         borderWidth: 5
+    //       }
+    //     }
+    //   }
+    // },
+    // MuiOutlinedInput: {
+    //   defaultProps: {
+    //     color: 'secondary',
+    //   },
+    //   styleOverrides: {
+    //     root: {
+    //       borderWidth: 5
+    //     }
     //   }
     // }
   }
