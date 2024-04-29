@@ -1,10 +1,10 @@
 import { useCallback, useReducer, useEffect } from 'react';
 
 export const API_CALL_URL = "http://localhost:8080/api/"
-const userId = 1
+const userId = 2
 
 export const INITIAL_STATE = {
-  userId: 1,
+  userId: 2,
   // Pantry components
   ingredientList: [],
   deleteIngredientState: null,
