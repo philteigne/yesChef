@@ -1,7 +1,6 @@
 import { AppBar, Toolbar, Typography, Button, Grid } from '@mui/material';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import HomeIcon from '../HomeIcon';
-import { useThemeContext } from '../theme/ThemeContextProvider.tsx';
 import { useHistory } from 'react-router-dom';
 
 import '../navagation.css';
@@ -19,9 +18,8 @@ export default function ButtonAppBar() {
     // Navigate to a different route
     history.push('/create-recipe');
   }
-  const { toggleColorMode } = useThemeContext();
   
-  const pages = [<HomeIcon fontSize="large" onClick={homeIconClick}/>, <p onClick={createRecipeClick}>Create Recipes</p>,<DarkModeIcon onClick={toggleColorMode} />, 'Login']
+  const pages = [<HomeIcon fontSize="large" onClick={homeIconClick}/>, <p onClick={createRecipeClick}>Create Recipes</p>,<DarkModeIcon />, 'Login']
 
   return (
     <AppBar position="static">
