@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { applicationContext } from '../hooks/applicationContext';
-import { ListItem, ListItemText, IconButton, Box } from '@mui/material'
-import DeleteIcon from '@mui/icons-material/Delete';
+import { ListItem, Typography, IconButton, Box } from '@mui/material'
+import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutlineRounded';
 
 const IngredientListItem = ({ingredient}) => {
 
@@ -10,8 +10,8 @@ const IngredientListItem = ({ingredient}) => {
   return (
       <Box sx={{
         flexGrow: 1,
-        maxWidth: 0.4,
-        border: '1px solid #ccc',
+        maxWidth: 0.45,
+        border: '2px solid #4A4A45',
         borderRadius: '4px',
         overflow: 'hidden',
         m: 1
@@ -24,13 +24,16 @@ const IngredientListItem = ({ingredient}) => {
             aria-label="delete"
             onClick={() => dispatch({type: "DELETE_INGREDIENTS_USER", payload: ingredient.id})}
           >
-            <DeleteIcon />
+            <RemoveCircleOutlineRoundedIcon color="secondary" />
           </IconButton>
         }
       >
-        <ListItemText
-        primary={ingredient.name}
-        />
+        <Typography
+          variant="h2"
+          component="h2"
+        >
+          {ingredient.name}
+        </Typography>
       </ListItem>
       </Box>
   )

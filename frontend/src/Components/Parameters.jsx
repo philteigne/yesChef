@@ -33,31 +33,47 @@ const Parameters = () => {
       justifyContent="center"
       width="0.5"
     >
-      <Box sx={{ marginBottom: 2, border: '1px solid #ccc', borderRadius: '4px', overflow: 'hidden' }}>
+      <Box sx={{ marginBottom: 2, overflow: 'hidden' }}>
         
-        <Box sx={{ padding: 2, backgroundColor: '#f5f5f5', display: 'flex', justifyContent: 'space-between', alignItems: 'center', direction: 'row'}}>
-          <Typography variant="h4" component="h2">Parameters</Typography>
+        <Box sx={{ padding: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center', direction: 'row'}}>
+          <Typography variant="h1" component="h1" color="primary">&#8226; recipe generation</Typography>
         </Box>
         <Box sx={{ flexGrow: 1, maxWidth: 1, p: 3 }}>
           <Stack
             direction="column"
             spacing={1}
           >
+            <Typography
+              variant="h2"
+              component="h2"
+            >
+              What should we cook tonight?
+            </Typography>
             <TextField
               variant="outlined"
-              label="Recipe Tags"
+              color="primary"
               value={recipeTags}
               onChange={(e) => setRecipeTags(e.target.value)}
             />
+            <Typography
+              variant="h2"
+              component="h2"
+            >
+              Which ingredients should we use?
+            </Typography>
             <TextField
               variant="outlined"
-              label="Showcase Ingredients"
               value={recipeFocus}
               onChange={(e) => setRecipeFocus(e.target.value)}
             />
+            <Typography
+              variant="h2"
+              component="h2"
+            >
+              Which ingredients should we avoid?
+            </Typography>
             <TextField
               variant="outlined"
-              label="Avoid Ingredients"
               value={recipeAvoid}
               onChange={(e) => setRecipeAvoid(e.target.value)}
             />
