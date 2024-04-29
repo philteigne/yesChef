@@ -16,7 +16,9 @@ export const INITIAL_STATE = {
   isLoading: false,
   error: null,
   // Parameters Components
-  recipeRequest: null
+  recipeRequest: null,
+  // AI Response
+  recipeResponse: null
 }
 
 
@@ -30,7 +32,8 @@ export const ACTIONS = {
   REQUEST_RECIPE: "REQUEST_RECIPE",
   IS_LOADING: "IS_LOADING",
   ERROR: "ERROR",
-  DARK_MODE: "DARK_MODE"
+  DARK_MODE: "DARK_MODE",
+  SET_RECIPE_RESPONSE: "SET_RECIPE_RESPONSE"
 }
 
 export function reducer(state, action) {
@@ -87,6 +90,13 @@ export function reducer(state, action) {
         requestRecipe: action.payload
       }
 
+
+    case ACTIONS.SET_RECIPE_RESPONSE:
+        return {
+          ...state,
+          recipeResponse: action.payload
+        }
+
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -142,7 +152,8 @@ const useApplicationData = () => {
         },
         body:JSON.stringify(state.requestRecipe)
       })
-      .then((data) => console.log(data))
+      .then((data) => dispatch({ type: ACTIONS.SET_RECIPE_RESPONSE, payload: JSON.parse(data) }))
+      .then(() => console.log("Recently returned recipe from AI: ", state.recipeResponse))
       .then(() => dispatch({ type: ACTIONS.REQUEST_RECIPE, payload: null })) // reset request state
     }
   }, [state.requestRecipe])
