@@ -1,11 +1,6 @@
 import React from 'react';
 import Pantry from './Components/Pantry';
 
-// import '@fontsource/roboto/300.css';
-// import '@fontsource/roboto/400.css';
-// import '@fontsource/roboto/500.css';
-// import '@fontsource/roboto/700.css';
-
 import RecipeListView from './Components/RecipeListView';
 import RecipeFullView from './Components/RecipeFullView';
 import ButtonAppBar from './Components/Navigation';
@@ -16,7 +11,7 @@ import { Stack, Box } from '@mui/material';
 
 
 import { createTheme, ThemeProvider} from '@mui/material/styles'
-import './assets/fonts.css';
+import './assets/fonts/fonts.css';
 
 const theme = createTheme({
   palette: {
