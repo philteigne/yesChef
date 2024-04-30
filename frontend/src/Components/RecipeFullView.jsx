@@ -4,58 +4,77 @@ import {
   Typography,
   Paper,
   Button,
+  IconButton,
+  Avatar,
+  ListItem,
 } from "@mui/material";
-
+import EditIcon from '@mui/icons-material/Edit';
 import { applicationContext } from "../hooks/applicationContext";
 import Loading from "./Loading";
 import Error from "./Error";
 
 function RecipeFullView() {
 
-
-  const { state } = useContext(applicationContext);
-
+  const { state, dispatch } = useContext(applicationContext);
+  
   const { activeRecipe, recipes, recipeIngredients, isLoading, error } = state;
-
+  
   const recipe = recipes.find(r => r.id === activeRecipe);
-
+  
   
   if (isLoading) return <Loading />
   if (error) return <Error />
   
   if (!recipe) return <div>No recipe found</div>;
 
-
-return (
-<Box sx={{ margin: 2, border: '1px solid #ccc', borderRadius: '4px', overflow: 'hidden' }}>
-      <Box sx={{ padding: 2, backgroundColor: '#f5f5f5', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography variant="h4" component="h2">
-          {recipe.title} - {recipe.tags}
-        </Typography>
-        <Box>
-          <Button variant="contained" color="primary" sx={{ marginRight: '10px' }}>
-            Button 1
-          </Button>
-          <Button variant="contained" color="secondary" sx={{ marginRight: '10px' }}>
-            Button 2
-          </Button>
-          <Button variant="contained" color="error">
-            Button 3
-          </Button>
-        </Box>
+  return (
+    <Box sx={{ width: 0.43, height: 512 }}>
+      
+      <Typography variant="h1" component="h1" color="primary">&#8226; recipe viewer </Typography>
+      
+      <Box sx={{
+        flexGrow: 1,
+        width: 1,
+        maxWidth: 1,
+        height: 43,
+        maxHeight: 43,
+        border: '2px solid #4A4A45',
+        borderRadius: '10px',
+        overflow: 'hidden',
+        m: 0.6
+      }}>
+        <ListItem
+          variant="contained"
+          sx={{alignItems: "center"}}
+          secondaryAction={
+            <IconButton
+              edge="end"
+              aria-label="delete"
+              onClick={() => dispatch({type: "EDIT_CURRENT_RECIPE", payload: recipe.id})}
+            >
+              <EditIcon color="primary" />
+            </IconButton>
+          }
+        >
+          <Typography
+            variant="h2"
+            component="h2"
+          >
+            {recipe.title} - {recipe.tags}
+          </Typography>
+        </ListItem>
       </Box>
-      <Paper sx={{ margin: 'auto', mt: 2, mb: 2, padding: 2 }}>
-        <Typography variant="body1" component="div">
-          {Array.isArray(recipeIngredients) ? recipeIngredients.map(ing => `${ing.name} - ${ing.quantity} ${ing.units}`).join(', ') : "No ingredients"}
+        
+      <Paper sx={{ margin: 'auto', mt: 2, mb: 2, padding: 2, height: 1, overflow: 'auto' }}>
+        <Typography variant="body1" component="p" multiline>
+          {Array.isArray(recipeIngredients) ? recipeIngredients.map(ing => `${ing.name} - ${ing.quantity} ${ing.units} \n`).join(', ') : "No ingredients"}
         </Typography>
-      </Paper>
-      <Paper sx={{ margin: 'auto', mt: 2, mb: 2, padding: 2 }}>
-        <Typography variant="body1" component="div">
+        <Typography variant="body1" component="p">
           {recipe.steps}
         </Typography>
       </Paper>
-    </Box>);
-
+    </Box>
+  )
 }
 
 export default RecipeFullView

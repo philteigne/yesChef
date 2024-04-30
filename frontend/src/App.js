@@ -51,6 +51,11 @@ const theme = createTheme({
       fontSize: 15,
       fontWeight: 600,
     },
+    body1: {
+      fontFamily: "El Messiri",
+      fontFamily: 18,
+      fontWeight: 600,
+    },
     button: {
       textTransform: 'none'
     }
@@ -94,6 +99,15 @@ const theme = createTheme({
         root: {
           fontFamily: 'El Messiri',
           fontSize: 22,
+        }
+      }
+    },
+    MuiPaper: {
+      defaultProps: {
+        elevation: 0
+      },
+      styleOverrides: {
+        root: {
         }
       }
     }
@@ -146,7 +160,6 @@ function App() {
       <applicationContext.Provider value={{state, dispatch}}>
         <Box sx={{ backgroundColor: '#EAE7DC',}}>
           <ButtonAppBar />
-          {/*
           <Stack
             direction="row"
             justifyContent='center'
@@ -155,7 +168,6 @@ function App() {
             <Pantry  />
             <Parameters />
           </Stack>
-  */}
           <Stack
             direction="row"
             justifyContent='center'
