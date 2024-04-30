@@ -30,7 +30,7 @@ const AddIngredient = () => {
 
   return (
     <Stack>
-      <Box sx={{ flexGrow: 1, maxWidth: 1, p: 3 }}>
+      <Box sx={{ flexGrow: 1, maxWidth: 1 }}>
         <Stack
           direction="row"
           justifyContent="space-between"
@@ -60,14 +60,19 @@ const AddIngredient = () => {
           </Stack>
         </Stack>
       </Box>
+      <Box
+        display='flex'
+        justifyContent='flex-end'
+      >
         <Button
           type="submit"
           onClick={handleSubmit}
           variant="contained"
-          sx={{maxWidth: 0.5}}
+          sx={{width: 0.5}}
         >
           Submit
         </Button>
+      </Box>
     </Stack>
   )
 }

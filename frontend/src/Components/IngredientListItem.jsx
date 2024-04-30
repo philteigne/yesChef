@@ -8,14 +8,15 @@ const IngredientListItem = ({ingredient}) => {
   const { dispatch } = useContext(applicationContext);
 
   return (
-      <Box sx={{
-        flexGrow: 1,
-        maxWidth: 0.45,
-        border: '2px solid #4A4A45',
-        borderRadius: '4px',
-        overflow: 'hidden',
-        m: 1
-      }}>
+    <Box sx={{
+      flexGrow: 1,
+      width: 0.45,
+      maxWidth: 0.45,
+      border: '2px solid #4A4A45',
+      borderRadius: '4px',
+      overflow: 'hidden',
+      m: 1
+    }}>
       <ListItem
         variant="contained"
         secondaryAction={
@@ -35,7 +36,7 @@ const IngredientListItem = ({ingredient}) => {
           {ingredient.name}
         </Typography>
       </ListItem>
-      </Box>
+    </Box>
   )
 }
 

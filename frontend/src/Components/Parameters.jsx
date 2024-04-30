@@ -33,12 +33,11 @@ const Parameters = () => {
       justifyContent="center"
       width="0.5"
     >
-      <Box sx={{ marginBottom: 2, overflow: 'hidden' }}>
-        
-        <Box sx={{ padding: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center', direction: 'row'}}>
+      <Box sx={{ marginBottom: 2, overflow: 'hidden' }}>  
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', direction: 'row'}}>
           <Typography variant="h1" component="h1" color="primary">&#8226; recipe generation</Typography>
         </Box>
-        <Box sx={{ flexGrow: 1, maxWidth: 1, p: 3 }}>
+        <Box sx={{ flexGrow: 1, maxWidth: 1}}>
           <Stack
             direction="column"
             spacing={1}
@@ -54,7 +53,6 @@ const Parameters = () => {
               color="primary"
               value={recipeTags}
               onChange={(e) => setRecipeTags(e.target.value)}
-              sx={{ border: '5px'}}
             />
             <Typography
               variant="h2"
@@ -81,7 +79,7 @@ const Parameters = () => {
           </Stack>
         </Box>
       </Box>
-      <Stack justifyContent='center'>
+      <Box display="flex" justifyContent='center'>
         <Button
           type="submit"
           onClick={handleSubmit}
@@ -90,7 +88,7 @@ const Parameters = () => {
         >
           Submit
         </Button>
-      </Stack>
+      </Box>
     </Stack>
 
 

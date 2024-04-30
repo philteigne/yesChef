@@ -9,14 +9,12 @@ const IngredientList = () => {
   console.log("state", state)
 
   return(
-    <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
-      <List>
+    <Box sx={{ display: 'flex', flexWrap:'wrap', height: '300px' }}>
         {state.ingredientList.map((ingredient) => {
           return(
-            <IngredientListItem ingredient={ingredient} key={ingredient.id}/>
+            <IngredientListItem ingredient={ingredient} key={ingredient.id} sx={{ width: '100%' }}/>
           )
         })}
-      </List>
     </Box>
   )
 }
