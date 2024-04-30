@@ -70,7 +70,7 @@ const AddIngredient = () => {
           variant="contained"
           sx={{width: 0.5}}
         >
-          Submit
+          submit
         </Button>
       </Box>
     </Stack>

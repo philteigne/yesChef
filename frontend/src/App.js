@@ -47,13 +47,16 @@ const theme = createTheme({
     },
     h2: {
       fontFamily: "El Messiri",
-      fontSize: 21,
+      fontSize: 22,
       fontWeight: 600,
     },
     h3: {
       fontFamily: 'Kanit',
       fontSize: 15,
       fontWeight: 600,
+    },
+    button: {
+      textTransform: 'none'
     }
   },
   components: {
@@ -81,7 +84,11 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          
+          fontFamily: 'El Messiri',
+          fontWeight: 600,
+          fontSize: 22,
+          paddingTop: 4,
+          paddingBottom: 4
         }
       }
     }
