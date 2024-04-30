@@ -30,10 +30,9 @@ const Parameters = () => {
   return(
     <Stack
       direction="column"
-      justifyContent="center"
       width="0.5"
     >
-      <Box sx={{ marginBottom: 2, overflow: 'hidden' }}>  
+      <Box sx={{ overflow: 'hidden' }}>  
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', direction: 'row'}}>
           <Typography variant="h1" component="h1" color="primary">&#8226; recipe generation</Typography>
         </Box>
@@ -86,7 +85,7 @@ const Parameters = () => {
           variant="contained"
           sx={{width: 0.5}}
         >
-          Submit
+          submit
         </Button>
       </Box>
     </Stack>
