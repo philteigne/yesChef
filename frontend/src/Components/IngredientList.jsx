@@ -9,7 +9,7 @@ const IngredientList = () => {
   console.log("state", state)
 
   return(
-    <Box sx={{ display: 'flex', flexWrap:'wrap', height: '300px' }}>
+    <Box sx={{ display: 'flex', flexWrap:'wrap', height: '300px', overflow: "auto" }}>
         {state.ingredientList.map((ingredient) => {
           return(
             <IngredientListItem ingredient={ingredient} key={ingredient.id} sx={{ width: '100%' }}/>
