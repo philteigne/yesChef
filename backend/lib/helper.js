@@ -28,7 +28,7 @@ const stepsToString = (array) => {
   return array.join(" ");
 }
 
-export {
+module.export = {
   tagsToString,
   stepsToString
 }
