@@ -1,7 +1,6 @@
 const express = require('express');
 const router  = express.Router();
-const { getSavedRecipes, addRecipe } = require('../db/queries/users');
-
+const { getSavedRecipes, addRecipe, addRecipeIngredient } = require('../db/queries/users');
 
 
 router.get('/user/:userId', (req, res) => {
@@ -22,13 +21,14 @@ router.get('/user/:userId', (req, res) => {
 router.post('/recipe/:userId', (req,res) => {
   // Add a new recipe entry with user_id that matches current users id, recipe data from state
   const userId = req.params.userId;
-  const { title, tags, steps } = req.body;
+  const { title, tags, steps, ingredients } = req.body;
 
   const recipeObj = {
     title,
     tags,
     steps
-  }
+  };
+  // ingredients is an array
 
   // query to add
   addRecipe(userId, recipeObj)
@@ -38,7 +38,16 @@ router.post('/recipe/:userId', (req,res) => {
       return response[0].id
     })
     .then((recipeId) => {
-      // looping over the ingredients array, and call addRecipeIngredient 
+      // looping over the ingredients array, and call addRecipeIngredient
+      ingredients.map((ingredientObj) => {
+        addRecipeIngredient(recipeId, ingredientObj)
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.error('Error adding to recipe Ingredient', err);
+          })
+      })
     })
 
 })

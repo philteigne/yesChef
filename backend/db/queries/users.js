@@ -39,21 +39,20 @@ const addRecipe = (userId, recipeObj) => {
   });
 }
 
-const addRecipeIngredient = (recipeId, ingredientsObj) => {
-  const { id, quantity, units } = ingredientsObj;
+const addRecipeIngredient = (recipeId, ingredientObj) => {
+  const { id, quantity, units } = ingredientObj;
 
-  const queryText = 'INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES ($1 ,$2, $3 ,$4) returning *;'
+  const queryText = 'INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES ($1 ,$2, $3 ,$4) RETURNING *;'
 
   return db.query(queryText, [recipeId, id, quantity, units])
     .then((data) => {
-      return data.rows;
+      return data.rows[0];
     })
     .catch(err => {
       console.error('Error executing query', err.stack);
       throw err;
     });
 }
-
 
 const getRecipeById = (recipeId) => {
   // View saved recipe item with an id that matches recipe_id
@@ -133,5 +132,6 @@ module.exports = {
   getIngredients,
   deleteIngredient,
   addIngredient,
-  addRecipe
+  addRecipe,
+  addRecipeIngredient
 };
