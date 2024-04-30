@@ -19,8 +19,17 @@ const getSavedRecipes = (userId) => {
     });
 };
 
-const addRecipe = (userId, selectedRecipe) => {
+const addRecipe = (userId) => {
   // Add a new recipe entry with user_id
+  const queryText = 'INSERT INTO recipes (saved_by, title, tags, steps) VALUES ($1, $2, $3, $4);'
+  return db.query(queryText, [userId, state.recipeResponse.title, state.recipeResponse.tags, state.recipeResponse.steps])
+  .then(data => {
+    return data.rows;
+  })
+  .catch(err => {
+    console.error('Error executing query', err.stack);
+    throw err;
+  });
 }
 
 const getRecipeById = (recipeId) => {
