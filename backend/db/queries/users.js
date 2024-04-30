@@ -1,4 +1,5 @@
 const db = require('../connection');
+const { tagsToString, stepsToString } = require('../../lib/helper');
 
 const getUsers = () => {
   return db.query('SELECT * FROM users;')
@@ -19,10 +20,16 @@ const getSavedRecipes = (userId) => {
     });
 };
 
-const addRecipe = (userId) => {
+const addRecipe = (userId, recipeObj) => {
   // Add a new recipe entry with user_id
-  const queryText = 'INSERT INTO recipes (saved_by, title, tags, steps) VALUES ($1, $2, $3, $4);'
-  return db.query(queryText, [userId, state.recipeResponse.title, state.recipeResponse.tags, state.recipeResponse.steps])
+  const { title, tags, steps } = recipeObj;
+  // title is string, tags is array with strings, steps is array with strings
+
+  const stringifyTags = tagsToString(tags);
+  const stringifySteps = stepsToString(steps);
+
+  const queryText = 'INSERT INTO recipes (saved_by, title, tags, steps) VALUES ($1, $2, $3, $4) RETURNING id;'
+  return db.query(queryText, [userId, title, stringifyTags, stringifySteps])
   .then(data => {
     return data.rows;
   })
@@ -31,6 +38,22 @@ const addRecipe = (userId) => {
     throw err;
   });
 }
+
+const addRecipeIngredient = (recipeId, ingredientsObj) => {
+  const { id, quantity, units } = ingredientsObj;
+
+  const queryText = 'INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES ($1 ,$2, $3 ,$4) returning *;'
+
+  return db.query(queryText, [recipeId, id, quantity, units])
+    .then((data) => {
+      return data.rows;
+    })
+    .catch(err => {
+      console.error('Error executing query', err.stack);
+      throw err;
+    });
+}
+
 
 const getRecipeById = (recipeId) => {
   // View saved recipe item with an id that matches recipe_id
@@ -109,5 +132,6 @@ module.exports = {
   getRecipeIngredients,
   getIngredients,
   deleteIngredient,
-  addIngredient
+  addIngredient,
+  addRecipe
 };

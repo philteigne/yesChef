@@ -15,16 +15,17 @@ const exampleJson = {
   "title": "Classic Bread",
   "tags": ["baking", "bread"],
   "steps": [
-    "Mix ingredients.",
-    "Knead dough.",
-    "Let rise.",
-    "Bake at 200°C for 30 minutes."
+    "1. Mix ingredients.",
+    "2. Knead dough.",
+    "3. Let rise.",
+    "4. Bake at 200°C for 30 minutes."
   ],
   "ingredients": [
-    { "ingredient": "Flour", "quantity": 15.00, "units": "grams" },
-    { "ingredient": "Yeast", "quantity": 5.00, "units": "grams" }
+    { "ingredient": "Flour", "quantity": 15.00, "units": "grams", "id": "1" },
+    { "ingredient": "Yeast", "quantity": 5.00, "units": "grams", "id": "2" }
   ]
 }
+// check if the ingredient id it returns is correct!!
 
 const recipeSystemPrompt = `Provide Valid JSON format response. Create a recipe based on user's prompt.
 It should include the title of the recipe, ingredients that it needs,
