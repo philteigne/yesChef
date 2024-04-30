@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { applicationContext } from '../hooks/applicationContext';
-import { TextField, Button, Box, Stack, Typography } from '@mui/material';
+import { TextField, Button, Box, Stack, Typography, Checkbox, FormControlLabel } from '@mui/material';
 
 const Parameters = () => {
 
@@ -9,6 +9,7 @@ const Parameters = () => {
   const [recipeTags, setRecipeTags] = useState('')
   const [recipeFocus, setRecipeFocus] = useState('')
   const [recipeAvoid, setRecipeAvoid] = useState('')
+  const [recipeLimit, setRecipeLimit] = useState(true)
 
   const handleSubmit = () => {
     const recipeRequest = {
@@ -16,6 +17,7 @@ const Parameters = () => {
       recipeTags: recipeTags,
       recipeFocus: recipeFocus,
       recipeAvoid: recipeAvoid,
+      recipeLimit: recipeLimit
     }
 
     // Dispatch action to add ingredient
@@ -30,20 +32,20 @@ const Parameters = () => {
   return(
     <Stack
       direction="column"
-      width="0.5"
+      width="0.43"
     >
-      <Box sx={{ overflow: 'hidden' }}>  
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', direction: 'row'}}>
+      <Box>  
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', direction: 'row', marginBottom: 0.5 }}>
           <Typography variant="h1" component="h1" color="primary">&#8226; recipe generation</Typography>
         </Box>
         <Box sx={{ flexGrow: 1, maxWidth: 1}}>
           <Stack
             direction="column"
-            spacing={1}
           >
             <Typography
               variant="h2"
               component="h2"
+              sx={{ marginTop: 1.5, marginBottom: 0.5 }}
             >
               What should we cook tonight?
             </Typography>
@@ -56,6 +58,7 @@ const Parameters = () => {
             <Typography
               variant="h2"
               component="h2"
+              sx={{ marginTop: 3, marginBottom: 0.5 }}
             >
               Which ingredients should we use?
             </Typography>
@@ -67,6 +70,7 @@ const Parameters = () => {
             <Typography
               variant="h2"
               component="h2"
+              sx={{ marginTop: 3, marginBottom: 0.5 }}
             >
               Which ingredients should we avoid?
             </Typography>
@@ -74,6 +78,11 @@ const Parameters = () => {
               variant="outlined"
               value={recipeAvoid}
               onChange={(e) => setRecipeAvoid(e.target.value)}
+            />
+            <FormControlLabel
+              sx={{ marginTop: 3, alignItems: 'center' }}
+              label=<Typography variant="h2" component="h2" sx={{ marginTop: 1 }}>Only include pantry ingredients</Typography>
+              control={<Checkbox checked={recipeLimit} onChange={(e) => setRecipeLimit(recipeLimit ? false : true)} />}
             />
           </Stack>
         </Box>
@@ -83,7 +92,7 @@ const Parameters = () => {
           type="submit"
           onClick={handleSubmit}
           variant="contained"
-          sx={{width: 0.5}}
+          sx={{ width: 0.5, marginTop: 5.6 }}
         >
           submit
         </Button>

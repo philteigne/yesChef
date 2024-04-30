@@ -8,6 +8,7 @@ import { applicationContext } from './hooks/applicationContext';
 import useApplicationData from './hooks/customHook';
 import Parameters from './Components/Parameters';
 import { Stack, Box } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline'
 
 
 import { createTheme, ThemeProvider} from '@mui/material/styles'
@@ -65,7 +66,7 @@ const theme = createTheme({
     MuiTypography: {
       styleOverrides: {
         root: {
-          color: "#4A4A45"
+          color: "#4A4A45",
         }
       }
     },
@@ -83,7 +84,16 @@ const theme = createTheme({
           fontWeight: 600,
           fontSize: 22,
           paddingTop: 4,
-          paddingBottom: 4
+          paddingBottom: 4,
+          elevation: 0
+        }
+      }
+    },
+    MuiFormControlLabel: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'El Messiri',
+          fontSize: 22,
         }
       }
     }
@@ -132,19 +142,24 @@ function App() {
     // wrapping context
     // value contains all the functions from useApplicationData that alter states
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <applicationContext.Provider value={{state, dispatch}}>
         <Box sx={{ backgroundColor: '#EAE7DC',}}>
           <ButtonAppBar />
           <Stack
             direction="row"
+            justifyContent='center'
+            spacing={12}
           >
             <Pantry  />
             <Parameters />
           </Stack>
+          {/*
           <div className="App">
             <RecipeListView />
             <RecipeFullView />
           </div>
+  */}
         </Box>
         </applicationContext.Provider>
     </ThemeProvider>

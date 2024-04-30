@@ -35,34 +35,33 @@ const AddIngredient = () => {
           direction="row"
           justifyContent="space-between"
         >
-          <Stack
-            direction="row"
-            spacing={1}
-          >
-            <TextField
-              variant="outlined"
-              label="Ingredient"
-              value={ingredientName}
-              onChange={(e) => setIngredientName(e.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              label="Category"
-              value={ingredientCategory}
-              onChange={(e) => setIngredientCategory(e.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              label="Best Before"
-              value={ingredientExpiry}
-              onChange={(e) => setIngredientExpiry(e.target.value)}
-            />
-          </Stack>
+          <TextField
+            variant="outlined"
+            label="Ingredient"
+            value={ingredientName}
+            sx={{ width: 0.32 }}
+            onChange={(e) => setIngredientName(e.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            label="Category"
+            value={ingredientCategory}
+            sx={{ width: 0.32 }}
+            onChange={(e) => setIngredientCategory(e.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            label="Best Before"
+            value={ingredientExpiry}
+            sx={{ width: 0.32 }}
+            onChange={(e) => setIngredientExpiry(e.target.value)}
+          />
         </Stack>
       </Box>
       <Box
         display='flex'
         justifyContent='flex-end'
+        sx={{ marginTop: 2 }}
       >
         <Button
           type="submit"

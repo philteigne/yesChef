@@ -10,12 +10,12 @@ const IngredientListItem = ({ingredient}) => {
   return (
     <Box sx={{
       flexGrow: 1,
-      width: 0.45,
-      maxWidth: 0.45,
+      width: 0.48,
+      maxWidth: 0.48,
       border: '2px solid #4A4A45',
-      borderRadius: '4px',
+      borderRadius: '10px',
       overflow: 'hidden',
-      m: 1
+      m: 0.6
     }}>
       <ListItem
         variant="contained"
