@@ -15,6 +15,7 @@ import useApplicationData from './hooks/customHook';
 import Parameters from './Components/Parameters';
 import { Stack } from '@mui/material'; 
 import HomePage from './Components/HomePage.jsx';
+import RecipeResponseView from './Components/RecipeResponseView.jsx';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -34,6 +35,7 @@ function App() {
                 <Stack direction="row">
                   <Pantry  />
                   <Parameters />
+                  <RecipeResponseView />
                 </Stack>
               </Router>
               <Router path="/view-recipe">
