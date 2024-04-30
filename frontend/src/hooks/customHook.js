@@ -90,7 +90,6 @@ export function reducer(state, action) {
         requestRecipe: action.payload
       }
 
-
     case ACTIONS.SET_RECIPE_RESPONSE:
         return {
           ...state,
@@ -152,11 +151,21 @@ const useApplicationData = () => {
         },
         body:JSON.stringify(state.requestRecipe)
       })
-      .then((data) => dispatch({ type: ACTIONS.SET_RECIPE_RESPONSE, payload: JSON.parse(data) }))
-      .then(() => console.log("Recently returned recipe from AI: ", state.recipeResponse))
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json(); // Parse JSON data once
+      })
+      .then(data => {
+        // Store JSON in jsonData and make it into an object
+        const aiRecipeObj = JSON.parse(data);
+        // Use aiRecipeObj as needed
+        dispatch({ type: ACTIONS.SET_RECIPE_RESPONSE, payload: aiRecipeObj });
+      })
       .then(() => dispatch({ type: ACTIONS.REQUEST_RECIPE, payload: null })) // reset request state
     }
-  }, [state.requestRecipe])
+  }, [state.recipeResponse, state.requestRecipe])
 
   const fetchRecipes = useCallback((userId) => {
     dispatch({type: ACTIONS.IS_LOADING, payload: true})
