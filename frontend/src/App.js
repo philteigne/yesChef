@@ -146,6 +146,7 @@ function App() {
       <applicationContext.Provider value={{state, dispatch}}>
         <Box sx={{ backgroundColor: '#EAE7DC',}}>
           <ButtonAppBar />
+          {/*
           <Stack
             direction="row"
             justifyContent='center'
@@ -154,12 +155,15 @@ function App() {
             <Pantry  />
             <Parameters />
           </Stack>
-          {/*
-          <div className="App">
+  */}
+          <Stack
+            direction="row"
+            justifyContent='center'
+            spacing={12}
+          >
             <RecipeListView />
             <RecipeFullView />
-          </div>
-  */}
+          </Stack>
         </Box>
         </applicationContext.Provider>
     </ThemeProvider>

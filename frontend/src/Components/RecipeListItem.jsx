@@ -3,16 +3,15 @@ import { applicationContext } from '../hooks/applicationContext';
 import { ListItem, Typography, IconButton, Box } from '@mui/material'
 import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutlineRounded';
 
-const IngredientListItem = ({ingredient}) => {
+const RecipeListItem = ({recipe}) => {
 
   const { dispatch } = useContext(applicationContext);
 
   return (
     <Box sx={{
       flexGrow: 1,
-      width: 0.48,
-      maxWidth: 0.48,
-      height: 43,
+      width: 0.90,
+      maxWidth: 0.90,
       maxHeight: 43,
       border: '2px solid #4A4A45',
       borderRadius: '10px',
@@ -25,7 +24,7 @@ const IngredientListItem = ({ingredient}) => {
           <IconButton
             edge="end"
             aria-label="delete"
-            onClick={() => dispatch({type: "DELETE_INGREDIENTS_USER", payload: ingredient.id})}
+            onClick={() => dispatch({type: 'SET_ACTIVE_RECIPE', payload: recipe.id})}
           >
             <RemoveCircleOutlineRoundedIcon color="secondary" />
           </IconButton>
@@ -35,11 +34,11 @@ const IngredientListItem = ({ingredient}) => {
           variant="h2"
           component="h2"
         >
-          {ingredient.name}
+          {recipe.title}
         </Typography>
       </ListItem>
     </Box>
   )
 }
 
-export default IngredientListItem;
+export default RecipeListItem;
