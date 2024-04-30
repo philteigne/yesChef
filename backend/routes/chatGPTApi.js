@@ -68,8 +68,8 @@ router.post('/', async (req, res) => {
     const aiResponse = (response.data.choices[0].message.content);
 
     // Send AI response back to client
-    console.log(aiResponse);
-    res.json(aiResponse);
+    // console.log(aiResponse);
+    res.status(200).json(aiResponse);
   } catch (error) {
     console.error('An error occurred:', error.message);
     res.status(500).json({ error: 'An error occurred' });

@@ -204,7 +204,7 @@ const useApplicationData = () => {
     }, [fetchRecipes, state.userId]);
     
     useEffect(() => {
-      console.log("Active recipe updated to:", state.activeRecipe);
+      // console.log("Active recipe updated to:", state.activeRecipe);
       fetchIngredients(state.activeRecipe);
     }, [fetchIngredients, state.activeRecipe])
 

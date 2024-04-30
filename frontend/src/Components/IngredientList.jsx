@@ -6,7 +6,6 @@ import { applicationContext } from '../hooks/applicationContext';
 const IngredientList = () => {
 
   const { state } = useContext(applicationContext)
-  console.log("state", state)
 
   return(
     <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
