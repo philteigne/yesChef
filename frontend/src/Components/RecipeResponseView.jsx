@@ -5,11 +5,23 @@ import {
   Paper,
   Button,
 } from "@mui/material";
-
 import { applicationContext } from "../hooks/applicationContext";
 
 function RecipeResponseView() {
-  const { state } = useContext(applicationContext);
+  const { state, dispatch } = useContext(applicationContext);
+
+  const handleSubmit = () => {
+    if (!state.recipeResponse) {
+      console.error("No recipe data to save.");
+      return;
+    }
+  
+    // Dispatch an action that includes the recipe data to be saved
+    dispatch({
+      type: "SAVE_RECIPE",
+      payload: { userId: state.userId, recipe: state.recipeResponse }
+    });
+  };
 
   if (!state.recipeResponse) return null;
 
@@ -20,14 +32,12 @@ function RecipeResponseView() {
           {state.recipeResponse.title} - {state.recipeResponse.tags.join(', ')}
         </Typography>
         <Box>
-          <Button variant="contained" color="primary" sx={{ marginRight: '10px' }}>
-            Button 1
-          </Button>
-          <Button variant="contained" color="secondary" sx={{ marginRight: '10px' }}>
-            Button 2
-          </Button>
-          <Button variant="contained" color="error">
-            Button 3
+          <Button
+            type="submit"
+            onClick={handleSubmit}
+            variant="contained"
+          >
+            Save Recipe
           </Button>
         </Box>
       </Box>
