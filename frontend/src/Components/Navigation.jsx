@@ -1,10 +1,13 @@
+import React, {useContext} from 'react';
 import { AppBar, Toolbar, Typography, Box, Icon } from '@mui/material';
-import YesChefLogo from '../assets/images/YesChefLogo.svg'
+import YesChefLogo from '../icons/yesChefLogo';
+import { applicationContext } from '../hooks/applicationContext';
 
-import '../navagation.css';
 
 export default function ButtonAppBar() {
   const pages = ['HOME', 'RECIPES', 'LOGIN', 'SIGNUP']
+
+  const { state } = useContext(applicationContext);
 
   return (
     <AppBar >
@@ -23,7 +26,7 @@ export default function ButtonAppBar() {
           ))}
         </Box>
         <Icon sx={{ height: 135, width: 212}}>
-          <img src={YesChefLogo} />
+          <YesChefLogo fillColor={state.themeColors.textColor}/>
         </Icon>
         <Box sx={{ display: 'flex', justifyContent: "flex-end", justifySelf: 'flex-end', m: 0.4 }} >
           {pages.map((page) => (

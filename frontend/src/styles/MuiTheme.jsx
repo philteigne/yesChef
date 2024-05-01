@@ -41,7 +41,7 @@ const customColorScheme = (themeColors) => {
       },
       body1: {
         fontFamily: "El Messiri",
-        fontFamily: 18,
+        fontSize: 18,
         fontWeight: 600,
       },
       button: {
@@ -59,14 +59,14 @@ const customColorScheme = (themeColors) => {
       MuiTypography: {
         styleOverrides: {
           root: {
-            color: "#4A4A45",
+            color: themeColors.textColor,
           }
         }
       },
       MuiSvgIcon: {
         styleOverrides: {
           root: {
-            fill: "#4A4A45"
+            fill: themeColors.textColor
           }
         }
       },

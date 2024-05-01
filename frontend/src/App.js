@@ -15,13 +15,6 @@ import { ThemeProvider} from '@mui/material/styles'
 import customColorScheme from './styles/MuiTheme';
 import './assets/fonts/fonts.css';
 
-const themeColors = {
-  bgColor: '#EAE7DC',
-  textColor: '#4A4A45',
-  accentColor: '#E85A4F'
-}
-
-const theme = customColorScheme(themeColors)
 
 function App() {
   
@@ -30,10 +23,10 @@ function App() {
   return (
     // wrapping context
     // value contains all the functions from useApplicationData that alter states
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={customColorScheme(state.themeColors)}>
       <CssBaseline />
       <applicationContext.Provider value={{state, dispatch}}>
-        <Box sx={{ backgroundColor: '#EAE7DC',}}>
+        <Box sx={{ backgroundColor: state.themeColors.bgColor }}>
           <ButtonAppBar />
           <Stack
             direction="row"

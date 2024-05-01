@@ -1,17 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { applicationContext } from '../hooks/applicationContext';
 import IngredientList from './IngredientList';
 import AddIngredient from './AddIngredient';
 
 import { Box, Typography, IconButton, Avatar } from '@mui/material';
 import FolderRoundedIcon from '@mui/icons-material/FolderRounded';
 
-const themeColors = {
-  bgColor: '#EAE7DC',
-  textColor: '#4A4A45',
-  accentColor: '#E85A4F'
-}
-
 const Pantry = () => {
+
+  const { state } = useContext(applicationContext);
   
   return (
     <Box sx={{ width: 0.43 }}>
@@ -21,8 +18,8 @@ const Pantry = () => {
 
         {/* Categories button toggle between categories and all views */}
         <IconButton>
-          <Avatar sx={{ bgcolor: themeColors.accentColor }}>
-            <FolderRoundedIcon fontSize="20" sx={{ fill: themeColors.bgColor}}/>
+          <Avatar sx={{ bgcolor: state.themeColors.accentColor }}>
+            <FolderRoundedIcon fontSize="20" sx={{ fill: state.themeColors.bgColor}}/>
           </Avatar>
         </IconButton>
       </Box>

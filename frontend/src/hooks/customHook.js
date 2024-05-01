@@ -17,6 +17,16 @@ export const INITIAL_STATE = {
   error: null,
   // Parameters Components
   recipeRequest: null,
+  // themeColors: {
+  //   bgColor: '#EAE7DC',
+  //   textColor: '#4A4A45',
+  //   accentColor: '#E85A4F'
+  // }
+  themeColors: {
+    bgColor: '#A8D0E6',
+    textColor: '#FFFFFF',
+    accentColor: '#F8E9A1'
+  }
 }
 
 
