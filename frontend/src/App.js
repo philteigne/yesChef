@@ -41,7 +41,7 @@ function App() {
                     <Pantry  />
                     {/* Add conditional rendering here */}
                     {!state.recipeResponse && < Parameters />}
-                    <RecipeResponseView />
+                    {state.recipeResponse && < RecipeResponseView /> }
                   </Stack>
                 </Router>
                 <Router path="/view-recipe">

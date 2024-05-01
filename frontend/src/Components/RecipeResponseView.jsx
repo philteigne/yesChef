@@ -29,10 +29,14 @@ function RecipeResponseView() {
 
   }
 
-  if (!state.recipeResponse) return null;
-
   return (
-    <Box sx={{ margin: 2, border: '1px solid #ccc', borderRadius: '4px', overflow: 'hidden' }}>
+    <Box sx={{ 
+      margin: 2, 
+      border: '1px solid #ccc', 
+      borderRadius: '4px', 
+      overflow: 'hidden',
+      maxWidth: '45%'
+      }}>
       <Box sx={{ padding: 2, backgroundColor: '#f5f5f5', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography variant="h4" component="h2">
           {state.recipeResponse.title} - {state.recipeResponse.tags.join(', ')}
