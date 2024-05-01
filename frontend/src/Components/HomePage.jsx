@@ -1,9 +1,10 @@
 import React from "react";
+import { useHistory } from 'react-router-dom';
+
+import mainImage from '../assets/images/Designer.jpeg'
+import '../HomePage.css'
 
 import Button from '@mui/material/Button';
-import mainImage from '../assests/images/Designer.jpeg'
-import '../HomePage.css'
-import { useHistory } from 'react-router-dom';
 
 const HomePage = () => {
 

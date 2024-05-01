@@ -1,4 +1,5 @@
 import React, {useContext, useState} from 'react';
+
 import { applicationContext } from '../hooks/applicationContext';
 
 import { TextField, Button, Box, Stack } from '@mui/material';
@@ -29,44 +30,45 @@ const AddIngredient = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, maxWidth: 1, p: 3 }}>
+    <Stack>
+      <Box sx={{ flexGrow: 1, maxWidth: 1 }}>
         <Stack
           direction="row"
           justifyContent="space-between"
         >
-          <Stack
-            direction="row"
-            spacing={1}
-          >
-            <TextField
-              variant="outlined"
-              label="Ingredient"
-              value={ingredientName}
-              onChange={(e) => setIngredientName(e.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              label="Category"
-              value={ingredientCategory}
-              onChange={(e) => setIngredientCategory(e.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              label="Best Before"
-              value={ingredientExpiry}
-              onChange={(e) => setIngredientExpiry(e.target.value)}
-            />
-          </Stack>
-          <Button
-            type="submit"
-            onClick={handleSubmit}
-            variant="contained"
-          >
-            Submit
-          </Button>
-
+          <TextField
+            label="Ingredient"
+            value={ingredientName}
+            sx={{ width: 0.32 }}
+            onChange={(e) => setIngredientName(e.target.value)}
+          />
+          <TextField
+            label="Category"
+            value={ingredientCategory}
+            sx={{ width: 0.32 }}
+            onChange={(e) => setIngredientCategory(e.target.value)}
+          />
+          <TextField
+            label="Best Before"
+            value={ingredientExpiry}
+            sx={{ width: 0.32 }}
+            onChange={(e) => setIngredientExpiry(e.target.value)}
+          />
         </Stack>
-    </Box>
+      </Box>
+      <Box
+        display='flex'
+        justifyContent='flex-end'
+        sx={{ marginTop: 2 }}
+      >
+        <Button
+          type="submit"
+          onClick={handleSubmit}
+        >
+          submit
+        </Button>
+      </Box>
+    </Stack>
   )
 }
 

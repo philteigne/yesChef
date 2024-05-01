@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
+
 import IngredientListItem from './IngredientListItem';
-import { List, Box } from '@mui/material';
 import { applicationContext } from '../hooks/applicationContext';
+
+import { Box } from '@mui/material';
 
 const IngredientList = () => {
 
@@ -9,14 +11,16 @@ const IngredientList = () => {
   console.log("state", state)
 
   return(
-    <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
-      <List>
+    <Box sx={{ display: 'flex', flexWrap:'wrap', height: '300px', overflow: "auto" }}>
         {state.ingredientList.map((ingredient) => {
           return(
-            <IngredientListItem ingredient={ingredient} key={ingredient.id}/>
+            <IngredientListItem
+              ingredient={ingredient}
+              key={ingredient.id}
+              sx={{ width: '100%' }}
+            />
           )
         })}
-      </List>
     </Box>
   )
 }

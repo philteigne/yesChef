@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
+
 import { applicationContext } from '../hooks/applicationContext';
-import { TextField, Button, Box, Stack, Typography } from '@mui/material';
+
+import { TextField, Button, Box, Stack, Typography, Checkbox, FormControlLabel } from '@mui/material';
 
 const Parameters = () => {
 
@@ -9,6 +11,7 @@ const Parameters = () => {
   const [recipeTags, setRecipeTags] = useState('')
   const [recipeFocus, setRecipeFocus] = useState('')
   const [recipeAvoid, setRecipeAvoid] = useState('')
+  const [recipeLimit, setRecipeLimit] = useState(true)
 
   const handleSubmit = () => {
     const recipeRequest = {
@@ -16,6 +19,7 @@ const Parameters = () => {
       recipeTags: recipeTags,
       recipeFocus: recipeFocus,
       recipeAvoid: recipeAvoid,
+      recipeLimit: recipeLimit
     }
 
     // Dispatch action to add ingredient
@@ -28,50 +32,70 @@ const Parameters = () => {
   }
 
   return(
-    <Stack
-      direction="column"
-      justifyContent="center"
-      width="0.5"
-    >
-      <Box sx={{ marginBottom: 2, border: '1px solid #ccc', borderRadius: '4px', overflow: 'hidden' }}>
-        
-        <Box sx={{ padding: 2, backgroundColor: '#f5f5f5', display: 'flex', justifyContent: 'space-between', alignItems: 'center', direction: 'row'}}>
-          <Typography variant="h4" component="h2">Parameters</Typography>
-        </Box>
-        <Box sx={{ flexGrow: 1, maxWidth: 1, p: 3 }}>
-          <Stack
-            direction="column"
-            spacing={1}
-          >
-            <TextField
-              variant="outlined"
-              label="Recipe Tags"
-              value={recipeTags}
-              onChange={(e) => setRecipeTags(e.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              label="Showcase Ingredients"
-              value={recipeFocus}
-              onChange={(e) => setRecipeFocus(e.target.value)}
-            />
-            <TextField
-              variant="outlined"
-              label="Avoid Ingredients"
-              value={recipeAvoid}
-              onChange={(e) => setRecipeAvoid(e.target.value)}
-            />
-          </Stack>
-        </Box>
+    <Stack direction="column" width="0.43">
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', direction: 'row', marginBottom: 0.5 }}>
+        <Typography
+          variant="h1"
+          component="h1"
+          color="primary"
+        >
+          &#8226; recipe generation
+        </Typography>
       </Box>
-
-      <Button
-        type="submit"
-        onClick={handleSubmit}
-        variant="contained"
+      <Box sx={{ flexGrow: 1, maxWidth: 1}}>
+        <Stack direction="column">
+          <Typography
+            variant="h2"
+            component="h2"
+            sx={{ marginTop: 1.5, marginBottom: 0.5 }}
+          >
+            What should we cook tonight?
+          </Typography>
+          <TextField
+            color="primary"
+            value={recipeTags}
+            onChange={(e) => setRecipeTags(e.target.value)}
+          />
+          <Typography
+            variant="h2"
+            component="h2"
+            sx={{ marginTop: 3, marginBottom: 0.5 }}
+          >
+            Which ingredients should we use?
+          </Typography>
+          <TextField
+            value={recipeFocus}
+            onChange={(e) => setRecipeFocus(e.target.value)}
+          />
+          <Typography
+            variant="h2"
+            component="h2"
+            sx={{ marginTop: 3, marginBottom: 0.5 }}
+          >
+            Which ingredients should we avoid?
+          </Typography>
+          <TextField
+            value={recipeAvoid}
+            onChange={(e) => setRecipeAvoid(e.target.value)}
+          />
+          <FormControlLabel
+            label=<Typography variant="h2" component="h2" sx={{ marginTop: 1 }}>Only include pantry ingredients</Typography>
+            control={<Checkbox checked={recipeLimit} onChange={(e) => setRecipeLimit(recipeLimit ? false : true)} />}
+          />
+        </Stack>
+      </Box>
+      <Box
+        display="flex"
+        justifyContent='center'
+        sx={{ marginTop: 5.6 }}
       >
-        Submit
-      </Button>
+        <Button
+          type="submit"
+          onClick={handleSubmit}
+        >
+          submit
+        </Button>
+      </Box>
     </Stack>
 
 

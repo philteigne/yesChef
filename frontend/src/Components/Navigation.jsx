@@ -1,9 +1,11 @@
-import { AppBar, Toolbar, Typography, Button, Grid } from '@mui/material';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
-import HomeIcon from '../HomeIcon';
+import React, {useContext} from 'react';
 import { useHistory } from 'react-router-dom';
 
-import '../navagation.css';
+import YesChefLogo from '../icons/yesChefLogo';
+import { applicationContext } from '../hooks/applicationContext';
+
+import { AppBar, Toolbar, Typography, Box, Icon } from '@mui/material';
+
 
 export default function ButtonAppBar() {
   // mode from useThemeContext "light", "dark"
@@ -14,57 +16,81 @@ export default function ButtonAppBar() {
     history.push('/');
   }
 
+  const viewRecipeClick = () => {
+    // Navigate to a different route
+    history.push('/view-recipe')
+  }
+
   const createRecipeClick = () => {
     // Navigate to a different route
     history.push('/create-recipe');
   }
   
-  const pages = [<HomeIcon fontSize="large" onClick={homeIconClick}/>, <p onClick={createRecipeClick}>Create Recipes</p>,<DarkModeIcon />, 'Login']
+  const pages = [
+    {
+      id: 0,
+      text: 'HOME',
+      action: homeIconClick,
+    },
+    {
+      id: 1,
+      text: 'PANTRY',
+      action: createRecipeClick,
+    },
+    {
+      id: 2,
+      text: 'RECIPES',
+      action: viewRecipeClick,
+    },
+    {
+      id: 3,
+      text: 'LOGIN',
+      action: () => console.log("Login Clicked")
+    },
+    {
+      id: 4,
+      text: 'SIGNUP',
+      action: () => console.log("Signup Clicked")
+    },
+  ]
+    
+  // const pages = ['HOME', 'RECIPES', 'LOGIN', 'SIGNUP']
 
+  const { state } = useContext(applicationContext);
   return (
-    <AppBar position="static">
+    <AppBar >
       <Toolbar>
-        {/* Left side content */}
-        <Grid container alignItems="center" spacing={2}>
-          <Grid item>
-          <Typography
-            onClick={homeIconClick}
-            id="app-logo"
-            variant="h4"
-            noWrap
-            component="a"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            PantryPal
-          </Typography>
-          </Grid>
-        </Grid>
-        {/* Right side content */}
-        <Grid container alignItems="center" spacing={2} justifyContent="flex-end">
+        <Box sx={{ visibility: 'hidden', display: 'flex', justifyContent: "flex-end", justifySelf: 'flex-end', m: 0.4 }} >
           {pages.map((page) => (
-            <Grid item>
-              <Button
-                key={page}
-                sx={{ 
-                  my: 2, 
-                  color: 'white', 
-                  display: 'block',
-                  fontSize: '22px'
-                 }}
+            <Box sx={{ marginRight: 3 }}>
+              <Typography
+                variant="h3"
+                component="h3"
+                key={page.id}
+                onClick={page.action}
               >
-                {page}
-              </Button>
-            </Grid>
+                {page.text}
+              </Typography>
+            </Box>
           ))}
-        </Grid>
+        </Box>
+        <Icon sx={{ height: 135, width: 212}}>
+          <YesChefLogo fillColor={state.themeColors.accentColor}/>
+        </Icon>
+        <Box sx={{ display: 'flex', justifyContent: "flex-end", justifySelf: 'flex-end', m: 0.4 }} >
+          {pages.map((page) => (
+            <Box sx={{ marginRight: 3 }}>
+              <Typography
+                variant="h3"
+                component="h3"
+                key={page.id}
+                onClick={page.action}
+              >
+                {page.text}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
       </Toolbar>
     </AppBar>
   );

@@ -1,11 +1,5 @@
-import './App.css';
 import React from 'react';
 import Pantry from './Components/Pantry';
-
-// import '@fontsource/roboto/300.css';
-// import '@fontsource/roboto/400.css';
-// import '@fontsource/roboto/500.css';
-// import '@fontsource/roboto/700.css';
 
 import RecipeListView from './Components/RecipeListView';
 import RecipeFullView from './Components/RecipeFullView';
@@ -17,6 +11,13 @@ import { Stack } from '@mui/material';
 import HomePage from './Components/HomePage.jsx';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import CssBaseline from '@mui/material/CssBaseline'
+
+
+import { ThemeProvider} from '@mui/material/styles'
+import customColorScheme from './styles/MuiTheme';
+import './assets/fonts/fonts.css';
+
 
 function App() {
   const { state, dispatch } = useApplicationData();
@@ -25,26 +26,40 @@ function App() {
     // wrapping context
     // value contains all the functions from useApplicationData that alter states
     <Router>
-      <applicationContext.Provider value={{state, dispatch}}>
-        <div>
-          <ButtonAppBar />
-            <Switch>
-              <Route path='/' exact component={HomePage}/>
-              <Router path="/create-recipe">
-                <Stack direction="row">
-                  <Pantry  />
-                  <Parameters />
+      <ThemeProvider theme={customColorScheme(state.themeColors)}>
+        <CssBaseline />
+        <applicationContext.Provider value={{state, dispatch}}>
+          <div>
+            <ButtonAppBar />
+              <Switch>
+                <Route path='/' exact component={HomePage}/>
+                <Router path="/create-recipe">
+                  <Stack
+                    direction="row"
+                    justifyContent='center'
+                    spacing={12}
+                  >
+                    <Pantry  />
+                    <Parameters />
+                  </Stack>
+                </Router>
+                <Router path="/view-recipe">
+                <Stack
+                  direction="row"
+                  justifyContent='center'
+                  spacing={12}
+                >
+                  <RecipeListView />
+                  <RecipeFullView />
                 </Stack>
-              </Router>
-              <Router path="/view-recipe">
-                <RecipeListView />
-                <RecipeFullView />
-              </Router>
-            </Switch>
-        </div>
-      </applicationContext.Provider>
+                </Router>
+              </Switch>
+          </div>
+        </applicationContext.Provider>
+      </ThemeProvider>
     </Router>
   );
 }
 
 export default App;
+
