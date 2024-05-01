@@ -40,7 +40,8 @@ export const ACTIONS = {
   ERROR: "ERROR",
   DARK_MODE: "DARK_MODE",
   SET_RECIPE_RESPONSE: "SET_RECIPE_RESPONSE",
-  SAVE_RECIPE: "SAVE_RECIPE"
+  SAVE_RECIPE: "SAVE_RECIPE",
+  CLEAR_RECIPE_RESPONSE: "CLEAR_RECIPE_RESPONSE"
 }
 
 export function reducer(state, action) {
@@ -103,6 +104,11 @@ export function reducer(state, action) {
         recipeResponse: action.payload
       }
 
+    case ACTIONS.CLEAR_RECIPE_RESPONSE:
+      return {
+        ...state,
+        recipeResponse: null
+      }
 
       case ACTIONS.SAVE_RECIPE:
         return {

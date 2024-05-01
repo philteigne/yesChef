@@ -23,6 +23,12 @@ function RecipeResponseView() {
     });
   };
 
+  const handleClear = () => {
+    // use dispatch to clear the recipeResponse state back to null on click
+    dispatch({type: "CLEAR_RECIPE_RESPONSE"});
+
+  }
+
   if (!state.recipeResponse) return null;
 
   return (
@@ -38,6 +44,13 @@ function RecipeResponseView() {
             variant="contained"
           >
             Save Recipe
+          </Button>
+          <Button
+            type="submit"
+            onClick={handleClear}
+            variant="contained"
+          >
+            Clear Recipe
           </Button>
         </Box>
       </Box>
