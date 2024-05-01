@@ -82,7 +82,7 @@ const customColorScheme = (themeColors) => {
             paddingTop: 4,
             paddingBottom: 4,
             elevation: 0,
-            width: 0.5,
+            width: '50%',
           }
         }
       },

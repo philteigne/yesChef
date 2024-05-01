@@ -60,7 +60,10 @@ const AddIngredient = () => {
         justifyContent='flex-end'
         sx={{ marginTop: 2 }}
       >
-        <Button type="submit" onClick={handleSubmit}>
+        <Button
+          type="submit"
+          onClick={handleSubmit}
+        >
           submit
         </Button>
       </Box>
