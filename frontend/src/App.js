@@ -9,6 +9,7 @@ import useApplicationData from './hooks/customHook';
 import Parameters from './Components/Parameters';
 import { Stack } from '@mui/material'; 
 import HomePage from './Components/HomePage.jsx';
+import RecipeResponseView from './Components/RecipeResponseView.jsx';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline'
@@ -26,37 +27,25 @@ function App() {
     // wrapping context
     // value contains all the functions from useApplicationData that alter states
     <Router>
-      <ThemeProvider theme={customColorScheme(state.themeColors)}>
-        <CssBaseline />
-        <applicationContext.Provider value={{state, dispatch}}>
-          <div>
-            <ButtonAppBar />
-              <Switch>
-                <Route path='/' exact component={HomePage}/>
-                <Router path="/create-recipe">
-                  <Stack
-                    direction="row"
-                    justifyContent='center'
-                    spacing={12}
-                  >
-                    <Pantry  />
-                    <Parameters />
-                  </Stack>
-                </Router>
-                <Router path="/view-recipe">
-                <Stack
-                  direction="row"
-                  justifyContent='center'
-                  spacing={12}
-                >
-                  <RecipeListView />
-                  <RecipeFullView />
+      <applicationContext.Provider value={{state, dispatch}}>
+        <div>
+          <ButtonAppBar />
+            <Switch>
+              <Route path='/' exact component={HomePage}/>
+              <Router path="/create-recipe">
+                <Stack direction="row">
+                  <Pantry  />
+                  <Parameters />
                 </Stack>
-                </Router>
-              </Switch>
-          </div>
-        </applicationContext.Provider>
-      </ThemeProvider>
+              </Router>
+              <Router path="/view-recipe">
+                <RecipeListView />
+                <RecipeFullView />
+                <RecipeResponseView />
+              </Router>
+            </Switch>
+        </div>
+      </applicationContext.Provider>
     </Router>
   );
 }

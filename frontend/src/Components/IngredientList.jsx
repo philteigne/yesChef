@@ -8,7 +8,6 @@ import { Box } from '@mui/material';
 const IngredientList = () => {
 
   const { state } = useContext(applicationContext)
-  console.log("state", state)
 
   return(
     <Box sx={{ display: 'flex', flexWrap:'wrap', height: '300px', overflow: "auto" }}>

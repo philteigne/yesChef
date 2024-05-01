@@ -5,6 +5,7 @@ const OpenAIApi = require('openai')
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
+
 const openai = new OpenAIApi({
   apiKey: process.env.OPENAI_API_KEY
 });
@@ -14,28 +15,33 @@ const exampleJson = {
   "title": "Classic Bread",
   "tags": ["baking", "bread"],
   "steps": [
-    "Mix ingredients.",
-    "Knead dough.",
-    "Let rise.",
-    "Bake at 200°C for 30 minutes."
+    "1. Mix ingredients.",
+    "2. Knead dough.",
+    "3. Let rise.",
+    "4. Bake at 200°C for 30 minutes."
   ],
   "ingredients": [
-    { "ingredient": "Flour", "quantity": 15.00, "units": "grams" },
-    { "ingredient": "Yeast", "quantity": 5.00, "units": "grams" }
+    { "ingredient": "Flour", "quantity": 15.00, "units": "grams", "id": "1" },
+    { "ingredient": "Yeast", "quantity": 5.00, "units": "grams", "id": "2" }
   ]
 }
+// check if the ingredient id it returns is correct!!
 
 const recipeSystemPrompt = `Provide Valid JSON format response. Create a recipe based on user's prompt.
 It should include the title of the recipe, ingredients that it needs,
 tags that it fits into and the steps that are required to make it.
-The data schema should follow this example \`${JSON.stringify(exampleJson)}\``
+The data schema should follow this example \`${JSON.stringify(exampleJson)}\`
+ONLY use the ingredients provied by the user, DO NOT ADD ANY OTHERS`
 
 router.post('/', async (req, res) => {
-  const { recipeTags, recipeFocus, recipeAvoid } = req.body;
+  const { recipeTags, recipeFocus, recipeAvoid, allIngredients } = req.body;
+
+  console.log("Ingredient List", allIngredients)
 
   const userPrompt = `
-    Given the ingredients: ${recipeFocus}, your task is to craft a recipe that fits the provided tags: ${recipeTags}.
-    However, please avoid incorporating the following ingredients: ${recipeAvoid}.
+    Given ONLY these ingredients: ${JSON.stringify(allIngredients)}, your task is to craft a recipe that fits the provided tags: ${recipeTags}.
+    However, please try to use these ingredients: ${recipeFocus}, and avoid incorporating the following ingredients: ${recipeAvoid}.
+    DO NOT ADD INGREDIENTS THAT I DON'T HAVE.
   `;
 
   try {
@@ -49,7 +55,7 @@ router.post('/', async (req, res) => {
           { role: 'user', content: userPrompt }
         ],
         // Temperature controls how unexpected the output can be, 0 being most conservative
-        temperature: 0.7
+        temperature: 0
       },
       {
         headers: {
@@ -63,8 +69,8 @@ router.post('/', async (req, res) => {
     const aiResponse = (response.data.choices[0].message.content);
 
     // Send AI response back to client
-    console.log(aiResponse);
-    res.status(200).send(aiResponse);
+    // console.log(aiResponse);
+    res.status(200).json(aiResponse);
   } catch (error) {
     console.error('An error occurred:', error.message);
     res.status(500).json({ error: 'An error occurred' });

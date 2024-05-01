@@ -16,12 +16,15 @@ export const INITIAL_STATE = {
   isLoading: false,
   error: null,
   // Parameters Components
-  recipeRequest: null,
   themeColors: {
     bgColor: '#EAE7DC',
     textColor: '#4A4A45',
     accentColor: '#E85A4F'
-  }
+  },
+  recipeRequest: null,
+  // AI Response
+  recipeResponse: null,
+  saveRecipeData: null
 }
 
 
@@ -35,7 +38,9 @@ export const ACTIONS = {
   REQUEST_RECIPE: "REQUEST_RECIPE",
   IS_LOADING: "IS_LOADING",
   ERROR: "ERROR",
-  DARK_MODE: "DARK_MODE"
+  DARK_MODE: "DARK_MODE",
+  SET_RECIPE_RESPONSE: "SET_RECIPE_RESPONSE",
+  SAVE_RECIPE: "SAVE_RECIPE"
 }
 
 export function reducer(state, action) {
@@ -85,12 +90,40 @@ export function reducer(state, action) {
         ...state,
         error: action.payload
       }
-    
+
     case ACTIONS.REQUEST_RECIPE:
       return {
         ...state,
         requestRecipe: action.payload
       }
+
+    case ACTIONS.SET_RECIPE_RESPONSE:
+      return {
+        ...state,
+        recipeResponse: action.payload
+      }
+
+
+      case ACTIONS.SAVE_RECIPE:
+        return {
+          ...state,
+          saveRecipeData: action.payload,
+          isLoading: true,
+          error: null,
+        };
+      
+    case ACTIONS.SAVE_RECIPE_SUCCESS:
+      return {
+        ...state,
+        recipes: [...state.recipes, action.payload],
+        isLoading: false,
+      };
+    case ACTIONS.SAVE_RECIPE_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false,
+      };
 
     default:
       throw new Error(
@@ -106,8 +139,8 @@ const useApplicationData = () => {
   // fetch ingredients from backend
   useEffect(() => {
     fetch(`${API_CALL_URL}ingredients/${userId}`)
-    .then((res) => res.json())
-    .then((data) => dispatch({ type: ACTIONS.GET_INGREDIENTS_USER, payload: data }))
+      .then((res) => res.json())
+      .then((data) => dispatch({ type: ACTIONS.GET_INGREDIENTS_USER, payload: data }))
   }, [state.deleteIngredientState, state.addIngredientState]);
 
   // delete an ingredient from backend 
@@ -117,13 +150,13 @@ const useApplicationData = () => {
       fetch(`${API_CALL_URL}ingredients/${userId}/${ingredientId}`, {
         method: 'DELETE'
       })
-      .then(() => dispatch({ type: ACTIONS.DELETE_INGREDIENTS_USER, payload: null }))
+        .then(() => dispatch({ type: ACTIONS.DELETE_INGREDIENTS_USER, payload: null }))
     }
   }, [state.deleteIngredientState])
-  
+
   // add an ingredient to backend
   useEffect(() => {
-    if (state.addIngredientState){
+    if (state.addIngredientState) {
       const ingredient = state.addIngredientState;
       console.log("ingredient", ingredient)
       fetch(`${API_CALL_URL}ingredients/${userId}`, {
@@ -133,65 +166,109 @@ const useApplicationData = () => {
         },
         body: JSON.stringify(ingredient)
       })
-      .then(() => dispatch({ type: ACTIONS.ADD_INGREDIENTS_USER, payload: null }))
+        .then(() => dispatch({ type: ACTIONS.ADD_INGREDIENTS_USER, payload: null }))
     }
   }, [state.addIngredientState])
 
   // request recipe with parameters
   useEffect(() => {
     if (state.requestRecipe) {
-      fetch(`${API_CALL_URL}chat-gpt`,{  // UPDATE API CALL URL -- POST ROUTE
+      fetch(`${API_CALL_URL}chat-gpt`, {  // UPDATE API CALL URL -- POST ROUTE
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body:JSON.stringify(state.requestRecipe)
+        body: JSON.stringify(state.requestRecipe)
       })
-      .then((data) => console.log(data))
-      .then(() => dispatch({ type: ACTIONS.REQUEST_RECIPE, payload: null })) // reset request state
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json(); // Parse JSON data once
+        })
+        .then(data => {
+          // Store JSON in jsonData and make it into an object
+          const aiRecipeObj = JSON.parse(data);
+          // Use aiRecipeObj as needed
+          dispatch({ type: ACTIONS.SET_RECIPE_RESPONSE, payload: aiRecipeObj });
+        })
+        .then(() => dispatch({ type: ACTIONS.REQUEST_RECIPE, payload: null })) // reset request state
     }
-  }, [state.requestRecipe])
+  }, [state.recipeResponse, state.requestRecipe])
 
   const fetchRecipes = useCallback((userId) => {
-    dispatch({type: ACTIONS.IS_LOADING, payload: true})
-    dispatch({type: ACTIONS.ERROR, payload: null})
+    dispatch({ type: ACTIONS.IS_LOADING, payload: true })
+    dispatch({ type: ACTIONS.ERROR, payload: null })
     fetch(`/api/saved-recipes/user/${userId}`)
       .then(response => response.json())
       .then(data => {
-        dispatch({type: 'SET_RECIPES', payload: data})
-        dispatch({type: ACTIONS.IS_LOADING, payload: false});
+        dispatch({ type: 'SET_RECIPES', payload: data })
+        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
       })
       .catch(err => {
-        dispatch({type: ACTIONS.ERROR, payload: err.message})
-        dispatch({type: ACTIONS.IS_LOADING, payload: false});
+        dispatch({ type: ACTIONS.ERROR, payload: err.message })
+        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
       });
   }, []);
 
   const fetchIngredients = useCallback((recipeId) => {
     // this is causing the page to reload
-    dispatch({type: ACTIONS.IS_LOADING, payload: true});
-    dispatch({type: ACTIONS.ERROR, payload: null})
+    dispatch({ type: ACTIONS.IS_LOADING, payload: true });
+    dispatch({ type: ACTIONS.ERROR, payload: null })
     fetch(`/api/ingredients/recipe/${recipeId}`)
       .then(response => response.json())
       .then(data => {
-        dispatch({type: ACTIONS.SET_RECIPE_INGREDIENTS, payload: data});
-        dispatch({type: ACTIONS.IS_LOADING, payload: false});
+        dispatch({ type: ACTIONS.SET_RECIPE_INGREDIENTS, payload: data });
+        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
       })
       .catch(err => {
-        dispatch({type: ACTIONS.ERROR, payload: err.message});
-        dispatch({type: ACTIONS.IS_LOADING, payload: false});
+        dispatch({ type: ACTIONS.ERROR, payload: err.message });
+        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
       });
   }, []);
 
-    // fetch current view recipe from backend
-    useEffect(() => {
-      fetchRecipes(state.userId);
-    }, [fetchRecipes, state.userId]);
-    
-    useEffect(() => {
-      console.log("Active recipe updated to:", state.activeRecipe);
-      fetchIngredients(state.activeRecipe);
-    }, [fetchIngredients, state.activeRecipe])
+  const saveRecipe = useCallback((recipeData) => {
+    dispatch({ type: ACTIONS.IS_LOADING, payload: true });
+
+    fetch(`${API_CALL_URL}saved-recipes/recipe/${recipeData.userId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(recipeData.recipe)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to save the recipe');
+      }
+      return response.json();
+    })
+    .then(data => {
+      dispatch({ type: ACTIONS.SAVE_RECIPE_SUCCESS, payload: data });
+      dispatch({ type: ACTIONS.IS_LOADING, payload: false });
+    })
+    .catch(error => {
+      dispatch({ type: ACTIONS.SAVE_RECIPE_FAILURE, payload: error.message });
+      dispatch({ type: ACTIONS.IS_LOADING, payload: false });
+    });
+  }, []);
+
+  // fetch current view recipe from backend
+  useEffect(() => {
+    fetchRecipes(state.userId);
+  }, [fetchRecipes, state.userId]);
+
+  useEffect(() => {
+    // console.log("Active recipe updated to:", state.activeRecipe);
+    fetchIngredients(state.activeRecipe);
+  }, [fetchIngredients, state.activeRecipe])
+
+  useEffect(() => {
+    if (state.saveRecipeData) {
+      saveRecipe(state.saveRecipeData);
+    }
+  }, [state.saveRecipeData, saveRecipe]);
+  
 
   // calling useApplicationData function return these functions that changes states
   return {
