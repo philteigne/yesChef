@@ -7,6 +7,12 @@ const IngredientListItem = ({ingredient}) => {
 
   const { dispatch } = useContext(applicationContext);
 
+  const themeColors = {
+    bgColor: '#EAE7DC',
+    textColor: '#4A4A45',
+    accentColor: '#E85A4F'
+  }
+
   return (
     <Box sx={{
       flexGrow: 1,
@@ -14,13 +20,13 @@ const IngredientListItem = ({ingredient}) => {
       maxWidth: 0.48,
       height: 43,
       maxHeight: 43,
-      border: '2px solid #4A4A45',
+      border: '2px solid',
+      borderColor: themeColors.textColor,
       borderRadius: '10px',
       overflow: 'hidden',
       m: 0.6
     }}>
       <ListItem
-        variant="contained"
         secondaryAction={
           <IconButton
             edge="end"

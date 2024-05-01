@@ -5,6 +5,12 @@ import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutl
 
 const RecipeListItem = ({recipe}) => {
 
+  const themeColors = {
+    bgColor: '#EAE7DC',
+    textColor: '#4A4A45',
+    accentColor: '#E85A4F'
+  }
+
   const { dispatch } = useContext(applicationContext);
 
   return (
@@ -13,13 +19,13 @@ const RecipeListItem = ({recipe}) => {
       width: 0.90,
       maxWidth: 0.90,
       maxHeight: 43,
-      border: '2px solid #4A4A45',
+      border: '2px solid',
+      borderColor: themeColors.textColor,
       borderRadius: '10px',
       overflow: 'hidden',
       m: 0.6
     }}>
       <ListItem
-        variant="contained"
         secondaryAction={
           <IconButton
             edge="end"

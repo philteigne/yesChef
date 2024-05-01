@@ -15,6 +15,12 @@ import Error from "./Error";
 
 function RecipeFullView() {
 
+  const themeColors = {
+    bgColor: '#EAE7DC',
+    textColor: '#4A4A45',
+    accentColor: '#E85A4F'
+  }
+
   const { state, dispatch } = useContext(applicationContext);
   
   const { activeRecipe, recipes, recipeIngredients, isLoading, error } = state;
@@ -38,13 +44,13 @@ function RecipeFullView() {
         maxWidth: 1,
         height: 43,
         maxHeight: 43,
-        border: '2px solid #4A4A45',
+        border: '2px solid',
+        borderColor: themeColors.textColor,
         borderRadius: '10px',
         overflow: 'hidden',
         m: 0.6
       }}>
         <ListItem
-          variant="contained"
           sx={{alignItems: "center"}}
           secondaryAction={
             <IconButton

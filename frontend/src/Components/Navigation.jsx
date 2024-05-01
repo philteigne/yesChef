@@ -8,7 +8,7 @@ export default function ButtonAppBar() {
 
   return (
     <AppBar >
-      <Toolbar sx={{ marginTop: 5, height: 220, display: 'flex', alignItems: 'flex-start',  justifyContent: 'space-between' }}>
+      <Toolbar>
         <Box sx={{ visibility: 'hidden', display: 'flex', justifyContent: "flex-end", justifySelf: 'flex-end', m: 0.4 }} >
           {pages.map((page) => (
             <Box sx={{ marginRight: 3 }}>

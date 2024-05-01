@@ -11,142 +11,17 @@ import { Stack, Box } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline'
 
 
-import { createTheme, ThemeProvider} from '@mui/material/styles'
+import { ThemeProvider} from '@mui/material/styles'
+import customColorScheme from './styles/MuiTheme';
 import './assets/fonts/fonts.css';
 
-const theme = createTheme({
-  palette: {
-    common: {
-      black: '#4A4A45',
-      white: '#EAE7DC',
-    },
-    primary: {
-      main: '#E85A4F',
-      contrastText: "#EAE7DC"
-    },
-    secondary: {
-      main: '#4A4A45'
-    },
-    text: {
-      primary: '#4A4A45'
-    },
-    background: {
-      paper: '#EAE7DC',
-      default: '#EAE7DC',
-    },
-  },
-  typography: {
-    h1: {
-      fontFamily: "El Messiri",
-      fontSize: 27,
-      fontWeight: 700,
-    },
-    h2: {
-      fontFamily: "El Messiri",
-      fontSize: 22,
-      fontWeight: 600,
-    },
-    h3: {
-      fontFamily: 'Kanit',
-      fontSize: 15,
-      fontWeight: 600,
-    },
-    body1: {
-      fontFamily: "El Messiri",
-      fontFamily: 18,
-      fontWeight: 600,
-    },
-    button: {
-      textTransform: 'none'
-    }
-  },
-  components: {
-    MuiAppBar: {
-      defaultProps: {
-        color: "transparent",
-        elevation: 0,
-        position: "static"
-      }
-    },
-    MuiTypography: {
-      styleOverrides: {
-        root: {
-          color: "#4A4A45",
-        }
-      }
-    },
-    MuiSvgIcon: {
-      styleOverrides: {
-        root: {
-          fill: "#4A4A45"
-        }
-      }
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          fontFamily: 'El Messiri',
-          fontWeight: 600,
-          fontSize: 22,
-          paddingTop: 4,
-          paddingBottom: 4,
-          elevation: 0
-        }
-      }
-    },
-    MuiFormControlLabel: {
-      styleOverrides: {
-        root: {
-          fontFamily: 'El Messiri',
-          fontSize: 22,
-        }
-      }
-    },
-    MuiPaper: {
-      defaultProps: {
-        elevation: 0
-      },
-      styleOverrides: {
-        root: {
-        }
-      }
-    }
-    // MuiTextField: {
-    //   defaultProps: {
-    //     color: 'primary'
-    //   },
-    //   styleOverrides: {
-    //     root: {
-    //       '& .MuiInputBase-input': {
-    //         color: 'darkblue',
-    //       },
-    //       '& .MuiInputLabel-root': {
-    //         color: '#4A4A45',
-    //         fontFamily: 'El Messiri',
-    //         fontWeight: 600,
-    //         fontSize: 21,
-    //       },
-    //       '& .MuiOutlinedInput-root': {
-    //         borderWidth: 5,
-    //       },
-    //       '& .MuiInputBase-input .MuiOutlinedInput-input': {
-    //         borderWidth: 5
-    //       }
-    //     }
-    //   }
-    // },
-    // MuiOutlinedInput: {
-    //   defaultProps: {
-    //     color: 'secondary',
-    //   },
-    //   styleOverrides: {
-    //     root: {
-    //       borderWidth: 5
-    //     }
-    //   }
-    // }
-  }
-})
+const themeColors = {
+  bgColor: '#EAE7DC',
+  textColor: '#4A4A45',
+  accentColor: '#E85A4F'
+}
+
+const theme = customColorScheme(themeColors)
 
 function App() {
   
@@ -183,3 +58,4 @@ function App() {
 }
 
 export default App;
+

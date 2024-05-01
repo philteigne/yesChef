@@ -36,21 +36,18 @@ const AddIngredient = () => {
           justifyContent="space-between"
         >
           <TextField
-            variant="outlined"
             label="Ingredient"
             value={ingredientName}
             sx={{ width: 0.32 }}
             onChange={(e) => setIngredientName(e.target.value)}
           />
           <TextField
-            variant="outlined"
             label="Category"
             value={ingredientCategory}
             sx={{ width: 0.32 }}
             onChange={(e) => setIngredientCategory(e.target.value)}
           />
           <TextField
-            variant="outlined"
             label="Best Before"
             value={ingredientExpiry}
             sx={{ width: 0.32 }}
@@ -63,12 +60,7 @@ const AddIngredient = () => {
         justifyContent='flex-end'
         sx={{ marginTop: 2 }}
       >
-        <Button
-          type="submit"
-          onClick={handleSubmit}
-          variant="contained"
-          sx={{width: 0.5}}
-        >
+        <Button type="submit" onClick={handleSubmit}>
           submit
         </Button>
       </Box>
