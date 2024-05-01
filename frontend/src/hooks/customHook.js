@@ -179,28 +179,33 @@ const useApplicationData = () => {
   // request recipe with parameters
   useEffect(() => {
     if (state.requestRecipe) {
-      fetch(`${API_CALL_URL}chat-gpt`, {  // UPDATE API CALL URL -- POST ROUTE
+      dispatch({ type: ACTIONS.IS_LOADING, payload: true });  
+      fetch(`${API_CALL_URL}chat-gpt`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(state.requestRecipe)
       })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json(); // Parse JSON data once
-        })
-        .then(data => {
-          // Store JSON in jsonData and make it into an object
-          const aiRecipeObj = JSON.parse(data);
-          // Use aiRecipeObj as needed
-          dispatch({ type: ACTIONS.SET_RECIPE_RESPONSE, payload: aiRecipeObj });
-        })
-        .then(() => dispatch({ type: ACTIONS.REQUEST_RECIPE, payload: null })) // reset request state
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json(); 
+      })
+      .then(data => {
+        const aiRecipeObj = JSON.parse(data);
+        dispatch({ type: ACTIONS.SET_RECIPE_RESPONSE, payload: aiRecipeObj });
+      })
+      .catch(error => {
+        dispatch({ type: ACTIONS.ERROR, payload: error.message });
+      })
+      .finally(() => {
+        dispatch({ type: ACTIONS.IS_LOADING, payload: false });  
+        dispatch({ type: ACTIONS.REQUEST_RECIPE, payload: null }); // reset request state
+      });
     }
-  }, [state.requestRecipe])
+  }, [state.requestRecipe]);
 
   const fetchRecipes = useCallback((userId) => {
     dispatch({ type: ACTIONS.IS_LOADING, payload: true })

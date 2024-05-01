@@ -10,6 +10,7 @@ import Parameters from './Components/Parameters';
 import { Stack } from '@mui/material'; 
 import HomePage from './Components/HomePage.jsx';
 import RecipeResponseView from './Components/RecipeResponseView.jsx';
+import Loading from './Components/Loading.jsx';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline'
@@ -39,10 +40,10 @@ function App() {
                     spacing={12}
                   >
                     <Pantry  />
-                    {/* Add conditional rendering here */}
-                    {!state.recipeResponse && < Parameters />}
-                    {state.recipeResponse && < RecipeResponseView /> }
-                  </Stack>
+                    {state.isLoading && <Loading />}
+                    {!state.isLoading && !state.recipeResponse && <Parameters />}
+                    {!state.isLoading && state.recipeResponse && <RecipeResponseView />}
+                </Stack>
                 </Router>
                 <Router path="/view-recipe">
                   <Stack
