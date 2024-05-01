@@ -16,13 +16,22 @@ function RecipeListView() {
   return (
     <Box sx={{ width: 0.43, height: 512 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', direction: 'row', marginRight: 4.2, marginBottom: 0.5 }}>
-        <Typography variant="h1" component="h1" color="primary">&#8226; saved recipes</Typography>
+        <Typography
+          variant="h1"
+          component="h1"
+          color="primary"
+        >
+          &#8226; saved recipes
+        </Typography>
       </Box>
 
       {recipes.length > 0 ? (
         <RecipeList />
       ):(
-        <Typography variant="subtitle1" sx={{ textAlign: "center", my: 2 }}>
+        <Typography
+          variant="subtitle1"
+          sx={{ textAlign: "center", my: 2 }}
+        >
           No recipes found.
         </Typography>
       )}

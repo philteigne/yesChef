@@ -30,7 +30,13 @@ function RecipeFullView() {
   return (
     <Box sx={{ width: 0.43, height: 512 }}>
       
-      <Typography variant="h1" component="h1" color="primary">&#8226; recipe viewer </Typography>
+      <Typography
+        variant="h1"
+        component="h1"
+        color="primary"
+      >
+        &#8226; recipe viewer
+      </Typography>
       
       <Box sx={{
         flexGrow: 1,
@@ -66,10 +72,16 @@ function RecipeFullView() {
       </Box>
         
       <Paper sx={{ margin: 'auto', mt: 2, mb: 2, padding: 2, height: 1, overflow: 'auto' }}>
-        <Typography variant="body1" component="p" multiline>
+        <Typography
+          variant="body1"
+          component="p"
+        >
           {Array.isArray(recipeIngredients) ? recipeIngredients.map(ing => `${ing.name} - ${ing.quantity} ${ing.units} \n`).join(', ') : "No ingredients"}
         </Typography>
-        <Typography variant="body1" component="p">
+        <Typography
+          variant="body1"
+          component="p"
+        >
           {recipe.steps}
         </Typography>
       </Paper>

@@ -32,7 +32,13 @@ const Parameters = () => {
   return(
     <Stack direction="column" width="0.43">
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', direction: 'row', marginBottom: 0.5 }}>
-        <Typography variant="h1" component="h1" color="primary">&#8226; recipe generation</Typography>
+        <Typography
+          variant="h1"
+          component="h1"
+          color="primary"
+        >
+          &#8226; recipe generation
+        </Typography>
       </Box>
       <Box sx={{ flexGrow: 1, maxWidth: 1}}>
         <Stack direction="column">
@@ -76,8 +82,15 @@ const Parameters = () => {
           />
         </Stack>
       </Box>
-      <Box display="flex" justifyContent='center' sx={{ marginTop: 5.6 }}>
-        <Button type="submit" onClick={handleSubmit}>
+      <Box
+        display="flex"
+        justifyContent='center'
+        sx={{ marginTop: 5.6 }}
+      >
+        <Button
+          type="submit"
+          onClick={handleSubmit}
+        >
           submit
         </Button>
       </Box>
