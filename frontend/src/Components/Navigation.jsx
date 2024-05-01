@@ -26,7 +26,7 @@ export default function ButtonAppBar() {
           ))}
         </Box>
         <Icon sx={{ height: 135, width: 212}}>
-          <YesChefLogo fillColor={state.themeColors.textColor}/>
+          <YesChefLogo fillColor={state.themeColors.accentColor}/>
         </Icon>
         <Box sx={{ display: 'flex', justifyContent: "flex-end", justifySelf: 'flex-end', m: 0.4 }} >
           {pages.map((page) => (
