@@ -24,29 +24,40 @@ function App() {
   const { state, dispatch } = useApplicationData();
 
   return (
-    // wrapping context
-    // value contains all the functions from useApplicationData that alter states
-    <Router>
-      <applicationContext.Provider value={{state, dispatch}}>
-        <div>
-          <ButtonAppBar />
-            <Switch>
-              <Route path='/' exact component={HomePage}/>
-              <Router path="/create-recipe">
-                <Stack direction="row">
-                  <Pantry  />
-                  <Parameters />
-                </Stack>
-              </Router>
-              <Router path="/view-recipe">
-                <RecipeListView />
-                <RecipeFullView />
-                <RecipeResponseView />
-              </Router>
-            </Switch>
-        </div>
-      </applicationContext.Provider>
-    </Router>
+    <ThemeProvider theme={customColorScheme(state.themeColors)}>
+      <CssBaseline />
+      <Router>
+        <applicationContext.Provider value={{state, dispatch}}>
+          <div>
+            <ButtonAppBar />
+              <Switch>
+                <Route path='/' exact component={HomePage}/>
+                <Router path="/create-recipe">
+                  <Stack
+                    direction="row"
+                    justifyContent='center'
+                    spacing={12}
+                  >
+                    <Pantry  />
+                    <Parameters />
+                    <RecipeResponseView />
+                  </Stack>
+                </Router>
+                <Router path="/view-recipe">
+                  <Stack
+                    direction="row"
+                    justifyContent='center'
+                    spacing={12}
+                  >
+                    <RecipeListView />
+                    <RecipeFullView />
+                  </Stack>
+                </Router>
+              </Switch>
+          </div>
+        </applicationContext.Provider>
+      </Router>
+    </ThemeProvider>
   );
 }
 

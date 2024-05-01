@@ -194,7 +194,7 @@ const useApplicationData = () => {
         })
         .then(() => dispatch({ type: ACTIONS.REQUEST_RECIPE, payload: null })) // reset request state
     }
-  }, [state.recipeResponse, state.requestRecipe])
+  }, [state.requestRecipe])
 
   const fetchRecipes = useCallback((userId) => {
     dispatch({ type: ACTIONS.IS_LOADING, payload: true })
