@@ -8,23 +8,21 @@ import { AppBar, Toolbar, Typography, Box, Icon, Dialog, DialogContent, DialogCo
 
 
 export default function ButtonAppBar() {
-  const [open, setOpen] = useState(false);
-const [userIdInput, setUserIdInput] = useState('');
-
+  
   // mode from useThemeContext "light", "dark"
   const history = useHistory();
   
-
+  
   const homeIconClick = () => {
     // Navigate to a different route
     history.push('/');
   }
-
+  
   const viewRecipeClick = () => {
     // Navigate to a different route
     history.push('/view-recipe')
   }
-
+  
   const createRecipeClick = () => {
     // Navigate to a different route
     history.push('/create-recipe');
@@ -57,10 +55,12 @@ const [userIdInput, setUserIdInput] = useState('');
       action: () => console.log("Signup Clicked")
     },
   ]
-    
+  
   // const pages = ['HOME', 'RECIPES', 'LOGIN', 'SIGNUP']
-
+  
   const { state, dispatch } = useContext(applicationContext);
+  const [open, setOpen] = useState(false);
+  const [userIdInput, setUserIdInput] = useState('');
   return (
     <>
     <AppBar >
