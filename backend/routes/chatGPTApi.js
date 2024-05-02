@@ -67,10 +67,9 @@ router.post('/', async (req, res) => {
 
     // Extract AI response from the API response
     const aiResponse = (response.data.choices[0].message.content);
-
-    // Send AI response back to client
-    // console.log(aiResponse);
-    res.status(200).json(aiResponse);
+    // ensure response type is in json format
+    res.type('json');
+    res.status(200).send(aiResponse);
   } catch (error) {
     console.error('An error occurred:', error.message);
     res.status(500).json({ error: 'An error occurred' });

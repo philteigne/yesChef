@@ -207,8 +207,8 @@ const useApplicationData = () => {
           return response.json(); // Parse JSON data once
         })
         .then(data => {
-          // Store JSON in jsonData and make it into an object
-          const aiRecipeObj = JSON.parse(data);
+          //store response json
+          const aiRecipeObj = data;
           // Use aiRecipeObj as needed
           dispatch({ type: ACTIONS.SET_RECIPE_RESPONSE, payload: aiRecipeObj });
         })
