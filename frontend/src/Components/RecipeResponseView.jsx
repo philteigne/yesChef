@@ -71,14 +71,14 @@ function RecipeResponseView() {
         </Button>
       </Box>
       <Box sx={{ padding: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography variant="h1"
-          component="h1"
+        <Typography variant="h2"
+          component="h2"
           color="primary">
           {state.recipeResponse.title} - {state.recipeResponse.tags.join(', ')}
         </Typography>
       </Box>
       <Paper sx={{ margin: 'auto', mt: 2, mb: 2, padding: 2 }}>
-        <Typography variant="h1" component="h1" color="secondary">
+        <Typography variant="h2" component="h2" color="secondary">
           {state.recipeResponse.ingredients.map(ing => `${ing.ingredient} - ${ing.quantity} ${ing.units}`).join(', ')}
         </Typography>
       </Paper>
@@ -86,8 +86,8 @@ function RecipeResponseView() {
       {state.recipeResponse.steps.map((step) => {
         return (
           <Typography 
-          variant="h1"
-          component="h1"
+          variant="h2"
+          component="h2"
           color="secondary" 
           sx={{ marginTop: 1, marginBottom: 1 }}
           >
