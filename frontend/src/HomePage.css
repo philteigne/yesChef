@@ -1,5 +1,4 @@
 .homepage-container {
-  background-color: orange;
   background-size: cover;
   background-position: center;
   height: 100vh; /* Adjust the height as needed */
@@ -25,5 +24,6 @@ img {
 .app-introduction {
   display: flex;
   flex-direction: column;
-  padding: 10vh;
+  padding: 0 5vh 0 5vh;
+  align-items: center;
 }
