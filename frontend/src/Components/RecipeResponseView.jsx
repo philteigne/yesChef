@@ -38,7 +38,7 @@ function RecipeResponseView() {
       border: '1px solid #ccc', 
       borderRadius: '4px', 
       overflow: 'hidden',
-      maxWidth: '43%'
+      width: '0.43'
       }}>
     
       <Box sx={{ padding: 0, display: 'flex', alignItems: 'center' }}> 
