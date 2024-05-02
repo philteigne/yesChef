@@ -1,7 +1,6 @@
 import { useCallback, useReducer, useEffect } from 'react';
 
 export const API_CALL_URL = "http://localhost:8080/api/"
-const userId = 1
 
 export const INITIAL_STATE = {
   userId: 1,
@@ -131,6 +130,8 @@ export function reducer(state, action) {
         isLoading: false,
       };
 
+      
+
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -144,28 +145,28 @@ const useApplicationData = () => {
 
   // fetch ingredients from backend
   useEffect(() => {
-    fetch(`${API_CALL_URL}ingredients/${userId}`)
+    fetch(`${API_CALL_URL}ingredients/${state.userId}`)
       .then((res) => res.json())
       .then((data) => dispatch({ type: ACTIONS.GET_INGREDIENTS_USER, payload: data }))
-  }, [state.deleteIngredientState, state.addIngredientState]);
+  }, [state.deleteIngredientState, state.addIngredientState, state.userId]);
 
   // delete an ingredient from backend 
   useEffect(() => {
     if (state.deleteIngredientState) {
       const ingredientId = state.deleteIngredientState;
-      fetch(`${API_CALL_URL}ingredients/${userId}/${ingredientId}`, {
+      fetch(`${API_CALL_URL}ingredients/${state.userId}/${ingredientId}`, {
         method: 'DELETE'
       })
         .then(() => dispatch({ type: ACTIONS.DELETE_INGREDIENTS_USER, payload: null }))
     }
-  }, [state.deleteIngredientState])
+  }, [state.deleteIngredientState, state.userId])
 
   // add an ingredient to backend
   useEffect(() => {
     if (state.addIngredientState) {
       const ingredient = state.addIngredientState;
       console.log("ingredient", ingredient)
-      fetch(`${API_CALL_URL}ingredients/${userId}`, {
+      fetch(`${API_CALL_URL}ingredients/${state.userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -174,7 +175,7 @@ const useApplicationData = () => {
       })
         .then(() => dispatch({ type: ACTIONS.ADD_INGREDIENTS_USER, payload: null }))
     }
-  }, [state.addIngredientState])
+  }, [state.addIngredientState, state.userId])
 
   // request recipe with parameters
   useEffect(() => {
