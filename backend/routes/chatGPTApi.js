@@ -27,7 +27,9 @@ const exampleJson = {
 }
 // check if the ingredient id it returns is correct!!
 
-const recipeSystemPrompt = `Provide Valid JSON format response. Create a recipe based on user's prompt.
+const recipeSystemPrompt = `
+Provide and format a Valid JSON format response.
+Create a recipe based on user's prompt.
 It should include the title of the recipe, ingredients that it needs,
 tags that it fits into and the steps that are required to make it.
 The data schema should follow this example \`${JSON.stringify(exampleJson)}\`
@@ -36,7 +38,7 @@ ONLY use the ingredients provied by the user, DO NOT ADD ANY OTHERS`
 router.post('/', async (req, res) => {
   const { recipeTags, recipeFocus, recipeAvoid, allIngredients } = req.body;
 
-  console.log("Ingredient List", allIngredients)
+  // console.log("Ingredient List", allIngredients)
 
   const userPrompt = `
     Given ONLY these ingredients: ${JSON.stringify(allIngredients)}, your task is to craft a recipe that fits the provided tags: ${recipeTags}.
@@ -66,8 +68,10 @@ router.post('/', async (req, res) => {
     );
 
     // Extract AI response from the API response
-    const aiResponse = (response.data.choices[0].message.content);
+    const aiResponseRaw = (response.data.choices[0].message.content);
+    const aiResponse = aiResponseRaw.replace(/`{3}(json)?/g, '');  // Regular expression to remove all backticks
     // ensure response type is in json format
+    console.log("aiResponse", aiResponse);
     res.type('json');
     res.status(200).send(aiResponse);
   } catch (error) {
