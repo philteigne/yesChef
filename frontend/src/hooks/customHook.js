@@ -40,7 +40,8 @@ export const ACTIONS = {
   DARK_MODE: "DARK_MODE",
   SET_RECIPE_RESPONSE: "SET_RECIPE_RESPONSE",
   SAVE_RECIPE: "SAVE_RECIPE",
-  CLEAR_RECIPE_RESPONSE: "CLEAR_RECIPE_RESPONSE"
+  CLEAR_RECIPE_RESPONSE: "CLEAR_RECIPE_RESPONSE",
+  SET_USER_ID: "SET_USER_ID"
 }
 
 export function reducer(state, action) {
@@ -128,6 +129,12 @@ export function reducer(state, action) {
         ...state,
         error: action.payload,
         isLoading: false,
+      };
+
+      case ACTIONS.SET_USER_ID:
+      return {
+        ...state,
+        userId: action.payload 
       };
 
       
@@ -265,6 +272,11 @@ const useApplicationData = () => {
     });
   }, []);
 
+  // set userId
+  const setUserId = (newUserId) => {
+    dispatch({ type: ACTIONS.SET_USER_ID, payload: newUserId });
+  };
+
   // fetch current view recipe from backend
   useEffect(() => {
     fetchRecipes(state.userId);
@@ -281,6 +293,9 @@ const useApplicationData = () => {
     }
   }, [state.saveRecipeData, saveRecipe]);
   
+  useEffect(() => {
+    setUserId(state.userId);
+  }, [state.userId])
 
   // calling useApplicationData function return these functions that changes states
   return {
