@@ -24,6 +24,20 @@ export const INITIAL_STATE = {
   recipeRequest: null,
   // AI Response
   recipeResponse: null,
+  recipeResponseTestState: {
+    "title": "Classic Bread",
+    "tags": ["baking", "bread"],
+    "steps": [
+      "1. Mix ingredients.",
+      "2. Knead dough.",
+      "3. Let rise.",
+      "4. Bake at 200°C for 30 minutes."
+    ],
+    "ingredients": [
+      { "ingredient": "Flour", "quantity": 15.00, "units": "grams", "id": "1" },
+      { "ingredient": "Yeast", "quantity": 5.00, "units": "grams", "id": "2" }
+    ]
+  },
   saveRecipeData: null
 }
 
@@ -40,7 +54,8 @@ export const ACTIONS = {
   ERROR: "ERROR",
   DARK_MODE: "DARK_MODE",
   SET_RECIPE_RESPONSE: "SET_RECIPE_RESPONSE",
-  SAVE_RECIPE: "SAVE_RECIPE"
+  SAVE_RECIPE: "SAVE_RECIPE",
+  CLEAR_RECIPE_RESPONSE: "CLEAR_RECIPE_RESPONSE"
 }
 
 export function reducer(state, action) {
@@ -103,6 +118,11 @@ export function reducer(state, action) {
         recipeResponse: action.payload
       }
 
+    case ACTIONS.CLEAR_RECIPE_RESPONSE:
+      return {
+        ...state,
+        recipeResponse: null
+      }
 
       case ACTIONS.SAVE_RECIPE:
         return {
@@ -187,8 +207,8 @@ const useApplicationData = () => {
           return response.json(); // Parse JSON data once
         })
         .then(data => {
-          // Store JSON in jsonData and make it into an object
-          const aiRecipeObj = JSON.parse(data);
+          //store response json
+          const aiRecipeObj = data;
           // Use aiRecipeObj as needed
           dispatch({ type: ACTIONS.SET_RECIPE_RESPONSE, payload: aiRecipeObj });
         })

@@ -39,8 +39,9 @@ function App() {
                     spacing={12}
                   >
                     <Pantry  />
-                    <Parameters />
-                    <RecipeResponseView />
+                    {/* Add conditional rendering here */}
+                    {!state.recipeResponse && < Parameters />}
+                    {state.recipeResponse && < RecipeResponseView /> }
                   </Stack>
                 </Router>
                 <Router path="/view-recipe">
