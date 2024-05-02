@@ -24,6 +24,20 @@ export const INITIAL_STATE = {
   recipeRequest: null,
   // AI Response
   recipeResponse: null,
+  recipeResponseTestState: {
+    "title": "Classic Bread",
+    "tags": ["baking", "bread"],
+    "steps": [
+      "1. Mix ingredients.",
+      "2. Knead dough.",
+      "3. Let rise.",
+      "4. Bake at 200°C for 30 minutes."
+    ],
+    "ingredients": [
+      { "ingredient": "Flour", "quantity": 15.00, "units": "grams", "id": "1" },
+      { "ingredient": "Yeast", "quantity": 5.00, "units": "grams", "id": "2" }
+    ]
+  },
   saveRecipeData: null
 }
 

@@ -6,6 +6,9 @@ import {
   Button,
 } from "@mui/material";
 import { applicationContext } from "../hooks/applicationContext";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ClearIcon from '@mui/icons-material/Clear';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 function RecipeResponseView() {
   const { state, dispatch } = useContext(applicationContext);
@@ -35,38 +38,63 @@ function RecipeResponseView() {
       border: '1px solid #ccc', 
       borderRadius: '4px', 
       overflow: 'hidden',
-      maxWidth: '45%'
+      maxWidth: '43%'
       }}>
-      <Box sx={{ padding: 2, backgroundColor: '#f5f5f5', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography variant="h4" component="h2">
+    
+      <Box sx={{ padding: 0, display: 'flex', alignItems: 'center' }}> 
+        <Button
+          type="submit"
+          onClick={handleSubmit}
+          variant="contained"
+          endIcon={<FavoriteIcon/>}
+          sx={{ minWidth: 'auto', marginRight: 1 }}
+        >
+          Save
+        </Button>
+        <Button
+          type="submit"
+          onClick={""}
+          variant="contained"
+          endIcon={<RefreshIcon/>}
+          sx={{ minWidth: 'auto', marginRight: 1 }}
+        >
+          Regenerate
+        </Button>
+        <Button
+          type="submit"
+          onClick={handleClear}
+          variant="contained"
+          endIcon={<ClearIcon/>}
+          sx={{ minWidth: 'auto', marginRight: 1 }}
+        >
+          Clear
+        </Button>
+      </Box>
+      <Box sx={{ padding: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Typography variant="h1"
+          component="h1"
+          color="primary">
           {state.recipeResponse.title} - {state.recipeResponse.tags.join(', ')}
         </Typography>
-        <Box>
-          <Button
-            type="submit"
-            onClick={handleSubmit}
-            variant="contained"
-          >
-            Save Recipe
-          </Button>
-          <Button
-            type="submit"
-            onClick={handleClear}
-            variant="contained"
-          >
-            Clear Recipe
-          </Button>
-        </Box>
       </Box>
       <Paper sx={{ margin: 'auto', mt: 2, mb: 2, padding: 2 }}>
-        <Typography variant="body1" component="div">
+        <Typography variant="h1" component="h1" color="secondary">
           {state.recipeResponse.ingredients.map(ing => `${ing.ingredient} - ${ing.quantity} ${ing.units}`).join(', ')}
         </Typography>
       </Paper>
       <Paper sx={{ margin: 'auto', mt: 2, mb: 2, padding: 2 }}>
-        <Typography variant="body1" component="div">
-          {state.recipeResponse.steps}
-        </Typography>
+      {state.recipeResponse.steps.map((step) => {
+        return (
+          <Typography 
+          variant="h1"
+          component="h1"
+          color="secondary" 
+          sx={{ marginTop: 1, marginBottom: 1 }}
+          >
+            {step}
+          </Typography>
+        )
+      })}
       </Paper>
     </Box>
   );
