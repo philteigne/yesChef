@@ -1,7 +1,6 @@
 import { useCallback, useReducer, useEffect } from 'react';
 
 export const API_CALL_URL = "http://localhost:8080/api/"
-const userId = 1
 
 export const INITIAL_STATE = {
   userId: 1,
@@ -55,7 +54,8 @@ export const ACTIONS = {
   DARK_MODE: "DARK_MODE",
   SET_RECIPE_RESPONSE: "SET_RECIPE_RESPONSE",
   SAVE_RECIPE: "SAVE_RECIPE",
-  CLEAR_RECIPE_RESPONSE: "CLEAR_RECIPE_RESPONSE"
+  CLEAR_RECIPE_RESPONSE: "CLEAR_RECIPE_RESPONSE",
+  SET_USER_ID: "SET_USER_ID"
 }
 
 export function reducer(state, action) {
@@ -145,6 +145,14 @@ export function reducer(state, action) {
         isLoading: false,
       };
 
+      case ACTIONS.SET_USER_ID:
+      return {
+        ...state,
+        userId: action.payload 
+      };
+
+      
+
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -158,28 +166,28 @@ const useApplicationData = () => {
 
   // fetch ingredients from backend
   useEffect(() => {
-    fetch(`${API_CALL_URL}ingredients/${userId}`)
+    fetch(`${API_CALL_URL}ingredients/${state.userId}`)
       .then((res) => res.json())
       .then((data) => dispatch({ type: ACTIONS.GET_INGREDIENTS_USER, payload: data }))
-  }, [state.deleteIngredientState, state.addIngredientState]);
+  }, [state.deleteIngredientState, state.addIngredientState, state.userId]);
 
   // delete an ingredient from backend 
   useEffect(() => {
     if (state.deleteIngredientState) {
       const ingredientId = state.deleteIngredientState;
-      fetch(`${API_CALL_URL}ingredients/${userId}/${ingredientId}`, {
+      fetch(`${API_CALL_URL}ingredients/${state.userId}/${ingredientId}`, {
         method: 'DELETE'
       })
         .then(() => dispatch({ type: ACTIONS.DELETE_INGREDIENTS_USER, payload: null }))
     }
-  }, [state.deleteIngredientState])
+  }, [state.deleteIngredientState, state.userId])
 
   // add an ingredient to backend
   useEffect(() => {
     if (state.addIngredientState) {
       const ingredient = state.addIngredientState;
       console.log("ingredient", ingredient)
-      fetch(`${API_CALL_URL}ingredients/${userId}`, {
+      fetch(`${API_CALL_URL}ingredients/${state.userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -188,33 +196,38 @@ const useApplicationData = () => {
       })
         .then(() => dispatch({ type: ACTIONS.ADD_INGREDIENTS_USER, payload: null }))
     }
-  }, [state.addIngredientState])
+  }, [state.addIngredientState, state.userId])
 
   // request recipe with parameters
   useEffect(() => {
     if (state.requestRecipe) {
-      fetch(`${API_CALL_URL}chat-gpt`, {  // UPDATE API CALL URL -- POST ROUTE
+      dispatch({ type: ACTIONS.IS_LOADING, payload: true });  
+      fetch(`${API_CALL_URL}chat-gpt`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(state.requestRecipe)
       })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json(); // Parse JSON data once
-        })
-        .then(data => {
-          //store response json
-          const aiRecipeObj = data;
-          // Use aiRecipeObj as needed
-          dispatch({ type: ACTIONS.SET_RECIPE_RESPONSE, payload: aiRecipeObj });
-        })
-        .then(() => dispatch({ type: ACTIONS.REQUEST_RECIPE, payload: null })) // reset request state
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json(); 
+      })
+      .then(data => {
+        const aiRecipeObj = data;
+        dispatch({ type: ACTIONS.SET_RECIPE_RESPONSE, payload: aiRecipeObj });
+      })
+      .catch(error => {
+        dispatch({ type: ACTIONS.ERROR, payload: error.message });
+      })
+      .finally(() => {
+        dispatch({ type: ACTIONS.IS_LOADING, payload: false });  
+        dispatch({ type: ACTIONS.REQUEST_RECIPE, payload: null }); // reset request state
+      });
     }
-  }, [state.requestRecipe])
+  }, [state.requestRecipe]);
 
   const fetchRecipes = useCallback((userId) => {
     dispatch({ type: ACTIONS.IS_LOADING, payload: true })
@@ -273,6 +286,11 @@ const useApplicationData = () => {
     });
   }, []);
 
+  // set userId
+  const setUserId = (newUserId) => {
+    dispatch({ type: ACTIONS.SET_USER_ID, payload: newUserId });
+  };
+
   // fetch current view recipe from backend
   useEffect(() => {
     fetchRecipes(state.userId);
@@ -289,6 +307,9 @@ const useApplicationData = () => {
     }
   }, [state.saveRecipeData, saveRecipe]);
   
+  useEffect(() => {
+    setUserId(state.userId);
+  }, [state.userId])
 
   // calling useApplicationData function return these functions that changes states
   return {
