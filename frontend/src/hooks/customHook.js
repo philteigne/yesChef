@@ -27,7 +27,8 @@ export const INITIAL_STATE = {
   recipeResponse: null,
   saveRecipeData: null,
   // rerender saved recipes, get's trigger when recipe is saved to db
-  shouldRerenderRecipes: []
+  shouldRerenderRecipes: [],
+  isRecipeSaved: false
 }
 
 
@@ -49,7 +50,8 @@ export const ACTIONS = {
   SET_SAVE_RECIPE_LOADING: "SET_SAVE_RECIPE_LOADING",
   SAVE_RECIPE_SUCCESS: "SAVE_RECIPE_SUCCESS",
   SAVE_RECIPE_FAILURE: "SAVE_RECIPE_FAILURE",
-  RERENDER_RECIPES_TRIGGER: "RERENDER_RECIPES_TRIGGER"
+  RERENDER_RECIPES_TRIGGER: "RERENDER_RECIPES_TRIGGER",
+  SET_IS_RECIPE_SAVED: "SET_IS_RECIPE_SAVED"
 }
 
 export function reducer(state, action) {
@@ -153,7 +155,13 @@ export function reducer(state, action) {
         ...state,
         shouldRerenderRecipes: [...state.shouldRerenderRecipes, 1]
       }
-      
+    
+    case ACTIONS.SET_IS_RECIPE_SAVED: {
+      return {
+        ...state,
+        isRecipeSaved: action.payload
+      }
+    }
       
 
     default:
@@ -279,7 +287,12 @@ const useApplicationData = () => {
       // after saving successfully, saveRecipeData should become null again
       dispatch({type: ACTIONS.SAVE_RECIPE, payload: null})
       // saving loading animation should become false
-      dispatch({type: ACTIONS.SET_SAVE_RECIPE_LOADING, payload: false})
+      setTimeout(() => {
+        dispatch({type: ACTIONS.SET_SAVE_RECIPE_LOADING, payload: false})
+
+      },1500)
+      // set saved to true
+      dispatch({type: ACTIONS.SET_IS_RECIPE_SAVED, payload: true})
     })
     .catch(error => {
       dispatch({ type: ACTIONS.SAVE_RECIPE_FAILURE, payload: error.message });

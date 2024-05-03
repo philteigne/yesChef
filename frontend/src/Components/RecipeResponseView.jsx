@@ -34,6 +34,8 @@ function RecipeResponseView() {
   const handleClear = () => {
     // use dispatch to clear the recipeResponse state back to null on click
     dispatch({type: "CLEAR_RECIPE_RESPONSE"});
+    // reset isSaved state
+    dispatch({type: "SET_IS_RECIPE_SAVED", payload: false})
 
   }
 
@@ -57,7 +59,9 @@ function RecipeResponseView() {
           variant="contained"
           sx={{ minWidth: 'auto', marginRight: 1 }}
         >
-          <span>Save</span>
+          <span>
+            {state.isRecipeSaved ? 'Saved' : 'Save'}
+          </span>
         </LoadingButton>
 
         <Button
