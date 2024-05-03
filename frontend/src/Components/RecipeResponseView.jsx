@@ -6,7 +6,6 @@ import {
   Button,
 } from "@mui/material";
 import { applicationContext } from "../hooks/applicationContext";
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import ClearIcon from '@mui/icons-material/Clear';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -48,17 +47,6 @@ function RecipeResponseView() {
       }}>
     
       <Box sx={{ padding: 0, display: 'flex', alignItems: 'center' }}> 
-        {/* <Button
-          type="submit"
-          onClick={handleSave}
-          variant="contained"
-          endIcon={<FavoriteIcon/>}
-          sx={{ minWidth: 'auto', marginRight: 1 }}
-        >
-          Save
-        </Button> */}
-
-
         <LoadingButton
           size="small"
           color="secondary"
