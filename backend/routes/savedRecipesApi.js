@@ -39,15 +39,18 @@ router.post('/recipe/:userId', (req,res) => {
     })
     .then((recipeId) => {
       // looping over the ingredients array, and call addRecipeIngredient
-      ingredients.map((ingredientObj) => {
+      ingredients.forEach((ingredientObj) => {
         addRecipeIngredient(recipeId, ingredientObj)
-          .then((res) => {
-            console.log(res);
-          })
-          .catch((err) => {
-            console.error('Error adding to recipe Ingredient', err);
-          })
       })
+      return
+    })
+    .then(() => {
+      console.log("success");
+      res.status(200).end()
+    })
+    .catch((err) => {
+      console.log("Error message:", err);
+      res.status(400).end()
     })
 
 })

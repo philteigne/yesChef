@@ -9,11 +9,13 @@ import { applicationContext } from "../hooks/applicationContext";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ClearIcon from '@mui/icons-material/Clear';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import LoadingButton from '@mui/lab/LoadingButton';
+import SaveIcon from '@mui/icons-material/Save';
 
 function RecipeResponseView() {
   const { state, dispatch } = useContext(applicationContext);
 
-  const handleSubmit = () => {
+  const handleSave = () => {
     if (!state.recipeResponse) {
       console.error("No recipe data to save.");
       return;
@@ -23,7 +25,11 @@ function RecipeResponseView() {
     dispatch({
       type: "SAVE_RECIPE",
       payload: { userId: state.userId, recipe: state.recipeResponse }
-    });
+    })
+
+    dispatch({type: "SET_SAVE_RECIPE_LOADING", payload: true})
+
+   
   };
 
   const handleClear = () => {
@@ -42,15 +48,30 @@ function RecipeResponseView() {
       }}>
     
       <Box sx={{ padding: 0, display: 'flex', alignItems: 'center' }}> 
-        <Button
+        {/* <Button
           type="submit"
-          onClick={handleSubmit}
+          onClick={handleSave}
           variant="contained"
           endIcon={<FavoriteIcon/>}
           sx={{ minWidth: 'auto', marginRight: 1 }}
         >
           Save
-        </Button>
+        </Button> */}
+
+
+        <LoadingButton
+          size="small"
+          color="secondary"
+          onClick={handleSave}
+          loading={state.saveRecipeLoading}
+          loadingPosition="start"
+          startIcon={<SaveIcon />}
+          variant="contained"
+          sx={{ minWidth: 'auto', marginRight: 1 }}
+        >
+          <span>Save</span>
+        </LoadingButton>
+
         <Button
           type="submit"
           onClick={""}
