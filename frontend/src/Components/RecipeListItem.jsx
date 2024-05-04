@@ -21,17 +21,7 @@ const RecipeListItem = ({recipe}) => {
       overflow: 'hidden',
       m: 0.6
     }}>
-      <ListItem
-        secondaryAction={
-          <IconButton
-            edge="end"
-            aria-label="delete"
-            onClick={() => dispatch({type: 'SET_ACTIVE_RECIPE', payload: recipe.id})}
-          >
-            <RemoveCircleOutlineRoundedIcon color="secondary" />
-          </IconButton>
-        }
-      >
+      <ListItem onClick={() => dispatch({type: 'SET_ACTIVE_RECIPE', payload: recipe.id})}>
         <Typography
           variant="h2"
           component="h2"
