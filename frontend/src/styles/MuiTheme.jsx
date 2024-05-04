@@ -60,6 +60,7 @@ const customColorScheme = (themeColors) => {
         styleOverrides: {
           root: {
             color: themeColors.textColor,
+            whiteSpace: "pre-wrap",
           }
         }
       },
