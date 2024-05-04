@@ -2,35 +2,61 @@ import { useCallback, useReducer, useEffect } from 'react';
 
 export const API_CALL_URL = "http://localhost:8080/api/"
 
-export const INITIAL_STATE = {
+// Basic App State
+const INITIAL_STATE_APP = {
   userId: 1,
-  // Pantry components
+  // For handling save recipe button loading animation
+  saveRecipeLoading: false,
+  error: null,
+}
+
+// Pantry Component
+const INITIAL_STATE_PANTRY = {
   ingredientList: [],
   deleteIngredientState: null,
   addIngredientState: null,
-  // Recipes Components
+}
+
+// Recipes Component
+const INITIAL_STATE_RECIPES = {
   activeRecipe: 2,
   recipes: [],
   recipeIngredients: [],
   isLoading: false,
-  // For handling save recipe button loading animation
-  saveRecipeLoading: false,
-  error: null,
-  // Parameters Components
+}
+
+// Parameters Component
+const INITIAL_STATE_PARAMETERS = {
+  recipeRequest: null,
+  isRecipeSaved: false,
+  // rerender saved recipes, get's trigger when recipe is saved to db
+  shouldRerenderRecipes: [],
+}
+
+// MuI Theme
+const INITIAL_STATE_THEME = {
   themeColors: {
     bgColor: '#EAE7DC',
     textColor: '#4A4A45',
     accentColor: '#E85A4F'
   },
-  recipeRequest: null,
-  // AI Response
-  recipeResponse: null,
-  saveRecipeData: null,
-  // rerender saved recipes, get's trigger when recipe is saved to db
-  shouldRerenderRecipes: [],
-  isRecipeSaved: false
 }
 
+// AI Response
+const INITIAL_STATE_AI = {
+  recipeResponse: null,
+  saveRecipeData: null,
+}
+
+// ----- COMPLETE INITIAL STATE -----
+export const INITIAL_STATE = {
+  ...INITIAL_STATE_APP,
+  ...INITIAL_STATE_PANTRY,
+  ...INITIAL_STATE_RECIPES,
+  ...INITIAL_STATE_PARAMETERS,
+  ...INITIAL_STATE_THEME,
+  ...INITIAL_STATE_AI,
+}
 
 export const ACTIONS = {
   GET_INGREDIENTS_USER: "GET_INGREDIENTS_USER",
