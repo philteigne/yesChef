@@ -26,7 +26,7 @@ const RecipeListItem = ({recipe}) => {
           <IconButton
             edge="end"
             aria-label="delete"
-            onClick={() => dispatch({type: 'SET_ACTIVE_RECIPE', payload: recipe.id})}
+            onClick={() => dispatch({type: 'SET_ACTIVE_RECIPE_ID', payload: recipe.id})}
           >
             <RemoveCircleOutlineRoundedIcon color="secondary" />
           </IconButton>

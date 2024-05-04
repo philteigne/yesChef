@@ -9,6 +9,7 @@ export const INITIAL_STATE = {
   deleteIngredientState: null,
   addIngredientState: null,
   // Recipes Components
+  activeRecipeId: 2,
   activeRecipe: 2,
   recipes: [],
   recipeIngredients: [],
@@ -46,6 +47,7 @@ export const ACTIONS = {
   DELETE_INGREDIENTS_USER: "DELETE_INGREDIENTS_USER",
   ADD_INGREDIENTS_USER: "ADD_INGREDIENTS_USER",
   SET_ACTIVE_RECIPE: "SET_ACTIVE_RECIPE",
+  SET_ACTIVE_RECIPE_ID: "SET_ACTIVE_RECIPE_ID",
   SET_RECIPES: "SET_RECIPES",
   SET_RECIPE_INGREDIENTS: "SET_RECIPE_INGREDIENTS",
   REQUEST_RECIPE: "REQUEST_RECIPE",
@@ -77,10 +79,16 @@ export function reducer(state, action) {
       }
 
     // Actions to handle Recipe Components
-    case ACTIONS.SET_ACTIVE_RECIPE:
+    // case ACTIONS.SET_ACTIVE_RECIPE:
+    //   return {
+    //     ...state,
+    //     activeRecipe: action.payload
+    //   }
+    
+    case ACTIONS.SET_ACTIVE_RECIPE_ID:
       return {
         ...state,
-        activeRecipe: action.payload
+        activeRecipeId: action.payload
       }
 
     case ACTIONS.SET_RECIPES:
@@ -244,21 +252,21 @@ const useApplicationData = () => {
       });
   }, []);
 
-  const fetchIngredients = useCallback((recipeId) => {
-    // this is causing the page to reload
-    dispatch({ type: ACTIONS.IS_LOADING, payload: true });
-    dispatch({ type: ACTIONS.ERROR, payload: null })
-    fetch(`/api/ingredients/recipe/${recipeId}`)
-      .then(response => response.json())
-      .then(data => {
-        dispatch({ type: ACTIONS.SET_RECIPE_INGREDIENTS, payload: data });
-        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
-      })
-      .catch(err => {
-        dispatch({ type: ACTIONS.ERROR, payload: err.message });
-        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
-      });
-  }, []);
+  // const fetchIngredients = useCallback((recipeId) => {
+  //   // this is causing the page to reload
+  //   dispatch({ type: ACTIONS.IS_LOADING, payload: true });
+  //   dispatch({ type: ACTIONS.ERROR, payload: null })
+  //   fetch(`/api/ingredients/recipe/${recipeId}`)
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       dispatch({ type: ACTIONS.SET_RECIPE_INGREDIENTS, payload: data });
+  //       dispatch({ type: ACTIONS.IS_LOADING, payload: false });
+  //     })
+  //     .catch(err => {
+  //       dispatch({ type: ACTIONS.ERROR, payload: err.message });
+  //       dispatch({ type: ACTIONS.IS_LOADING, payload: false });
+  //     });
+  // }, []);
 
   const saveRecipe = useCallback((recipeData) => {
     dispatch({ type: ACTIONS.IS_LOADING, payload: true });
@@ -296,10 +304,16 @@ const useApplicationData = () => {
     fetchRecipes(state.userId);
   }, [fetchRecipes, state.userId]);
 
-  useEffect(() => {
-    // console.log("Active recipe updated to:", state.activeRecipe);
-    fetchIngredients(state.activeRecipe);
-  }, [fetchIngredients, state.activeRecipe])
+  // useEffect(() => {
+  //   // console.log("Active recipe updated to:", state.activeRecipe);
+  //   fetchIngredients(state.activeRecipe);
+  // }, [fetchIngredients, state.activeRecipe])
+
+  // useEffect(() => {
+  //   fetch(`${API_CALL_URL}saved-recipes/${state.userId}/${state.activeRecipeId}`)
+  //     .then((res) => res.json())
+  //     .then((data) => dispatch({ type: ACTIONS.SET_ACTIVE_RECIPE, payload: data }))
+  // }, [state.activeRecipeId])
 
   useEffect(() => {
     if (state.saveRecipeData) {

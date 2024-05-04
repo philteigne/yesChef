@@ -11,9 +11,10 @@ function RecipeFullView() {
 
   const { state, dispatch } = useContext(applicationContext);
   
-  const { activeRecipe, recipes, recipeIngredients, isLoading, error } = state;
+  const { recipes, activeRecipeId, isLoading, error } = state;
   
-  const recipe = recipes.find(r => r.id === activeRecipe);
+  const recipe = recipes.find(r => r.id === activeRecipeId);
+  console.log(recipe)
   
   
   if (isLoading) return <Loading />
@@ -64,7 +65,7 @@ function RecipeFullView() {
           </Typography>
         </ListItem>
       </Box>
-        
+        {/*
       <Paper sx={{ margin: 'auto', mt: 2, mb: 2, padding: 2, height: 1, overflow: 'auto' }}>
         <Typography
           variant="body1"
@@ -79,7 +80,22 @@ function RecipeFullView() {
           {recipe.steps}
         </Typography>
       </Paper>
+        */}
+      <Paper sx={{ margin: 'auto', mt: 2, mb: 2, padding: 2, height: 1, overflow: 'auto' }}>
+        <Typography
+          variant="body1"
+          component="p"
+          sx={{}}
+        >
+          {recipe.ingredients}
+          {recipe.steps}
+        </Typography>
+
+      </Paper>
+      
     </Box>
+
+    
   )
 }
 
