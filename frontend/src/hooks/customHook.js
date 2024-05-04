@@ -209,7 +209,7 @@ const useApplicationData = () => {
     }
   }, [state.addIngredientState, state.userId])
 
-  // request recipe with parameters
+  // request recipe with parameters chatgpt
   useEffect(() => {
     if (state.requestRecipe) {
       dispatch({ type: ACTIONS.IS_LOADING, payload: true });  
@@ -289,10 +289,10 @@ const useApplicationData = () => {
       // saving loading animation should become false
       setTimeout(() => {
         dispatch({type: ACTIONS.SET_SAVE_RECIPE_LOADING, payload: false})
+        // set saved to true
+        dispatch({type: ACTIONS.SET_IS_RECIPE_SAVED, payload: true})
 
       },1500)
-      // set saved to true
-      dispatch({type: ACTIONS.SET_IS_RECIPE_SAVED, payload: true})
     })
     .catch(error => {
       dispatch({ type: ACTIONS.SAVE_RECIPE_FAILURE, payload: error.message });
