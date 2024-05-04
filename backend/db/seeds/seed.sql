@@ -4,36 +4,64 @@ INSERT INTO users (email, password_hash) VALUES ('jane.smith@example.com', 'hash
 
 
 -- Seed recipes
-INSERT INTO recipes (saved_by, title, tags, steps) VALUES
-(1, 'Classic Bread', 'baking, bread', '1. Mix ingredients. 2. Knead dough. 3. Let rise. 4. Bake at 200°C for 30 minutes.');
-INSERT INTO recipes (saved_by, title, tags, steps) VALUES
-(1, 'Chocolate Cake', 'baking, dessert', '1. Mix dry ingredients. 2. Add wet ingredients. 3. Mix well. 4. Bake at 175°C for 45 minutes.');
-INSERT INTO recipes (saved_by, title, tags, steps) VALUES
-(1, 'Spaghetti Bolognese', 'pasta, Italian', '1. Boil water. 2. Cook spaghetti. 3. Brown ground beef. 4. Add tomato sauce. 5. Simmer sauce. 6. Serve over spaghetti.');
-INSERT INTO recipes (saved_by, title, tags, steps) VALUES
-(1, 'Chicken Stir-Fry', 'chicken, stir-fry', '1. Marinate chicken. 2. Chop vegetables. 3. Stir-fry chicken. 4. Add vegetables. 5. Season with soy sauce and spices. 6. Serve hot.');
-INSERT INTO recipes (saved_by, title, tags, steps) VALUES
-(1, 'Vegetable Curry', 'vegetarian, curry', '1. Sauté onions and garlic. 2. Add curry paste. 3. Stir in coconut milk. 4. Add vegetables. 5. Simmer until tender. 6. Serve with rice.');
-INSERT INTO recipes (saved_by, title, tags, steps) VALUES
-(1, 'Grilled Salmon', 'seafood, grill', '1. Marinate salmon fillets. 2. Preheat grill. 3. Grill salmon for 5-7 minutes on each side. 4. Serve with lemon wedges.');
-INSERT INTO recipes (saved_by, title, tags, steps) VALUES
-(1, 'Caesar Salad', 'salad, healthy', '1. Chop lettuce. 2. Prepare dressing. 3. Toss lettuce with dressing. 4. Add croutons and Parmesan cheese. 5. Serve chilled.');
-INSERT INTO recipes (saved_by, title, tags, steps) VALUES
-(1, 'Tofu Stir-Fry', 'vegetarian, stir-fry', '1. Press tofu. 2. Cut tofu into cubes. 3. Stir-fry tofu until golden. 4. Add vegetables. 5. Season with soy sauce and ginger. 6. Serve over rice.');
-INSERT INTO recipes (saved_by, title, tags, steps) VALUES
-(1, 'Beef Tacos', 'Mexican, beef', '1. Brown ground beef. 2. Add taco seasoning. 3. Warm tortillas. 4. Assemble tacos with beef and toppings. 5. Serve with salsa and guacamole.');
-INSERT INTO recipes (saved_by, title, tags, steps) VALUES
-(1, 'Vegetarian Chili', 'vegetarian, chili', '1. Sauté onions and peppers. 2. Add beans, tomatoes, and spices. 3. Simmer for 30 minutes. 4. Serve hot with toppings like cheese and sour cream.');
-INSERT INTO recipes (saved_by, title, tags, steps) VALUES
-(1, 'Shrimp Scampi', 'seafood, pasta', '1. Cook pasta. 2. Sauté shrimp in butter and garlic. 3. Add white wine and lemon juice. 4. Toss with cooked pasta. 5. Garnish with parsley.');
-INSERT INTO recipes (saved_by, title, tags, steps) VALUES
-(1, 'Mushroom Risotto', 'vegetarian, Italian', '1. Sauté mushrooms and onions. 2. Add Arborio rice. 3. Stir in vegetable broth gradually. 4. Simmer until creamy. 5. Garnish with Parmesan cheese.');
+INSERT INTO recipes (saved_by, title, tags, ingredients, steps) VALUES
+(
+  1,
+  'Fluffy Vanilla Pancakes',
+  'eggs breakfast',
+  'Flour - 120 grams, Sugar - 10 grams, Milk - 250 ml, Vanilla Extract - 5 ml, Eggs - 1 unit, Butter - 5 ml',
+  '1. In a mixing bowl, whisk together 1 cup of flour, 1 tablespoon of sugar, and a pinch of salt.
+  2. In a separate bowl, beat 1 egg and mix in 1 cup of milk and 1 teaspoon of vanilla extract.
+  3. Pour the wet ingredients into the dry ingredients and stir until just combined. Do not overmix; lumps are okay.
+  4. Heat a non-stick pan or griddle over medium heat and lightly grease with butter.
+  5. Pour 1/4 cup of the pancake batter onto the pan for each pancake.
+  6. Cook until bubbles form on the surface, then flip and cook for another minute or until golden brown.
+  7. Repeat with the remaining batter.
+  8. Serve the fluffy vanilla pancakes warm with maple syrup or your favorite toppings.'
+);
+INSERT INTO recipes (saved_by, title, tags, ingredients, steps) VALUES
+(
+  1,
+  'Vanilla Milk Pudding',
+  'dessert',
+  'Sugar - 200 grams, Milk - 250 ml, Vanilla Extract - 5 ml, Mustard - 5 ml, Ketchup - 5 ml, Turmeric - 5 ml, Garam Masala - 5 ml',
+  '1. In a saucepan, combine 200g of sugar, 250ml of milk, and 5ml of vanilla extract.
+  2. Heat the mixture over medium heat, stirring constantly until the sugar is completely dissolved.
+  3. In a separate bowl, mix 5ml of mustard and 5ml of ketchup.
+  4. Gradually pour the milk mixture into the mustard and ketchup mixture, stirring continuously.
+  5. Add 5ml of turmeric and stir well.
+  6. Pour the mixture into individual serving cups and refrigerate for at least 2 hours to set.
+  7. Serve the vanilla milk pudding chilled, garnished with a sprinkle of garam masala.'
+);
 
-INSERT INTO recipes (saved_by, title, tags, steps) VALUES
-(2, 'Garlic Pasta', 'italian, dinner', '1. Cook pasta. 2. Saute garlic in olive oil. 3. Toss pasta with garlic oil and cheese. 4. Serve warm.');
-INSERT INTO recipes (saved_by, title, tags, steps) VALUES
-(2, 'Grilled Chicken', 'dinner, healthy', '1. Marinate chicken in lemon juice and herbs. 2. Grill until cooked. 3. Serve with vegetables.');
-
+INSERT INTO recipes (saved_by, title, tags, ingredients, steps) VALUES
+(
+  2,
+  'Spicy Chicken Tacos',
+  'dinner spicy chicken tacos',
+  'Chicken Breast - 500 grams, Taco Seasoning - 30 grams, Olive Oil - 30 ml, Lime Juice - 15 ml, Garlic - 2 cloves, Chili Powder - 10 grams, Cumin - 5 grams, Salt - 5 grams, Tortillas - 8 units, Avocado - 1 unit, Tomato - 1 unit, Onion - 1 unit, Cilantro - 1 bunch, Sour Cream - 100 grams',
+  '1. In a bowl, mix 500g of diced chicken breast with 30g of taco seasoning, 30ml of olive oil, and 15ml of lime juice.
+  2. Add minced garlic, chili powder, cumin, and salt. Mix well and marinate for 30 minutes.
+  3. Heat a skillet over medium-high heat and cook the chicken until browned and cooked through.
+  4. Warm the tortillas in the skillet.
+  5. Assemble the tacos with the cooked chicken, sliced avocado, diced tomato, chopped onion, and cilantro.
+  6. Serve the spicy chicken tacos with a dollop of sour cream on top.'
+);
+INSERT INTO recipes (saved_by, title, tags, ingredients, steps) VALUES
+(
+  2,
+  'Classic Margherita Pizza',
+  'dinner pizza margherita',
+  'Pizza Dough - 1 ball, Tomato Sauce - 200 ml, Fresh Mozzarella - 200 grams, Fresh Basil - 1 bunch, Olive Oil - 30 ml, Salt - 5 grams',
+  '1. Preheat your oven to 475°F (245°C).
+  2. Roll out the pizza dough on a floured surface to your desired thickness.
+  3. Spread 200ml of tomato sauce evenly over the dough, leaving a small border around the edges.
+  4. Tear the fresh mozzarella into small pieces and distribute them over the sauce.
+  5. Tear the fresh basil leaves and scatter them over the pizza.
+  6. Drizzle the pizza with 30ml of olive oil and sprinkle with salt.
+  7. Transfer the pizza to a baking sheet or pizza stone and bake for 10-12 minutes, or until the crust is golden brown and the cheese is bubbly.
+  8. Remove from the oven, slice, and serve the classic Margherita pizza hot.'
+);
 
 -- Seed ingredients
 INSERT INTO ingredients (user_id, name, quantity, units) VALUES (1, 'Flour', 500.00, 'grams');
@@ -57,27 +85,3 @@ INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Black Peppe
 INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Cheese', 150.00, 'grams');
 INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Chicken Breast', 2.00, 'units');
 INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Lemons', 2.00, 'units');
-
--- Seed recipe_ingredients
-  -- Classic Bread
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (1, 1, 500.00, 'grams');
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (1, 4, 15.00, 'grams');
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (1, 3, 5.00, 'grams');
-
-  -- Chocolate Cake
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (2, 1, 250.00, 'grams');
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (2, 2, 200.00, 'grams');
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (2, 9, 50.00, 'grams');
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (2, 7, 3.00, 'units');
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (2, 6, 100.00, 'grams');
-
-  -- Garlic Pasta
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (3, 11, 100.00, 'ml');
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (3, 12, 30.00, 'grams');
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (3, 18, 150.00, 'grams');
-
-  -- Grilled Chicken
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (4, 19, 500.00, 'grams');
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (4, 11, 50.00, 'ml');
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (4, 20, 2.00, 'units');
-INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (4, 17, 5.00, 'grams');
