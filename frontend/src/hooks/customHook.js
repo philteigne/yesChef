@@ -78,12 +78,6 @@ export function reducer(state, action) {
         addIngredientState: action.payload,
       }
 
-    // Actions to handle Recipe Components
-    // case ACTIONS.SET_ACTIVE_RECIPE:
-    //   return {
-    //     ...state,
-    //     activeRecipe: action.payload
-    //   }
     
     case ACTIONS.SET_ACTIVE_RECIPE_ID:
       return {
