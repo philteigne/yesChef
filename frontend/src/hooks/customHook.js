@@ -241,33 +241,27 @@ const useApplicationData = () => {
   }, [state.requestRecipe]);
 
   const fetchRecipes = useCallback((userId) => {
-    dispatch({ type: ACTIONS.IS_LOADING, payload: true })
     dispatch({ type: ACTIONS.ERROR, payload: null })
     fetch(`/api/saved-recipes/user/${userId}`)
       .then(response => response.json())
       .then(data => {
         dispatch({ type: 'SET_RECIPES', payload: data })
-        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
       })
       .catch(err => {
         dispatch({ type: ACTIONS.ERROR, payload: err.message })
-        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
       });
   }, []);
 
   const fetchIngredients = useCallback((recipeId) => {
     // this is causing the page to reload
-    dispatch({ type: ACTIONS.IS_LOADING, payload: true });
     dispatch({ type: ACTIONS.ERROR, payload: null })
     fetch(`/api/ingredients/recipe/${recipeId}`)
       .then(response => response.json())
       .then(data => {
         dispatch({ type: ACTIONS.SET_RECIPE_INGREDIENTS, payload: data });
-        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
       })
       .catch(err => {
         dispatch({ type: ACTIONS.ERROR, payload: err.message });
-        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
       });
   }, []);
 
@@ -297,7 +291,6 @@ const useApplicationData = () => {
     })
     .catch(error => {
       dispatch({ type: ACTIONS.SAVE_RECIPE_FAILURE, payload: error.message });
-      // dispatch({ type: ACTIONS.IS_LOADING, payload: false });
     })
   }, []);
 

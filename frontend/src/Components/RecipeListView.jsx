@@ -2,18 +2,16 @@ import React, { useContext } from "react";
 
 import RecipeList from "./RecipeList";
 import { applicationContext } from '../hooks/applicationContext';
-import Loading from "./Loading";
-import Error from "./Error";
+
 
 import { Box, Typography } from "@mui/material";
 
 function RecipeListView() {
 
   const { state } = useContext(applicationContext);
-  const { recipes, isLoading, error } = state;
+  const { recipes } = state;
 
-  if (isLoading) return <Loading />
-  if (error) return <Error />
+
 
   return (
     <Box sx={{ width: 0.43, height: 512 }}>

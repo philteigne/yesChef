@@ -11,13 +11,12 @@ function RecipeFullView() {
 
   const { state, dispatch } = useContext(applicationContext);
   
-  const { activeRecipe, recipes, recipeIngredients, isLoading, error } = state;
+  const { activeRecipe, recipes, recipeIngredients } = state;
   
   const recipe = recipes.find(r => r.id === activeRecipe);
   
   
-  if (isLoading) return <Loading />
-  if (error) return <Error />
+
   
   if (!recipe) return <div>No recipe found</div>;
 

@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 
 import { applicationContext } from '../hooks/applicationContext';
 
-import { ListItem, Typography, IconButton, Box } from '@mui/material'
-import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutlineRounded';
+import { ListItem, Typography, Box } from '@mui/material'
 
 const RecipeListItem = ({recipe}) => {
 
