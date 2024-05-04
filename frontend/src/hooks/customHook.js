@@ -282,6 +282,7 @@ const useApplicationData = () => {
     })
     // once data has been sent to database
     .then(() => {
+      // check response status?
       // trigger render of saved-recipe
       dispatch({type: ACTIONS.RERENDER_RECIPES_TRIGGER})
       // after saving successfully, saveRecipeData should become null again
