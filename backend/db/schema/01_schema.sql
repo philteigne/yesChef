@@ -24,13 +24,14 @@ CREATE TABLE recipes (
   saved_by INTEGER REFERENCES users(id) on DELETE CASCADE,
   title VARCHAR(255) NOT NULL,
   tags VARCHAR(255) NOT NULL,
+  ingredients TEXT NOT NULL,
   steps TEXT NOT NULL
 );
 
-CREATE TABLE recipe_ingredients (
-  recipe_id INTEGER REFERENCES recipes(id) ON DELETE CASCADE,
-  ingredient_id INTEGER REFERENCES ingredients(id) ON DELETE CASCADE,
-  quantity NUMERIC(5,2),
-  units TEXT,
-  PRIMARY KEY (recipe_id, ingredient_id)
-);
+-- CREATE TABLE recipe_ingredients (
+--   recipe_id INTEGER REFERENCES recipes(id) ON DELETE CASCADE,
+--   ingredient_id INTEGER REFERENCES ingredients(id) ON DELETE CASCADE,
+--   quantity NUMERIC(5,2),
+--   units TEXT,
+--   PRIMARY KEY (recipe_id, ingredient_id)
+-- );
