@@ -6,29 +6,36 @@ import {
   Button,
 } from "@mui/material";
 import { applicationContext } from "../hooks/applicationContext";
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import ClearIcon from '@mui/icons-material/Clear';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import LoadingButton from '@mui/lab/LoadingButton';
+import SaveIcon from '@mui/icons-material/Save';
 
 function RecipeResponseView() {
   const { state, dispatch } = useContext(applicationContext);
 
-  const handleSubmit = () => {
+  const handleSave = () => {
     if (!state.recipeResponse) {
       console.error("No recipe data to save.");
       return;
     }
-  
+    // changes state in saveRecipeData 
     // Dispatch an action that includes the recipe data to be saved
     dispatch({
       type: "SAVE_RECIPE",
       payload: { userId: state.userId, recipe: state.recipeResponse }
-    });
+    })
+    
+    dispatch({type: "SET_SAVE_RECIPE_LOADING", payload: true})
+
+   
   };
 
   const handleClear = () => {
     // use dispatch to clear the recipeResponse state back to null on click
     dispatch({type: "CLEAR_RECIPE_RESPONSE"});
+    // reset isSaved state
+    dispatch({type: "SET_IS_RECIPE_SAVED", payload: false})
 
   }
 
@@ -38,19 +45,25 @@ function RecipeResponseView() {
       border: '1px solid #ccc', 
       borderRadius: '4px', 
       overflow: 'hidden',
-      maxWidth: '43%'
+      width: '0.43'
       }}>
     
       <Box sx={{ padding: 0, display: 'flex', alignItems: 'center' }}> 
-        <Button
-          type="submit"
-          onClick={handleSubmit}
+        <LoadingButton
+          size="small"
+          color="secondary"
+          onClick={handleSave}
+          loading={state.saveRecipeLoading}
+          loadingPosition="start"
+          startIcon={<SaveIcon />}
           variant="contained"
-          endIcon={<FavoriteIcon/>}
           sx={{ minWidth: 'auto', marginRight: 1 }}
         >
-          Save
-        </Button>
+          <span>
+            {state.isRecipeSaved ? 'Saved' : 'Save'}
+          </span>
+        </LoadingButton>
+
         <Button
           type="submit"
           onClick={""}

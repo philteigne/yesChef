@@ -71,7 +71,7 @@ router.post('/', async (req, res) => {
     const aiResponseRaw = (response.data.choices[0].message.content);
     const aiResponse = aiResponseRaw.replace(/`{3}(json)?/g, '');  // Regular expression to remove all backticks
     // ensure response type is in json format
-    console.log("aiResponse", aiResponse);
+    // console.log("aiResponse", aiResponse);
     res.type('json');
     res.status(200).send(aiResponse);
   } catch (error) {

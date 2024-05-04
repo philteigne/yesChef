@@ -13,6 +13,8 @@ export const INITIAL_STATE = {
   recipes: [],
   recipeIngredients: [],
   isLoading: false,
+  // For handling save recipe button loading animation
+  saveRecipeLoading: false,
   error: null,
   // Parameters Components
   themeColors: {
@@ -23,21 +25,10 @@ export const INITIAL_STATE = {
   recipeRequest: null,
   // AI Response
   recipeResponse: null,
-  recipeResponseTestState: {
-    "title": "Classic Bread",
-    "tags": ["baking", "bread"],
-    "steps": [
-      "1. Mix ingredients.",
-      "2. Knead dough.",
-      "3. Let rise.",
-      "4. Bake at 200°C for 30 minutes."
-    ],
-    "ingredients": [
-      { "ingredient": "Flour", "quantity": 15.00, "units": "grams", "id": "1" },
-      { "ingredient": "Yeast", "quantity": 5.00, "units": "grams", "id": "2" }
-    ]
-  },
-  saveRecipeData: null
+  saveRecipeData: null,
+  // rerender saved recipes, get's trigger when recipe is saved to db
+  shouldRerenderRecipes: [],
+  isRecipeSaved: false
 }
 
 
@@ -55,7 +46,12 @@ export const ACTIONS = {
   SET_RECIPE_RESPONSE: "SET_RECIPE_RESPONSE",
   SAVE_RECIPE: "SAVE_RECIPE",
   CLEAR_RECIPE_RESPONSE: "CLEAR_RECIPE_RESPONSE",
-  SET_USER_ID: "SET_USER_ID"
+  SET_USER_ID: "SET_USER_ID",
+  SET_SAVE_RECIPE_LOADING: "SET_SAVE_RECIPE_LOADING",
+  SAVE_RECIPE_SUCCESS: "SAVE_RECIPE_SUCCESS",
+  SAVE_RECIPE_FAILURE: "SAVE_RECIPE_FAILURE",
+  RERENDER_RECIPES_TRIGGER: "RERENDER_RECIPES_TRIGGER",
+  SET_IS_RECIPE_SAVED: "SET_IS_RECIPE_SAVED"
 }
 
 export function reducer(state, action) {
@@ -128,29 +124,44 @@ export function reducer(state, action) {
         return {
           ...state,
           saveRecipeData: action.payload,
-          isLoading: true,
           error: null,
         };
       
     case ACTIONS.SAVE_RECIPE_SUCCESS:
       return {
         ...state,
-        recipes: [...state.recipes, action.payload],
-        isLoading: false,
+        recipes: [...state.recipes, action.payload]
       };
     case ACTIONS.SAVE_RECIPE_FAILURE:
       return {
         ...state,
-        error: action.payload,
-        isLoading: false,
+        error: action.payload
       };
 
-      case ACTIONS.SET_USER_ID:
+    case ACTIONS.SET_USER_ID:
       return {
         ...state,
         userId: action.payload 
       };
 
+    case ACTIONS.SET_SAVE_RECIPE_LOADING:
+      return {
+        ...state,
+        saveRecipeLoading: action.payload
+      }
+
+    case ACTIONS.RERENDER_RECIPES_TRIGGER:
+      return {
+        ...state,
+        shouldRerenderRecipes: [...state.shouldRerenderRecipes, 1]
+      }
+    
+    case ACTIONS.SET_IS_RECIPE_SAVED: {
+      return {
+        ...state,
+        isRecipeSaved: action.payload
+      }
+    }
       
 
     default:
@@ -198,7 +209,7 @@ const useApplicationData = () => {
     }
   }, [state.addIngredientState, state.userId])
 
-  // request recipe with parameters
+  // request recipe with parameters chatgpt
   useEffect(() => {
     if (state.requestRecipe) {
       dispatch({ type: ACTIONS.IS_LOADING, payload: true });  
@@ -261,8 +272,7 @@ const useApplicationData = () => {
   }, []);
 
   const saveRecipe = useCallback((recipeData) => {
-    dispatch({ type: ACTIONS.IS_LOADING, payload: true });
-
+    // Post to api route, backend saves new recipe to database
     fetch(`${API_CALL_URL}saved-recipes/recipe/${recipeData.userId}`, {
       method: 'POST',
       headers: {
@@ -270,20 +280,25 @@ const useApplicationData = () => {
       },
       body: JSON.stringify(recipeData.recipe)
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to save the recipe');
-      }
-      return response.json();
-    })
-    .then(data => {
-      dispatch({ type: ACTIONS.SAVE_RECIPE_SUCCESS, payload: data });
-      dispatch({ type: ACTIONS.IS_LOADING, payload: false });
+    // once data has been sent to database
+    .then(() => {
+      // check response status?
+      // trigger render of saved-recipe
+      dispatch({type: ACTIONS.RERENDER_RECIPES_TRIGGER})
+      // after saving successfully, saveRecipeData should become null again
+      dispatch({type: ACTIONS.SAVE_RECIPE, payload: null})
+      // saving loading animation should become false
+      setTimeout(() => {
+        dispatch({type: ACTIONS.SET_SAVE_RECIPE_LOADING, payload: false})
+        // set saved to true
+        dispatch({type: ACTIONS.SET_IS_RECIPE_SAVED, payload: true})
+
+      },1500)
     })
     .catch(error => {
       dispatch({ type: ACTIONS.SAVE_RECIPE_FAILURE, payload: error.message });
-      dispatch({ type: ACTIONS.IS_LOADING, payload: false });
-    });
+      // dispatch({ type: ACTIONS.IS_LOADING, payload: false });
+    })
   }, []);
 
   // set userId
@@ -291,19 +306,19 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.SET_USER_ID, payload: newUserId });
   };
 
-  // fetch current view recipe from backend
+  // fetch recipes from database, it runs when shouldRenderRecipe state changes and userId state changes
   useEffect(() => {
     fetchRecipes(state.userId);
-  }, [fetchRecipes, state.userId]);
+  }, [fetchRecipes, state.userId, state.shouldRerenderRecipes]);
 
   useEffect(() => {
-    // console.log("Active recipe updated to:", state.activeRecipe);
     fetchIngredients(state.activeRecipe);
   }, [fetchIngredients, state.activeRecipe])
 
+// when saveRecipeData change, that means user clicked save recipe button
   useEffect(() => {
     if (state.saveRecipeData) {
-      saveRecipe(state.saveRecipeData);
+      saveRecipe(state.saveRecipeData)
     }
   }, [state.saveRecipeData, saveRecipe]);
   
