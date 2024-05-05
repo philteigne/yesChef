@@ -28,7 +28,8 @@ export const INITIAL_STATE = {
   saveRecipeData: null,
   // rerender saved recipes, get's trigger when recipe is saved to db
   shouldRerenderRecipes: [],
-  isRecipeSaved: false
+  isRecipeSaved: false,
+  deleteRecipeState: null
 }
 
 
@@ -165,11 +166,9 @@ export function reducer(state, action) {
     }
 
     case ACTIONS.DELETE_RECIPE: {
-      const recipeIdToDelete = action.payload;
-      const updatedRecipes = state.recipes.filter(recipe => recipe.id !== recipeIdToDelete);
       return {
         ...state,
-        recipes: updatedRecipes
+        deleteRecipeState: action.payload
       };
     }
       
@@ -311,7 +310,7 @@ const useApplicationData = () => {
   // fetch recipes from database, it runs when shouldRenderRecipe state changes and userId state changes
   useEffect(() => {
     fetchRecipes(state.userId);
-  }, [fetchRecipes, state.userId, state.shouldRerenderRecipes]);
+  }, [fetchRecipes, state.userId, state.shouldRerenderRecipes, state.deleteRecipeState]);
 
   useEffect(() => {
     fetchIngredients(state.activeRecipe);
@@ -328,7 +327,18 @@ const useApplicationData = () => {
     setUserId(state.userId);
   }, [state.userId])
 
+  const deleteRecipe = useCallback(() => {
+    const userId = state.userId; 
+    fetch(`http://localhost:8080/api/saved-recipes/${userId}/${state.deleteRecipeState}`, {
+      method: 'DELETE'
+    })
+    .then(() => {dispatch({type: ACTIONS.DELETE_RECIPE, payload: null})
+    })
+  }, [state.deleteRecipeState, state.userId]);
 
+  useEffect(() => {
+    deleteRecipe(state.deleteRecipeState)
+  }, [deleteRecipe, state.deleteRecipeState]);
 
 
   // calling useApplicationData function return these functions that changes states

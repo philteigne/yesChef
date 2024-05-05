@@ -7,16 +7,8 @@ const RecipeListItem = ({ recipe }) => {
   const { state, dispatch } = useContext(applicationContext);
 
 const handleDelete = () => {
-  const userId = state.userId; 
-  fetch(`http://localhost:8080/api/saved-recipes/${userId}/${recipe.id}`, {
-    method: 'DELETE'
-  })
-  .then(() => {
-    dispatch({ type: 'DELETE_RECIPE', payload: recipe.id });
-  })
-  .catch(error => {
-    console.error('Error deleting recipe:', error);
-  });
+  dispatch({ type: 'DELETE_RECIPE', payload: recipe.id });
+  
 };
 
   return (
@@ -43,7 +35,7 @@ const handleDelete = () => {
           {recipe.title}
         </Typography>
       </ListItem>
-      <IconButton aria-label="delete" onClick={handleDelete}>
+      <IconButton aria-label="delete" onClick={() => dispatch({ type: 'DELETE_RECIPE', payload: recipe.id })}>
         <DeleteIcon />
       </IconButton>
     </Box>
