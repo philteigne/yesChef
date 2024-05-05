@@ -25,6 +25,8 @@ const Parameters = () => {
     // Dispatch action to add ingredient
     dispatch({ type: "REQUEST_RECIPE", payload: recipeRequest });
 
+    // Dispatch action to set temporary parameter input for recipe regeneration
+    dispatch({ type: "SET_TEMP_PARAMETER_INPUT", payload: recipeRequest })
     // Clear input values
     setRecipeTags('');
     setRecipeFocus('');
