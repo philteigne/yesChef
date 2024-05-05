@@ -23,6 +23,8 @@ export const INITIAL_STATE = {
     accentColor: '#E85A4F'
   },
   recipeRequest: null,
+  // temporary store recipeResponse input param for quick regenerate recipe, should be in sync with recipeResponse
+  tempParameterInput: null,
   // AI Response
   recipeResponse: null,
   saveRecipeData: null,
@@ -51,7 +53,8 @@ export const ACTIONS = {
   SAVE_RECIPE_SUCCESS: "SAVE_RECIPE_SUCCESS",
   SAVE_RECIPE_FAILURE: "SAVE_RECIPE_FAILURE",
   RERENDER_RECIPES_TRIGGER: "RERENDER_RECIPES_TRIGGER",
-  SET_IS_RECIPE_SAVED: "SET_IS_RECIPE_SAVED"
+  SET_IS_RECIPE_SAVED: "SET_IS_RECIPE_SAVED",
+  SET_TEMP_PARAMETER_INPUT: "SET_TEMP_PARAMETER_INPUT"
 }
 
 export function reducer(state, action) {
@@ -162,7 +165,13 @@ export function reducer(state, action) {
         isRecipeSaved: action.payload
       }
     }
-      
+    
+    case ACTIONS.SET_TEMP_PARAMETER_INPUT: {
+      return {
+        ...state,
+        tempParameterInput: action.payload
+      }
+    }
 
     default:
       throw new Error(
@@ -318,8 +327,8 @@ const useApplicationData = () => {
 // when saveRecipeData change, that means user clicked save recipe button
   useEffect(() => {
     if (state.saveRecipeData) {
-      saveRecipe(state.saveRecipeData)
-    }
+      saveRecipe(state.saveRecipeData) 
+    }   
   }, [state.saveRecipeData, saveRecipe]);
   
   useEffect(() => {
