@@ -34,9 +34,25 @@ function RecipeResponseView() {
   const handleClear = () => {
     // use dispatch to clear the recipeResponse state back to null on click
     dispatch({type: "CLEAR_RECIPE_RESPONSE"});
+    // clear temp parameter input
+    dispatch({ type: "SET_TEMP_PARAMETER_INPUT", payload: null });
     // reset isSaved state
-    dispatch({type: "SET_IS_RECIPE_SAVED", payload: false})
+    dispatch({type: "SET_IS_RECIPE_SAVED", payload: false});
 
+  }
+
+  const handleRegenerate = () => {
+    const { recipeTags, recipeFocus, recipeAvoid, allIngredients } = state.tempParameterInput;
+
+    const quickRegenerateRequest = {
+      recipeTags,
+      recipeFocus,
+      recipeAvoid,
+      allIngredients,
+      oldRecipeTitle: state.recipeResponse.title
+    }
+
+    dispatch({ type: "REQUEST_RECIPE", payload: quickRegenerateRequest });
   }
 
   return (
@@ -66,7 +82,7 @@ function RecipeResponseView() {
 
         <Button
           type="submit"
-          onClick={""}
+          onClick={handleRegenerate}
           variant="contained"
           endIcon={<RefreshIcon/>}
           sx={{ minWidth: 'auto', marginRight: 1 }}
