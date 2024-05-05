@@ -36,15 +36,28 @@ The data schema should follow this example \`${JSON.stringify(exampleJson)}\`
 ONLY use the ingredients provied by the user, DO NOT ADD ANY OTHERS`
 
 router.post('/', async (req, res) => {
-  const { recipeTags, recipeFocus, recipeAvoid, allIngredients } = req.body;
+  const { recipeTags, recipeFocus, recipeAvoid, allIngredients, oldRecipeTitle } = req.body;
 
   // console.log("Ingredient List", allIngredients)
+  // Prompt needs some tweaking, it is recognizing when it is a regenerate but it is still making a similar dish
 
-  const userPrompt = `
+  const initialUserPrompt = `
     Given ONLY these ingredients: ${JSON.stringify(allIngredients)}, your task is to craft a recipe that fits the provided tags: ${recipeTags}.
     However, please try to use these ingredients: ${recipeFocus}, and avoid incorporating the following ingredients: ${recipeAvoid}.
     DO NOT ADD INGREDIENTS THAT I DON'T HAVE.
   `;
+
+  const userPromptRegenerate = `
+    You have generated a recipe called ${oldRecipeTitle} earlier, which the user did not like it.
+    Please come up with a different recipe that is very different from the last one. Given ONLY these ingredients: ${JSON.stringify(allIngredients)},
+    your task is to craft a recipe that fits the provided tags: ${recipeTags}.
+    However, please try to use these ingredients: ${recipeFocus}, and avoid incorporating the following ingredients: ${recipeAvoid}.
+    DO NOT ADD INGREDIENTS THAT I DON'T HAVE.
+  `;
+
+  const userPrompt = !oldRecipeTitle? initialUserPrompt : userPromptRegenerate;
+
+  // console.log(userPrompt);
 
   try {
     // Make the API request to OpenAI
@@ -57,7 +70,7 @@ router.post('/', async (req, res) => {
           { role: 'user', content: userPrompt }
         ],
         // Temperature controls how unexpected the output can be, 0 being most conservative
-        temperature: 0
+        temperature: 0.8
       },
       {
         headers: {
