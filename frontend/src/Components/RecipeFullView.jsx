@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 
 import { applicationContext } from "../hooks/applicationContext";
-import Loading from "./Loading";
-import Error from "./Error";
 
 import { Box, Typography, Paper, IconButton, ListItem } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';

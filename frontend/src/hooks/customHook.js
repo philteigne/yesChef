@@ -51,7 +51,8 @@ export const ACTIONS = {
   // SAVE_RECIPE_SUCCESS: "SAVE_RECIPE_SUCCESS",
   // SAVE_RECIPE_FAILURE: "SAVE_RECIPE_FAILURE",
   RERENDER_RECIPES_TRIGGER: "RERENDER_RECIPES_TRIGGER",
-  SET_IS_RECIPE_SAVED: "SET_IS_RECIPE_SAVED"
+  SET_IS_RECIPE_SAVED: "SET_IS_RECIPE_SAVED",
+  DELETE_RECIPE: "DELETE_RECIPE"
 }
 
 export function reducer(state, action) {
@@ -162,6 +163,15 @@ export function reducer(state, action) {
         isRecipeSaved: action.payload
       }
     }
+
+    case ACTIONS.DELETE_RECIPE: {
+      const recipeIdToDelete = action.payload;
+      const updatedRecipes = state.recipes.filter(recipe => recipe.id !== recipeIdToDelete);
+      return {
+        ...state,
+        recipes: updatedRecipes
+      };
+    }
       
 
     default:
@@ -253,7 +263,6 @@ const useApplicationData = () => {
   }, []);
 
   const fetchIngredients = useCallback((recipeId) => {
-    // this is causing the page to reload
     dispatch({ type: ACTIONS.ERROR, payload: null })
     fetch(`/api/ingredients/recipe/${recipeId}`)
       .then(response => response.json())
@@ -318,6 +327,9 @@ const useApplicationData = () => {
   useEffect(() => {
     setUserId(state.userId);
   }, [state.userId])
+
+
+
 
   // calling useApplicationData function return these functions that changes states
   return {

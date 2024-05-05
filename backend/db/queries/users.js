@@ -62,9 +62,18 @@ const changeRecipe = () => {
   // Alter characteristics of a recipe
 }
 
-const deleteRecipe = (recipeId) => {
-  // Delete saved recipe from saved recipe list
-}
+const deleteRecipe = (userId, recipeId) => {
+  const queryText = `
+    DELETE FROM recipes
+    WHERE saved_by = $1
+    AND id = $2;
+  `;
+  return db.query(queryText, [userId, recipeId])
+    .catch(err => {
+      console.error('Error executing query', err.stack);
+      throw err;
+    });
+};
 
 const getRecipeIngredients = (recipeId) => {
   const queryText = 'SELECT  i.name,  ri.quantity,  ri.units FROM  ingredients i JOIN  recipe_ingredients ri ON i.id = ri.ingredient_id WHERE ri.recipe_id = $1;';
@@ -133,5 +142,6 @@ module.exports = {
   deleteIngredient,
   addIngredient,
   addRecipe,
-  addRecipeIngredient
+  addRecipeIngredient,
+  deleteRecipe
 };
