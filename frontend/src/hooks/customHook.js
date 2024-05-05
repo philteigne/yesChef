@@ -48,8 +48,8 @@ export const ACTIONS = {
   CLEAR_RECIPE_RESPONSE: "CLEAR_RECIPE_RESPONSE",
   SET_USER_ID: "SET_USER_ID",
   SET_SAVE_RECIPE_LOADING: "SET_SAVE_RECIPE_LOADING",
-  SAVE_RECIPE_SUCCESS: "SAVE_RECIPE_SUCCESS",
-  SAVE_RECIPE_FAILURE: "SAVE_RECIPE_FAILURE",
+  // SAVE_RECIPE_SUCCESS: "SAVE_RECIPE_SUCCESS",
+  // SAVE_RECIPE_FAILURE: "SAVE_RECIPE_FAILURE",
   RERENDER_RECIPES_TRIGGER: "RERENDER_RECIPES_TRIGGER",
   SET_IS_RECIPE_SAVED: "SET_IS_RECIPE_SAVED"
 }
@@ -127,16 +127,16 @@ export function reducer(state, action) {
           error: null,
         };
       
-    case ACTIONS.SAVE_RECIPE_SUCCESS:
-      return {
-        ...state,
-        recipes: [...state.recipes, action.payload]
-      };
-    case ACTIONS.SAVE_RECIPE_FAILURE:
-      return {
-        ...state,
-        error: action.payload
-      };
+    // case ACTIONS.SAVE_RECIPE_SUCCESS:
+    //   return {
+    //     ...state,
+    //     recipes: [...state.recipes, action.payload]
+    //   };
+    // case ACTIONS.SAVE_RECIPE_FAILURE:
+    //   return {
+    //     ...state,
+    //     error: action.payload
+    //   };
 
     case ACTIONS.SET_USER_ID:
       return {

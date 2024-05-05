@@ -15,13 +15,18 @@ function RecipeFullView() {
   
   const recipe = recipes.find(r => r.id === activeRecipe);
   
-  
+  function splitRecipe(recipe) {
+    const arr = recipe.split(/\d+\./).filter(step => step.trim() !== '');
+   return arr.map((step, index) => {
+      return `${index + 1}.${step}`
+    })
+  }
 
   
   if (!recipe) return <div>No recipe found</div>;
 
   return (
-    <Box sx={{ width: 0.43, height: 512 }}>
+    <Box sx={{ width: 0.43}}>
       
       <Typography
         variant="h1"
@@ -66,18 +71,27 @@ function RecipeFullView() {
         
       <Paper sx={{ margin: 'auto', mt: 2, mb: 2, padding: 2, height: 1, overflow: 'auto' }}>
         <Typography
-          variant="body1"
-          component="p"
+          variant="h2" component="h2" color="secondary"
         >
           {Array.isArray(recipeIngredients) ? recipeIngredients.map(ing => `${ing.name} - ${ing.quantity} ${ing.units} \n`).join(', ') : "No ingredients"}
         </Typography>
-        <Typography
-          variant="body1"
-          component="p"
-        >
-          {recipe.steps}
-        </Typography>
+      <Paper sx={{ margin: 'auto', mt: 2, mb: 2, padding: 2 }}>
+        {/* function to map steps by number and add line breaks */}
+      {splitRecipe(recipe.steps).map((step) => {
+        return (
+          <Typography 
+          variant="h2"
+          component="h2"
+          color="secondary" 
+          sx={{ marginTop: 1, marginBottom: 1 }}
+          >
+            {step}
+          </Typography>
+        )
+      })}
       </Paper>
+      </Paper>
+
     </Box>
   )
 }
