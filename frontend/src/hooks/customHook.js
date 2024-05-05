@@ -201,6 +201,78 @@ const useApplicationData = () => {
 
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
 
+  // ----- CALLBACKS -----
+  // fetch recipes from backend
+  const fetchRecipes = useCallback((userId) => {
+    dispatch({ type: ACTIONS.IS_LOADING, payload: true })
+    dispatch({ type: ACTIONS.ERROR, payload: null })
+    fetch(`/api/saved-recipes/user/${userId}`)
+      .then(response => response.json())
+      .then(data => {
+        dispatch({ type: 'SET_RECIPES', payload: data })
+        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
+      })
+      .catch(err => {
+        dispatch({ type: ACTIONS.ERROR, payload: err.message })
+        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
+      });
+  }, []);
+
+  // Save new recipe to database
+  const saveRecipe = useCallback((recipeData) => {
+    fetch(`${API_CALL_URL}saved-recipes/recipe/${recipeData.userId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(recipeData.recipe)
+    })
+    // once data has been sent to database
+    .then(() => {
+      // check response status?
+      // trigger render of saved-recipe
+      dispatch({type: ACTIONS.RERENDER_RECIPES_TRIGGER})
+      // after saving successfully, saveRecipeData should become null again
+      dispatch({type: ACTIONS.SAVE_RECIPE, payload: null})
+      // saving loading animation should become false
+      setTimeout(() => {
+        dispatch({type: ACTIONS.SET_SAVE_RECIPE_LOADING, payload: false})
+        // set saved to true
+        dispatch({type: ACTIONS.SET_IS_RECIPE_SAVED, payload: true})
+
+      },1500)
+    })
+    .catch(error => {
+      dispatch({ type: ACTIONS.SAVE_RECIPE_FAILURE, payload: error.message });
+      // dispatch({ type: ACTIONS.IS_LOADING, payload: false });
+    })
+  }, []);
+
+  // fetch ingredients from backend for specified recipe
+  const fetchIngredients = useCallback((recipeId) => {
+    // this is causing the page to reload
+    dispatch({ type: ACTIONS.IS_LOADING, payload: true });
+    dispatch({ type: ACTIONS.ERROR, payload: null })
+    fetch(`/api/ingredients/recipe/${recipeId}`)
+      .then(response => response.json())
+      .then(data => {
+        dispatch({ type: ACTIONS.SET_RECIPE_INGREDIENTS, payload: data });
+        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
+      })
+      .catch(err => {
+        dispatch({ type: ACTIONS.ERROR, payload: err.message });
+        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
+      });
+  }, []);
+
+  // set userId
+  const setUserId = (newUserId) => {
+    dispatch({ type: ACTIONS.SET_USER_ID, payload: newUserId });
+  };
+
+  // ----- useEffects -----
+
+  // INGREDIENTS 
   // fetch ingredients from backend
   useEffect(() => {
     fetch(`${API_CALL_URL}ingredients/${state.userId}`)
@@ -235,6 +307,13 @@ const useApplicationData = () => {
     }
   }, [state.addIngredientState, state.userId])
 
+  // fetch ingredients from backend for specified recipe
+  useEffect(() => {
+    fetchIngredients(state.activeRecipe);
+  }, [fetchIngredients, state.activeRecipe])
+
+
+  // RECIPES
   // request recipe with parameters chatgpt
   useEffect(() => {
     if (state.requestRecipe) {
@@ -266,91 +345,25 @@ const useApplicationData = () => {
     }
   }, [state.requestRecipe]);
 
-  const fetchRecipes = useCallback((userId) => {
-    dispatch({ type: ACTIONS.IS_LOADING, payload: true })
-    dispatch({ type: ACTIONS.ERROR, payload: null })
-    fetch(`/api/saved-recipes/user/${userId}`)
-      .then(response => response.json())
-      .then(data => {
-        dispatch({ type: 'SET_RECIPES', payload: data })
-        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
-      })
-      .catch(err => {
-        dispatch({ type: ACTIONS.ERROR, payload: err.message })
-        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
-      });
-  }, []);
-
-  const fetchIngredients = useCallback((recipeId) => {
-    // this is causing the page to reload
-    dispatch({ type: ACTIONS.IS_LOADING, payload: true });
-    dispatch({ type: ACTIONS.ERROR, payload: null })
-    fetch(`/api/ingredients/recipe/${recipeId}`)
-      .then(response => response.json())
-      .then(data => {
-        dispatch({ type: ACTIONS.SET_RECIPE_INGREDIENTS, payload: data });
-        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
-      })
-      .catch(err => {
-        dispatch({ type: ACTIONS.ERROR, payload: err.message });
-        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
-      });
-  }, []);
-
-  const saveRecipe = useCallback((recipeData) => {
-    // Post to api route, backend saves new recipe to database
-    fetch(`${API_CALL_URL}saved-recipes/recipe/${recipeData.userId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(recipeData.recipe)
-    })
-    // once data has been sent to database
-    .then(() => {
-      // check response status?
-      // trigger render of saved-recipe
-      dispatch({type: ACTIONS.RERENDER_RECIPES_TRIGGER})
-      // after saving successfully, saveRecipeData should become null again
-      dispatch({type: ACTIONS.SAVE_RECIPE, payload: null})
-      // saving loading animation should become false
-      setTimeout(() => {
-        dispatch({type: ACTIONS.SET_SAVE_RECIPE_LOADING, payload: false})
-        // set saved to true
-        dispatch({type: ACTIONS.SET_IS_RECIPE_SAVED, payload: true})
-
-      },1500)
-    })
-    .catch(error => {
-      dispatch({ type: ACTIONS.SAVE_RECIPE_FAILURE, payload: error.message });
-      // dispatch({ type: ACTIONS.IS_LOADING, payload: false });
-    })
-  }, []);
-
-  // set userId
-  const setUserId = (newUserId) => {
-    dispatch({ type: ACTIONS.SET_USER_ID, payload: newUserId });
-  };
+  // when saveRecipeData change, that means user clicked save recipe button
+  useEffect(() => {
+    if (state.saveRecipeData) {
+      saveRecipe(state.saveRecipeData)
+    }
+  }, [state.saveRecipeData, saveRecipe]);
 
   // fetch recipes from database, it runs when shouldRenderRecipe state changes and userId state changes
   useEffect(() => {
     fetchRecipes(state.userId);
   }, [fetchRecipes, state.userId, state.shouldRerenderRecipes]);
 
-  useEffect(() => {
-    fetchIngredients(state.activeRecipe);
-  }, [fetchIngredients, state.activeRecipe])
 
-// when saveRecipeData change, that means user clicked save recipe button
-  useEffect(() => {
-    if (state.saveRecipeData) {
-      saveRecipe(state.saveRecipeData)
-    }
-  }, [state.saveRecipeData, saveRecipe]);
-  
+  // APP MANAGEMENT
+  // Set current userId
   useEffect(() => {
     setUserId(state.userId);
   }, [state.userId])
+
 
   // calling useApplicationData function return these functions that changes states
   return {
