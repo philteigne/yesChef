@@ -82,6 +82,7 @@ export const ACTIONS = {
 
 export function reducer(state, action) {
   switch (action.type) {
+    // ----- INGREDIENT MANGEMENT -----
     case ACTIONS.GET_INGREDIENTS_USER:
       return {
         ...state,
@@ -98,13 +99,12 @@ export function reducer(state, action) {
         addIngredientState: action.payload,
       }
 
-    // Actions to handle Recipe Components
+    // ----- RECIPE MANAGEMENT -----
     case ACTIONS.SET_ACTIVE_RECIPE:
       return {
         ...state,
         activeRecipe: action.payload
       }
-
     case ACTIONS.SET_RECIPES:
       return {
         ...state,
@@ -115,81 +115,72 @@ export function reducer(state, action) {
         ...state,
         recipeIngredients: action.payload
       }
+    case ACTIONS.SAVE_RECIPE:
+      return {
+        ...state,
+        saveRecipeData: action.payload,
+        error: null,
+      }
+    case ACTIONS.RERENDER_RECIPES_TRIGGER:
+      return {
+        ...state,
+        shouldRerenderRecipes: [...state.shouldRerenderRecipes, 1]
+      }
+    case ACTIONS.SET_IS_RECIPE_SAVED:
+      return {
+        ...state,
+        isRecipeSaved: action.payload
+      }
 
+    // ----- APP MANAGEMENT -----
     case ACTIONS.IS_LOADING:
       return {
         ...state,
         isLoading: action.payload
       }
-
     case ACTIONS.ERROR:
       return {
         ...state,
         error: action.payload
       }
-
-    case ACTIONS.REQUEST_RECIPE:
-      return {
-        ...state,
-        requestRecipe: action.payload
-      }
-
-    case ACTIONS.SET_RECIPE_RESPONSE:
-      return {
-        ...state,
-        recipeResponse: action.payload
-      }
-
-    case ACTIONS.CLEAR_RECIPE_RESPONSE:
-      return {
-        ...state,
-        recipeResponse: null
-      }
-
-      case ACTIONS.SAVE_RECIPE:
-        return {
-          ...state,
-          saveRecipeData: action.payload,
-          error: null,
-        };
-      
     case ACTIONS.SAVE_RECIPE_SUCCESS:
       return {
         ...state,
         recipes: [...state.recipes, action.payload]
-      };
+      }
     case ACTIONS.SAVE_RECIPE_FAILURE:
       return {
         ...state,
         error: action.payload
-      };
-
+      }
     case ACTIONS.SET_USER_ID:
       return {
         ...state,
         userId: action.payload 
-      };
-
+      }
     case ACTIONS.SET_SAVE_RECIPE_LOADING:
       return {
         ...state,
         saveRecipeLoading: action.payload
       }
 
-    case ACTIONS.RERENDER_RECIPES_TRIGGER:
+    // ----- AI MANAGEMENT
+    case ACTIONS.SET_RECIPE_RESPONSE:
       return {
         ...state,
-        shouldRerenderRecipes: [...state.shouldRerenderRecipes, 1]
+        recipeResponse: action.payload
       }
-    
-    case ACTIONS.SET_IS_RECIPE_SAVED: {
+    case ACTIONS.CLEAR_RECIPE_RESPONSE:
       return {
         ...state,
-        isRecipeSaved: action.payload
+        recipeResponse: null
       }
-    }
+    case ACTIONS.REQUEST_RECIPE:
+      return {
+        ...state,
+        requestRecipe: action.payload
+      }
       
-
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
