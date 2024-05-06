@@ -63,8 +63,8 @@ export default function ButtonAppBar() {
   const [userIdInput, setUserIdInput] = useState('');
   return (
     <>
-    <AppBar >
-      <Toolbar>
+    <AppBar sx={{maxHeight: '29vh'}}>
+      <Toolbar >
         <Box sx={{ visibility: 'hidden', display: 'flex', justifyContent: "flex-end", justifySelf: 'flex-end', m: 0.4 }} >
           {pages.map((page) => (
             <Box sx={{ marginRight: 3 }}>
