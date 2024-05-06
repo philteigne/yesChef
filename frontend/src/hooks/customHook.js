@@ -32,7 +32,9 @@ export const INITIAL_STATE = {
   shouldRerenderRecipes: [],
   isRecipeSaved: false,
   deleteRecipeState: null,
-  chatModalOpen: false
+  chatModalOpen: false,
+  chatQuery: null,
+  chatResponse: null
 
 }
 
@@ -59,7 +61,10 @@ export const ACTIONS = {
   SET_IS_RECIPE_SAVED: "SET_IS_RECIPE_SAVED",
   SET_TEMP_PARAMETER_INPUT: "SET_TEMP_PARAMETER_INPUT",
   DELETE_RECIPE: "DELETE_RECIPE",
-  TOGGLE_CHAT: "TOGGLE_CHAT"
+  TOGGLE_CHAT: "TOGGLE_CHAT",
+  REQUEST_AI_CHAT: "REQUEST_AI_CHAT",
+  RECEIVE_AI_CHAT_RESPONSE: "RECEIVE_AI_CHAT_RESPONSE",
+  SET_CHAT_QUERY: "SET_CHAT_QUERY"
 }
 
 export function reducer(state, action) {
@@ -192,6 +197,23 @@ export function reducer(state, action) {
         ,
       }
     }
+    case ACTIONS.REQUEST_AI_CHAT:
+      return {
+        ...state,
+        chatResponse: null,  
+        error: null  
+      };
+    case ACTIONS.RECEIVE_AI_CHAT_RESPONSE:
+      return {
+        ...state,
+        chatResponse: action.payload,
+      };
+
+    case  ACTIONS.SET_CHAT_QUERY:
+      return {
+        ...state,
+        chatQuery: action.payload
+      }
       
 
     default:
@@ -360,6 +382,27 @@ const useApplicationData = () => {
   useEffect(() => {
     deleteRecipe(state.deleteRecipeState)
   }, [deleteRecipe, state.deleteRecipeState]);
+
+  const handleAIChatRequest = useCallback((userQuery) => {
+    dispatch({ type: ACTIONS.REQUEST_AI_CHAT });
+    fetch(`${API_CALL_URL}cooking-questions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ question: userQuery })
+    })
+    .then(response => response.json())
+    .then(data => {
+      dispatch({ type: ACTIONS.RECEIVE_AI_CHAT_RESPONSE, payload: data });
+    })
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (state.chatQuery) {
+      handleAIChatRequest(state.chatQuery);
+    }
+  }, [state.chatQuery, handleAIChatRequest]);
 
 
   // calling useApplicationData function return these functions that changes states

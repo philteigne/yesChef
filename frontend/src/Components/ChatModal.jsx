@@ -1,8 +1,9 @@
-import { Dialog, DialogTitle, DialogContent, IconButton, Slide } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, IconButton, Slide, TextField, Button, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { applicationContext } from '../hooks/applicationContext';
 import React from 'react';
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -10,6 +11,18 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const ChatModal = () => {
   const { state, dispatch } = useContext(applicationContext);
+  const [userQuery, setUserQuery] = useState('');
+
+  const handleInputChange = (event) => {
+    setUserQuery(event.target.value);
+  };
+
+  const handleSubmitQuery = () => {
+    if (userQuery.trim()) {
+      dispatch({ type: "SET_CHAT_QUERY", payload: userQuery });
+      setUserQuery(''); // Clear the input after submission
+    }
+  };
 
   return (
     <Dialog 
@@ -37,10 +50,27 @@ const ChatModal = () => {
         </IconButton>
       </DialogTitle>
       <DialogContent>
-        {/* Chat content goes here */}
+        <TextField
+          fullWidth
+          label="Ask me anything about cooking!"
+          variant="outlined"
+          value={userQuery}
+          onChange={handleInputChange}
+          onKeyPress={(e) => { if (e.key === 'Enter' && userQuery.trim()) handleSubmitQuery(); }}
+          autoFocus
+        />
+        <Button variant="contained" color="primary" onClick={handleSubmitQuery} style={{ marginTop: 8 }}>
+          Send
+        </Button>
+        {state.chatResponse && (
+          <Typography style={{ marginTop: 16 }}>
+            {state.chatResponse.answer}
+          </Typography>
+        )}
       </DialogContent>
     </Dialog>
   );
 }
+
 
 export default ChatModal;
