@@ -30,7 +30,8 @@ export const INITIAL_STATE = {
   saveRecipeData: null,
   // rerender saved recipes, get's trigger when recipe is saved to db
   shouldRerenderRecipes: [],
-  isRecipeSaved: false
+  isRecipeSaved: false,
+  deleteRecipeState: null
 }
 
 
@@ -50,11 +51,12 @@ export const ACTIONS = {
   CLEAR_RECIPE_RESPONSE: "CLEAR_RECIPE_RESPONSE",
   SET_USER_ID: "SET_USER_ID",
   SET_SAVE_RECIPE_LOADING: "SET_SAVE_RECIPE_LOADING",
-  SAVE_RECIPE_SUCCESS: "SAVE_RECIPE_SUCCESS",
-  SAVE_RECIPE_FAILURE: "SAVE_RECIPE_FAILURE",
+  // SAVE_RECIPE_SUCCESS: "SAVE_RECIPE_SUCCESS",
+  // SAVE_RECIPE_FAILURE: "SAVE_RECIPE_FAILURE",
   RERENDER_RECIPES_TRIGGER: "RERENDER_RECIPES_TRIGGER",
   SET_IS_RECIPE_SAVED: "SET_IS_RECIPE_SAVED",
-  SET_TEMP_PARAMETER_INPUT: "SET_TEMP_PARAMETER_INPUT"
+  SET_TEMP_PARAMETER_INPUT: "SET_TEMP_PARAMETER_INPUT",
+  DELETE_RECIPE: "DELETE_RECIPE"
 }
 
 export function reducer(state, action) {
@@ -130,16 +132,16 @@ export function reducer(state, action) {
           error: null,
         };
       
-    case ACTIONS.SAVE_RECIPE_SUCCESS:
-      return {
-        ...state,
-        recipes: [...state.recipes, action.payload]
-      };
-    case ACTIONS.SAVE_RECIPE_FAILURE:
-      return {
-        ...state,
-        error: action.payload
-      };
+    // case ACTIONS.SAVE_RECIPE_SUCCESS:
+    //   return {
+    //     ...state,
+    //     recipes: [...state.recipes, action.payload]
+    //   };
+    // case ACTIONS.SAVE_RECIPE_FAILURE:
+    //   return {
+    //     ...state,
+    //     error: action.payload
+    //   };
 
     case ACTIONS.SET_USER_ID:
       return {
@@ -172,6 +174,14 @@ export function reducer(state, action) {
         tempParameterInput: action.payload
       }
     }
+
+    case ACTIONS.DELETE_RECIPE: {
+      return {
+        ...state,
+        deleteRecipeState: action.payload
+      };
+    }
+      
 
     default:
       throw new Error(
@@ -250,33 +260,26 @@ const useApplicationData = () => {
   }, [state.requestRecipe]);
 
   const fetchRecipes = useCallback((userId) => {
-    dispatch({ type: ACTIONS.IS_LOADING, payload: true })
     dispatch({ type: ACTIONS.ERROR, payload: null })
     fetch(`/api/saved-recipes/user/${userId}`)
       .then(response => response.json())
       .then(data => {
         dispatch({ type: 'SET_RECIPES', payload: data })
-        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
       })
       .catch(err => {
         dispatch({ type: ACTIONS.ERROR, payload: err.message })
-        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
       });
   }, []);
 
   const fetchIngredients = useCallback((recipeId) => {
-    // this is causing the page to reload
-    dispatch({ type: ACTIONS.IS_LOADING, payload: true });
     dispatch({ type: ACTIONS.ERROR, payload: null })
     fetch(`/api/ingredients/recipe/${recipeId}`)
       .then(response => response.json())
       .then(data => {
         dispatch({ type: ACTIONS.SET_RECIPE_INGREDIENTS, payload: data });
-        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
       })
       .catch(err => {
         dispatch({ type: ACTIONS.ERROR, payload: err.message });
-        dispatch({ type: ACTIONS.IS_LOADING, payload: false });
       });
   }, []);
 
@@ -306,7 +309,6 @@ const useApplicationData = () => {
     })
     .catch(error => {
       dispatch({ type: ACTIONS.SAVE_RECIPE_FAILURE, payload: error.message });
-      // dispatch({ type: ACTIONS.IS_LOADING, payload: false });
     })
   }, []);
 
@@ -318,7 +320,7 @@ const useApplicationData = () => {
   // fetch recipes from database, it runs when shouldRenderRecipe state changes and userId state changes
   useEffect(() => {
     fetchRecipes(state.userId);
-  }, [fetchRecipes, state.userId, state.shouldRerenderRecipes]);
+  }, [fetchRecipes, state.userId, state.shouldRerenderRecipes, state.deleteRecipeState]);
 
   useEffect(() => {
     fetchIngredients(state.activeRecipe);
@@ -334,6 +336,20 @@ const useApplicationData = () => {
   useEffect(() => {
     setUserId(state.userId);
   }, [state.userId])
+
+  const deleteRecipe = useCallback(() => {
+    const userId = state.userId; 
+    fetch(`http://localhost:8080/api/saved-recipes/${userId}/${state.deleteRecipeState}`, {
+      method: 'DELETE'
+    })
+    .then(() => {dispatch({type: ACTIONS.DELETE_RECIPE, payload: null})
+    })
+  }, [state.deleteRecipeState, state.userId]);
+
+  useEffect(() => {
+    deleteRecipe(state.deleteRecipeState)
+  }, [deleteRecipe, state.deleteRecipeState]);
+
 
   // calling useApplicationData function return these functions that changes states
   return {

@@ -1,6 +1,6 @@
 const express = require('express');
 const router  = express.Router();
-const { getSavedRecipes, addRecipe, addRecipeIngredient } = require('../db/queries/users');
+const { getSavedRecipes, addRecipe, addRecipeIngredient, deleteRecipe } = require('../db/queries/users');
 
 
 router.get('/user/:userId', (req, res) => {
@@ -80,7 +80,15 @@ router.put('/:userId/:recipeId', (req, res) => {
 })
 
 router.delete('/:userId/:recipeId', (req, res) => {
-  // Delete saved recipe from saved recipe list
-})
+  const userId = req.params.userId;
+  const recipeId = req.params.recipeId;
+
+  deleteRecipe(userId, recipeId)
+    .then(() => res.status(200).end())
+    .catch(error => {
+      console.error('Error deleting recipe:', error);
+      res.status(500).json({ error: "Internal server error" });
+    });
+});
 
 module.exports = router;
