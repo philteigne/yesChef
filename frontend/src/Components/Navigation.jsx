@@ -90,6 +90,9 @@ export default function ButtonAppBar() {
                 component="h3"
                 key={page.id}
                 onClick={page.action}
+                sx={{'&:hover': {
+                  cursor: 'pointer'
+                }}}
               >
                 {page.text}
               </Typography>
