@@ -37,7 +37,7 @@ const HomePage = () => {
           variant="h1"
           component="h1"
           color="secondary"
-          style={{ marginBottom: '20px' }}
+          style={{ marginBottom: '20px', maxWidth: '600px' }}
         >
           Yes Chef helps you organize your favorite recipes, manage your pantry, and discover new culinary delights.
         </Typography>
@@ -45,7 +45,7 @@ const HomePage = () => {
           variant="h1"
           component="h1"
           color="secondary"
-          style={{ marginBottom: '20px' }}
+          style={{ marginBottom: '20px', maxWidth: '600px' }}
         >
           Whether you're a seasoned chef or just getting started in the kitchen, Yes Chef has everything you need to create delicious meals with ease.
         </Typography>
