@@ -3,6 +3,8 @@ import { applicationContext } from "../hooks/applicationContext";
 import { useHistory } from 'react-router-dom';
 
 import mainImage from '../assets/images/Designer.jpeg'
+import kirby from '../assets/images/HnK_Cook_2.webp'
+import kirbyCooks from '../assets/images/Everyone_loves_to_cook.webp'
 import '../HomePage.css'
 
 import Button from '@mui/material/Button';
@@ -52,7 +54,7 @@ const HomePage = () => {
         <Button size="large" variant="contained" onClick={handleClick} styles={{margin: '10px'}}>Get Started</Button>
       </div>
       <div className="main-image">
-        <img src={mainImage} alt="person cooking with the help of AI generate recipe"></img>
+        <img src={kirby} alt="person cooking with the help of AI generate recipe"></img>
       </div>
 
     </div>
