@@ -1,3 +1,4 @@
+import { ThemeContext } from '@emotion/react'
 import { createTheme } from '@mui/material/styles'
 
 const customColorScheme = (themeColors) => {
@@ -60,7 +61,13 @@ const customColorScheme = (themeColors) => {
         styleOverrides: {
           root: {
             color: themeColors.textColor,
-          }
+            '&.MuiTypography-h3': {
+              '&:hover': {
+                color: themeColors.accentColor,
+                cursor: 'pointer',
+              }
+            }
+          },
         }
       },
       MuiSvgIcon: {
@@ -132,7 +139,13 @@ const customColorScheme = (themeColors) => {
       MuiTextField: {
         styleOverrides: {
           root: {
-            variant: "outlined"
+            variant: "outlined",
+            "& fieldset": {
+              color: themeColors.accentColor,
+              border: '2px solid',
+              borderColor: themeColors.textColor,
+              borderRadius: '10px',
+            }
           }
         }
       },
@@ -146,7 +159,7 @@ const customColorScheme = (themeColors) => {
             justifyContent: 'space-between',
           }
         }
-      }
+      },      
     }
   })
 
