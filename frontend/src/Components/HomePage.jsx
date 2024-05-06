@@ -3,7 +3,6 @@ import { applicationContext } from "../hooks/applicationContext";
 import { useHistory } from 'react-router-dom';
 
 import mainImage from '../assets/images/Designer.jpeg'
-import '../HomePage.css'
 
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
