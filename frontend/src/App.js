@@ -20,6 +20,8 @@ import { ThemeProvider} from '@mui/material/styles'
 import customColorScheme from './styles/MuiTheme';
 import './assets/fonts/fonts.css';
 
+import ChatBubble from './Components/ChatBubble.jsx';
+import ChatModal from './Components/ChatModal.jsx';
 
 function App() {
   const { state, dispatch } = useApplicationData();
@@ -40,6 +42,8 @@ function App() {
                     spacing={12}
                   >
                     <Pantry  />
+                    <ChatBubble />
+                    {state.chatModalOpen && <ChatModal />}
                     {state.isLoading && <Loading />}
                     {!state.isLoading && !state.recipeResponse && <Parameters />}
                     {!state.isLoading && state.recipeResponse && <RecipeResponseView />}
