@@ -60,7 +60,13 @@ const customColorScheme = (themeColors) => {
         styleOverrides: {
           root: {
             color: themeColors.textColor,
-          }
+            '&.MuiTypography-h3': {
+              '&:hover': {
+                color: themeColors.accentColor,
+                cursor: 'pointer',
+              }
+            }
+          },
         }
       },
       MuiSvgIcon: {
