@@ -31,7 +31,9 @@ export const INITIAL_STATE = {
   // rerender saved recipes, get's trigger when recipe is saved to db
   shouldRerenderRecipes: [],
   isRecipeSaved: false,
-  deleteRecipeState: null
+  deleteRecipeState: null,
+  chatModalOpen: false
+
 }
 
 
@@ -56,7 +58,8 @@ export const ACTIONS = {
   RERENDER_RECIPES_TRIGGER: "RERENDER_RECIPES_TRIGGER",
   SET_IS_RECIPE_SAVED: "SET_IS_RECIPE_SAVED",
   SET_TEMP_PARAMETER_INPUT: "SET_TEMP_PARAMETER_INPUT",
-  DELETE_RECIPE: "DELETE_RECIPE"
+  DELETE_RECIPE: "DELETE_RECIPE",
+  TOGGLE_CHAT: "TOGGLE_CHAT"
 }
 
 export function reducer(state, action) {
@@ -180,6 +183,14 @@ export function reducer(state, action) {
         ...state,
         deleteRecipeState: action.payload
       };
+    }
+
+    case ACTIONS.TOGGLE_CHAT: {
+      return {
+        ...state,
+        chatModalOpen: !state.chatModalOpen
+        ,
+      }
     }
       
 
