@@ -1,7 +1,7 @@
 .homepage-container {
   background-size: cover;
   background-position: center;
-  height: 81vh; /* Adjust the height as needed */
+  height: 65vh; /* Adjust the height as needed */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,7 +16,7 @@
 }
 
 img {
-  max-width: 80vh;
+  max-width: 70vh;
   max-height: auto;
   border-radius: 10px;
 }
