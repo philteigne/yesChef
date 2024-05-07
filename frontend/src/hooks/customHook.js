@@ -321,6 +321,22 @@ const useApplicationData = () => {
     dispatch({ type: ACTIONS.SET_USER_ID, payload: newUserId });
   };
 
+  // post user question to backend and return response
+  const handleAIChatRequest = useCallback((userQuery) => {
+    dispatch({ type: ACTIONS.REQUEST_AI_CHAT });
+    fetch(`${API_CALL_URL}cooking-questions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ question: userQuery })
+    })
+    .then(response => response.json())
+    .then(data => {
+      dispatch({ type: ACTIONS.RECEIVE_AI_CHAT_RESPONSE, payload: data });
+    })
+  }, [dispatch]);
+
   // ----- useEffects -----
 
   // INGREDIENTS 
@@ -419,6 +435,15 @@ const useApplicationData = () => {
   useEffect(() => {
     setUserId(state.userId);
   }, [state.userId])
+
+
+  // AI CHATBOT
+  useEffect(() => {
+    if (state.chatQuery) {
+      handleAIChatRequest(state.chatQuery);
+    }
+  }, [state.chatQuery, handleAIChatRequest]);
+
 
   // calling useApplicationData function return these functions that changes states
   return {
