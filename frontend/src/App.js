@@ -11,6 +11,7 @@ import { Stack } from '@mui/material';
 import HomePage from './Components/HomePage.jsx';
 import RecipeResponseView from './Components/RecipeResponseView.jsx';
 import Loading from './Components/Loading.jsx';
+import SignInSide from './Components/Login.jsx';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline'
@@ -27,38 +28,39 @@ function App() {
   return (
     <ThemeProvider theme={customColorScheme(state.themeColors)}>
       <CssBaseline />
-      <Router>
-        <applicationContext.Provider value={{state, dispatch}}>
-          <div>
-            <ButtonAppBar />
-              <Switch>
-                <Route path='/' exact component={HomePage}/>
-                <Router path="/create-recipe">
-                  <Stack
-                    direction="row"
-                    justifyContent='center'
-                    spacing={12}
-                  >
-                    <Pantry  />
-                    {state.isLoading && <Loading />}
-                    {!state.isLoading && !state.recipeResponse && <Parameters />}
-                    {!state.isLoading && state.recipeResponse && <RecipeResponseView />}
-                </Stack>
-                </Router>
-                <Router path="/view-recipe">
-                  <Stack
-                    direction="row"
-                    justifyContent='center'
-                    spacing={12}
-                  >
-                    <RecipeListView />
-                    <RecipeFullView />
+        <Router>
+          <applicationContext.Provider value={{state, dispatch}}>
+            <div>
+              <ButtonAppBar />
+                <Switch>
+                  <Route path='/' exact component={HomePage}/>
+                  <Route path='/login' component={SignInSide} />
+                  <Router path="/create-recipe">
+                    <Stack
+                      direction="row"
+                      justifyContent='center'
+                      spacing={12}
+                    >
+                      <Pantry  />
+                      {state.isLoading && <Loading />}
+                      {!state.isLoading && !state.recipeResponse && <Parameters />}
+                      {!state.isLoading && state.recipeResponse && <RecipeResponseView />}
                   </Stack>
-                </Router>
-              </Switch>
-          </div>
-        </applicationContext.Provider>
-      </Router>
+                  </Router>
+                  <Router path="/view-recipe">
+                    <Stack
+                      direction="row"
+                      justifyContent='center'
+                      spacing={12}
+                    >
+                      <RecipeListView />
+                      <RecipeFullView />
+                    </Stack>
+                  </Router>
+                </Switch>
+            </div>
+          </applicationContext.Provider>
+        </Router>
     </ThemeProvider>
   );
 }

@@ -36,6 +36,7 @@ app.use(express.static('public'));
 const savedRecipesApiRoutes = require('./routes/savedRecipesApi');
 const ingredientsApiRoutes = require('./routes/ingredientsApi');
 const chatGPTApiRoutes = require('./routes/chatGPTApi');
+const loginRoutes = require('./routes/login')
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -43,7 +44,7 @@ const chatGPTApiRoutes = require('./routes/chatGPTApi');
 app.use('/api/saved-recipes', savedRecipesApiRoutes);
 app.use('/api/ingredients', ingredientsApiRoutes);
 app.use('/api/chat-gpt', chatGPTApiRoutes);
-
+app.use('/api/login', loginRoutes);
 
 
 app.listen(PORT, () => {

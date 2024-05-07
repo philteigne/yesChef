@@ -8,6 +8,23 @@ const getUsers = () => {
     });
 };
 
+const getUser = (email) => {
+  const queryText = 'SELECT id, password_hash FROM users WHERE email = $1;'
+
+  return db.query(queryText, [email])
+    .then(data => {
+      return data.rows[0];
+    })
+    .catch(err => {
+      console.error('Error executing query', err.stack);
+      throw err;
+    });
+
+}
+
+getUser('joh.doe@example.com')
+  .then((data) => console.log(data))
+
 const getSavedRecipes = (userId) => {
   const queryText = 'SELECT * FROM recipes WHERE saved_by = $1;';
   return db.query(queryText, [userId])
@@ -139,6 +156,7 @@ module.exports = {
   getSavedRecipes,
   getRecipeIngredients,
   getIngredients,
+  getUser,
   deleteIngredient,
   addIngredient,
   addRecipe,
