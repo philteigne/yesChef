@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +12,8 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import kirbyPot from '../assets/images/kirby_chef_with_pot.png'
+import kirbyPot from '../assets/images/kirby_chef_with_pot.png';
+const API_CALL_URL = "http://localhost:8080/api/";
 
 function Copyright(props) {
   return (
@@ -27,14 +29,21 @@ function Copyright(props) {
 }
 
 export default function SignInSide() {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+
     const data = new FormData(event.currentTarget);
-    console.log({
+
+    const formData = {
       email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+      password: data.get('password')
+    }
+    try {
+      const response = await axios.post(`${API_CALL_URL}login/`, formData);
+    } catch (err) {
+      console.log("Error: ", err);
+    }
+  }
 
   return (
       <Grid container component="main" sx={{ height: '60vh' }}>

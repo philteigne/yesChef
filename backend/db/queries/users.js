@@ -22,8 +22,8 @@ const getUser = (email) => {
 
 }
 
-getUser('joh.doe@example.com')
-  .then((data) => console.log(data))
+// getUser('john.doe@example.com')
+//   .then((data) => console.log(data))
 
 const getSavedRecipes = (userId) => {
   const queryText = 'SELECT * FROM recipes WHERE saved_by = $1;';
