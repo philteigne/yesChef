@@ -194,7 +194,7 @@ export function reducer(state, action) {
         saveRecipeLoading: action.payload
       }
 
-    // ----- AI MANAGEMENT
+    // ----- AI MANAGEMENT -----
     case ACTIONS.SET_RECIPE_RESPONSE:
       return {
         ...state,
@@ -214,6 +214,29 @@ export function reducer(state, action) {
       return {
         ...state,
         tempParameterInput: action.payload
+      }
+    
+    // ----- AI CHATBOT -----
+    case ACTIONS.TOGGLE_CHAT:
+      return {
+        ...state,
+        chatModalOpen: !state.chatModalOpen,
+      }
+    case ACTIONS.REQUEST_AI_CHAT:
+      return {
+        ...state,
+        chatResponse: null,  
+        error: null  
+      }
+    case ACTIONS.RECEIVE_AI_CHAT_RESPONSE:
+      return {
+        ...state,
+        chatResponse: action.payload,
+      }
+    case  ACTIONS.SET_CHAT_QUERY:
+      return {
+        ...state,
+        chatQuery: action.payload
       }
       
     default:
