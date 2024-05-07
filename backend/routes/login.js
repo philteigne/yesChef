@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
     // Issue JWT token
     // secret key should be in .env
     //
-    const jwtToken = jwt.sign({ id: user.id }, 'testSecretKey');
+    const jwtToken = jwt.sign({ id: user.id, email: user.email }, 'testSecretKey');
 
     // Return response with JWT token
     return res.status(200).json({ message: 'Welcome back', token: jwtToken, id: user.id });

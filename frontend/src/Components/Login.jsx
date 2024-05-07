@@ -1,5 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -29,6 +30,8 @@ function Copyright(props) {
 }
 
 export default function SignInSide() {
+  const history = useHistory();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -40,6 +43,14 @@ export default function SignInSide() {
     }
     try {
       const response = await axios.post(`${API_CALL_URL}login/`, formData);
+      console.log(response.data.token);
+      
+      const jwtToken = response.data.token;
+      sessionStorage.setItem('jwtToken', jwtToken);
+      sessionStorage.setItem('userId', response.data.id)
+
+      history.push('/create-recipe');
+
     } catch (err) {
       console.log("Error: ", err);
     }
