@@ -58,6 +58,7 @@ const ChatModal = () => {
           onChange={handleInputChange}
           onKeyPress={(e) => { if (e.key === 'Enter' && userQuery.trim()) handleSubmitQuery(); }}
           autoFocus
+          style={{ marginTop: 8 }}
         />
         <Button variant="contained" color="primary" onClick={handleSubmitQuery} style={{ marginTop: 8 }}>
           Send
