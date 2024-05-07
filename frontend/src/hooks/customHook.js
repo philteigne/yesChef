@@ -50,6 +50,13 @@ const INITIAL_STATE_AI = {
   tempParameterInput: null,
 }
 
+// AI Chatbot
+const INITIAL_STATE_CHATBOT = {
+  chatModalOpen: false,
+  chatQuery: null,
+  chatResponse: null,
+}
+
 // ----- COMPLETE INITIAL STATE -----
 export const INITIAL_STATE = {
   ...INITIAL_STATE_APP,
@@ -58,6 +65,7 @@ export const INITIAL_STATE = {
   ...INITIAL_STATE_PARAMETERS,
   ...INITIAL_STATE_THEME,
   ...INITIAL_STATE_AI,
+  ...INITIAL_STATE_CHATBOT,
 }
 
 
