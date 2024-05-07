@@ -233,7 +233,7 @@ export function reducer(state, action) {
         ...state,
         chatResponse: action.payload,
       }
-    case  ACTIONS.SET_CHAT_QUERY:
+    case ACTIONS.SET_CHAT_QUERY:
       return {
         ...state,
         chatQuery: action.payload
