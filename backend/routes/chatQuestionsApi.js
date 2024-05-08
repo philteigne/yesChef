@@ -34,7 +34,7 @@ router.post('/', async (req, res) => {
 
 
     const aiAnswer = response.data.choices[0].message.content;
-    res.json({ answer: aiAnswer });
+    res.json(aiAnswer);
   } catch (error) {
     console.error('Failed to get answer from OpenAI:', error.response ? error.response.data : error.message);
     res.status(500).json({ error: 'Failed to fetch the answer from OpenAI.' });
