@@ -4,6 +4,7 @@ export const API_CALL_URL = "http://localhost:8080/api/"
 
 // Basic App State
 const INITIAL_STATE_APP = {
+  // should we have a initial userId
   userId: 3,
   // For handling save recipe button loading animation
   saveRecipeLoading: false,
@@ -289,6 +290,8 @@ const useApplicationData = () => {
   // set userId
   const setUserId = (newUserId) => {
     dispatch({ type: ACTIONS.SET_USER_ID, payload: newUserId });
+    // make sure that recipeResponse are always empty when switching to a new user
+    dispatch({type: ACTIONS.CLEAR_RECIPE_RESPONSE})
   };
 
   // ----- useEffects -----
