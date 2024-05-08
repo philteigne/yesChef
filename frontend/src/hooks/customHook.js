@@ -54,7 +54,12 @@ const INITIAL_STATE_AI = {
 const INITIAL_STATE_CHATBOT = {
   chatModalOpen: false,
   chatQuery: null,
-  chatResponse: null,
+  chatHistory: [
+    {
+      sender: "chatbot",
+      message: "How can I help you Chef?"
+    }
+  ],
 }
 
 // ----- COMPLETE INITIAL STATE -----
@@ -225,18 +230,18 @@ export function reducer(state, action) {
     case ACTIONS.REQUEST_AI_CHAT:
       return {
         ...state,
-        chatResponse: null,  
         error: null  
       }
     case ACTIONS.RECEIVE_AI_CHAT_RESPONSE:
       return {
         ...state,
-        chatResponse: action.payload,
+        chatHistory: [...state.chatHistory, action.payload],
       }
     case ACTIONS.SET_CHAT_QUERY:
       return {
         ...state,
-        chatQuery: action.payload
+        chatQuery: action.payload,
+        chatHistory: [...state.chatHistory, action.payload]
       }
       
     default:
@@ -333,7 +338,7 @@ const useApplicationData = () => {
     })
     .then(response => response.json())
     .then(data => {
-      dispatch({ type: ACTIONS.RECEIVE_AI_CHAT_RESPONSE, payload: data });
+      dispatch({ type: ACTIONS.RECEIVE_AI_CHAT_RESPONSE, payload: {sender: "chatbot", message: data }});
     })
   }, [dispatch]);
 
@@ -440,7 +445,7 @@ const useApplicationData = () => {
   // AI CHATBOT
   useEffect(() => {
     if (state.chatQuery) {
-      handleAIChatRequest(state.chatQuery);
+      handleAIChatRequest(state.chatQuery.message);
     }
   }, [state.chatQuery, handleAIChatRequest]);
 

@@ -19,7 +19,7 @@ const ChatModal = () => {
 
   const handleSubmitQuery = () => {
     if (userQuery.trim()) {
-      dispatch({ type: "SET_CHAT_QUERY", payload: userQuery });
+      dispatch({ type: "SET_CHAT_QUERY", payload: {sender: "user", message: userQuery} });
       setUserQuery(''); // Clear the input after submission
     }
   };
@@ -50,24 +50,31 @@ const ChatModal = () => {
         </IconButton>
       </DialogTitle>
       <DialogContent>
+        {console.log(state.chatHistory)}
+        {state.chatHistory.map((chat) => {
+          return(
+            <Typography
+              variant="body2"
+              component="p"
+              style={{ marginTop: 16 }}
+            >
+              {chat.message}
+            </Typography>
+          )
+        })}
         <TextField
           fullWidth
           label="Ask me anything about cooking!"
           variant="outlined"
           value={userQuery}
           onChange={handleInputChange}
-          onKeyPress={(e) => { if (e.key === 'Enter' && userQuery.trim()) handleSubmitQuery(); }}
+          onKeyPress={(e) => { if (e.key === 'Enter' && userQuery.trim()) handleSubmitQuery() }}
           autoFocus
           style={{ marginTop: 8 }}
         />
         <Button variant="contained" color="primary" onClick={handleSubmitQuery} style={{ marginTop: 8 }}>
           Send
         </Button>
-        {state.chatResponse && (
-          <Typography style={{ marginTop: 16 }}>
-            {state.chatResponse.answer}
-          </Typography>
-        )}
       </DialogContent>
     </Dialog>
   );
