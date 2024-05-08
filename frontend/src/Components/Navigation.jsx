@@ -1,6 +1,5 @@
 import React, {useContext, useState} from 'react';
-import { useHistory } from 'react-router-dom';
-
+import useLastVisitedUrl from '../hooks/useLastVisitedUrl';
 import YesChefLogo from '../icons/yesChefLogo';
 import { applicationContext } from '../hooks/applicationContext';
 
@@ -10,7 +9,7 @@ import { AppBar, Toolbar, Typography, Box, Icon, Dialog, DialogContent, DialogCo
 export default function ButtonAppBar() {
   
   // mode from useThemeContext "light", "dark"
-  const history = useHistory();
+  const history = useLastVisitedUrl();
   
   
   const homeIconClick = () => {

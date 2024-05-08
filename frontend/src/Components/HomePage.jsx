@@ -1,11 +1,9 @@
 import React, { useContext } from "react";
 import { applicationContext } from "../hooks/applicationContext";
-import { useHistory } from 'react-router-dom';
 
-import mainImage from '../assets/images/Designer.jpeg'
 import kirby from '../assets/images/HnK_Cook_2.webp'
-import kirbyCooks from '../assets/images/Everyone_loves_to_cook.webp'
 import '../HomePage.css'
+import useLastVisitedUrl from "../hooks/useLastVisitedUrl";
 
 import Button from '@mui/material/Button';
 import { Typography } from '@mui/material';
@@ -13,8 +11,8 @@ import { Typography } from '@mui/material';
 const HomePage = () => {
 
   const { state } = useContext(applicationContext);
-  const history = useHistory();
-
+  const history = useLastVisitedUrl()
+  // console.log(history);
   const handleClick = () => {
     // Navigate to create-recipe if user is logged in
     if (state.isLoggedIn) {

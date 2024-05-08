@@ -2,7 +2,7 @@ import * as React from 'react';
 import axios from 'axios';
 import { useContext, useState } from 'react';
 import { applicationContext } from '../hooks/applicationContext';
-import { useHistory } from 'react-router-dom';
+import useLastVisitedUrl from '../hooks/useLastVisitedUrl';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -33,7 +33,7 @@ function Copyright(props) {
 
 export default function SignInSide() {
   const { dispatch, state } = useContext(applicationContext)
-  const history = useHistory();
+  const history = useLastVisitedUrl();
   const [error, setError] = useState(null);
 
   // if user is alread logged in redirect to create-recipe
