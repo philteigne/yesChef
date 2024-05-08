@@ -8,6 +8,7 @@ const INITIAL_STATE_APP = {
   // For handling save recipe button loading animation
   saveRecipeLoading: false,
   error: null,
+  isLoggedIn: false,
 }
 
 // Pantry Component
@@ -79,6 +80,7 @@ export const ACTIONS = {
 
   // APP MANAGEMENT ACTIONS
   IS_LOADING: "IS_LOADING",
+  IS_LOGGED_IN: "IS_LOGGED_IN",
   SET_SAVE_RECIPE_LOADING: "SET_SAVE_RECIPE_LOADING",
   ERROR: "ERROR",
   DARK_MODE: "DARK_MODE",
@@ -153,6 +155,11 @@ export function reducer(state, action) {
       return {
         ...state,
         isLoading: action.payload
+      }
+    case ACTIONS.IS_LOGGED_IN:
+      return {
+        ...state,
+        isLoggedIn: action.payload
       }
     case ACTIONS.ERROR:
       return {
@@ -383,6 +390,14 @@ const useApplicationData = () => {
     setUserId(state.userId);
   }, [state.userId])
 
+  // if reload page, restore isLoggedIn and userId using sessionStorage retrieval
+  useEffect(() => {
+    const token = sessionStorage.getItem('jwtToken');
+    // const currentId = sessionStorage.getItem('id');
+    if (token) {
+      dispatch({type: 'IS_LOGGED_IN', payload: true})
+    }
+  }, [])
   // calling useApplicationData function return these functions that changes states
   return {
     state,
