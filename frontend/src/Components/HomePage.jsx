@@ -12,14 +12,18 @@ import { Typography } from '@mui/material';
 
 const HomePage = () => {
 
+  const { state } = useContext(applicationContext);
   const history = useHistory();
 
   const handleClick = () => {
-    // Navigate to a different route
-    history.push('/create-recipe');
+    // Navigate to create-recipe if user is logged in
+    if (state.isLoggedIn) {
+      history.push('/create-recipe');
+    }
+    // Navigate to login page if user is not logged in
+    history.push('/login');
   } 
 
-  const { state } = useContext(applicationContext);
 
   return (
     // <ThemeProvider theme={theme}>
