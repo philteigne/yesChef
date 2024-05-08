@@ -60,7 +60,7 @@ export default function SignInSide() {
 
       // retrieve sessionStorage, if found, login is successful
       const token = sessionStorage.getItem('jwtToken');
-      const currentId = sessionStorage.getItem('id');
+      const currentId = sessionStorage.getItem('userId');
 
       if (token) {
         // set state for login to be true so user can access private routes

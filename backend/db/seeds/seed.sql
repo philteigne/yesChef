@@ -36,6 +36,10 @@ INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Black Peppe
 INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Cheese', 150.00, 'grams');
 INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Chicken Breast', 2.00, 'units');
 INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Lemons', 2.00, 'units');
+
+INSERT INTO ingredients (user_id, name) VALUES (3, 'Olive oil');
+
+
 -- Seed recipe_ingredients
   -- Classic Bread
 INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (1, 1, 500.00, 'grams');
