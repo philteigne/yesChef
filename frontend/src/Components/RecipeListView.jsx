@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import RecipeList from "./RecipeList";
 import { applicationContext } from '../hooks/applicationContext';
 
-
 import { Box, Typography } from "@mui/material";
 
 function RecipeListView() {
@@ -29,10 +28,10 @@ function RecipeListView() {
         <RecipeList />
       ):(
         <Typography
-          variant="subtitle1"
-          sx={{ textAlign: "center", my: 2 }}
+          variant="h2"
+          sx={{marginTop: 3, marginBottom: 3}}
         >
-          No recipes found.
+          No recipes found
         </Typography>
       )}
 
