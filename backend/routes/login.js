@@ -4,7 +4,8 @@ const db = require('../db/connection');
 const { getUser } = require('../db/queries/users');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname,'../.env' )});
 
 router.post('/', async (req, res) => {
   try {
@@ -26,11 +27,9 @@ router.post('/', async (req, res) => {
       // Passwords do not match
       return res.status(400).json({ message: 'Email or password does not match' });
     }
+    console.log(process.env.JWT_SECRET_KEY);
 
-    // Issue JWT token
-    // secret key should be in .env
-    //
-    const jwtToken = jwt.sign({ id: user.id, email: user.email }, 'testSecretKey');
+    const jwtToken = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET_KEY);
 
     // Return response with JWT token
     return res.status(200).json({ message: 'Welcome back', token: jwtToken, id: user.id });
