@@ -393,7 +393,10 @@ const useApplicationData = () => {
   // if reload page, restore isLoggedIn and userId using sessionStorage retrieval
   useEffect(() => {
     const token = sessionStorage.getItem('jwtToken');
+    
     // const currentId = sessionStorage.getItem('id');
+    // Not going to set userId because it will intervene with quick uerId change
+
     if (token) {
       dispatch({type: 'IS_LOGGED_IN', payload: true})
     }
