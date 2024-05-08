@@ -1,6 +1,7 @@
 import React from 'react';
 import Pantry from './Components/Pantry';
-
+import { Redirect } from "react-router-dom";
+import CreateRecipe from './Components/CreateRecipe.jsx';
 import RecipeListView from './Components/RecipeListView';
 import RecipeFullView from './Components/RecipeFullView';
 import ButtonAppBar from './Components/Navigation';
@@ -25,6 +26,15 @@ import './assets/fonts/fonts.css';
 function App() {
   const { state, dispatch } = useApplicationData();
 
+  function PrivateRoute({ component: Component, auth, ...rest }) {
+    return (
+      <Route {...rest} render={(props) => (
+        auth ? <Component {...props} />
+      : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+      )} />
+    );
+  }
+
   return (
     <ThemeProvider theme={customColorScheme(state.themeColors)}>
       <CssBaseline />
@@ -32,37 +42,29 @@ function App() {
           <applicationContext.Provider value={{state, dispatch}}>
             <div>
               <ButtonAppBar />
-                <Switch>
-                  <Route path='/' exact component={HomePage}/>
-                  <Route path='/login' component={SignInSide} />
-                  <Router path="/create-recipe">
-                    <Stack
-                      direction="row"
-                      justifyContent='center'
-                      spacing={12}
+              <Switch>
+                <Route path='/' exact component={HomePage}/>
+                <Route path='/login' component={SignInSide} />
+
+                <PrivateRoute path="/create-recipe" component={CreateRecipe} auth={state.isLoggedIn} />
+
+                <Router path="/view-recipe">
+                  <Stack
+                    direction="row"
+                    justifyContent='center'
+                    spacing={12}
                     >
-                      <Pantry  />
-                      {state.isLoading && <Loading />}
-                      {!state.isLoading && !state.recipeResponse && <Parameters />}
-                      {!state.isLoading && state.recipeResponse && <RecipeResponseView />}
+                    <RecipeListView />
+                    <RecipeFullView />
                   </Stack>
-                  </Router>
-                  <Router path="/view-recipe">
-                    <Stack
-                      direction="row"
-                      justifyContent='center'
-                      spacing={12}
-                    >
-                      <RecipeListView />
-                      <RecipeFullView />
-                    </Stack>
-                  </Router>
-                </Switch>
+                </Router>
+              </Switch>
             </div>
           </applicationContext.Provider>
         </Router>
     </ThemeProvider>
   );
+  
 }
 
 export default App;
