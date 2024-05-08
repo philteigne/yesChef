@@ -1,22 +1,21 @@
-import * as React from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
-import { useContext, useState } from 'react';
 import { applicationContext } from '../hooks/applicationContext';
 import useLastVisitedUrl from '../hooks/useLastVisitedUrl';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import kirby from '../assets/images/Everyone_loves_to_cook.webp'
-const API_CALL_URL = "http://localhost:8080/api/";
+import { API_CALL_URL } from '../hooks/customHook';
+import { Button, 
+  CssBaseline, 
+  TextField, 
+  FormControlLabel, 
+  Checkbox, 
+  Link, 
+  Container, 
+  Box, 
+  Grid, 
+  Typography 
+} from '@mui/material';
+
+import kirby from '../assets/images/Everyone_loves_to_cook.webp';
 
 function Copyright(props) {
   return (

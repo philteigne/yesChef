@@ -4,7 +4,7 @@ export const API_CALL_URL = "http://localhost:8080/api/"
 
 // Basic App State
 const INITIAL_STATE_APP = {
-  userId: 1,
+  userId: 3,
   // For handling save recipe button loading animation
   saveRecipeLoading: false,
   error: null,
