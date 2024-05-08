@@ -27,7 +27,6 @@ router.post('/', async (req, res) => {
       // Passwords do not match
       return res.status(400).json({ message: 'Email or password does not match' });
     }
-    console.log(process.env.JWT_SECRET_KEY);
 
     const jwtToken = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET_KEY);
 
