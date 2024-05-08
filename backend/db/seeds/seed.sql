@@ -1,7 +1,7 @@
 INSERT INTO users (email, password_hash) VALUES ('john.doe@example.com', 'hashedpassword123');
 INSERT INTO users (email, password_hash) VALUES ('jane.smith@example.com', 'hashedpassword456');
 -- password for carmen is yeschef
-INSERT INTO users (email, password_hash) VALUES ('carmen.ber@gmail.com', '$2b$10$9Dhf.a82S8YXKm6iw6pxhOZqLXmRCfA6Bl7Q1vYje6v5U0yK2vIQe');
+INSERT INTO users (email, password_hash) VALUES ('carmy', '$2b$10$9Dhf.a82S8YXKm6iw6pxhOZqLXmRCfA6Bl7Q1vYje6v5U0yK2vIQe');
 
 -- Seed recipes
 INSERT INTO recipes (saved_by, title, tags, steps) VALUES
