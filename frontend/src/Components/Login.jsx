@@ -1,5 +1,7 @@
 import * as React from 'react';
 import axios from 'axios';
+import { useContext, useState } from 'react';
+import { applicationContext } from '../hooks/applicationContext';
 import { useHistory } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -13,7 +15,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import kirbyPot from '../assets/images/Everyone_loves_to_cook.webp';
+import kirby from '../assets/images/Everyone_loves_to_cook.webp'
 const API_CALL_URL = "http://localhost:8080/api/";
 
 function Copyright(props) {
@@ -30,7 +32,16 @@ function Copyright(props) {
 }
 
 export default function SignInSide() {
+  const { dispatch, state } = useContext(applicationContext)
   const history = useHistory();
+  const [error, setError] = useState(null);
+
+  // if user is alread logged in redirect to create-recipe
+  if (state.isLoggedIn) {
+    history.push('/create-recipe')
+  } 
+
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -43,16 +54,33 @@ export default function SignInSide() {
     }
     try {
       const response = await axios.post(`${API_CALL_URL}login/`, formData);
-      console.log(response.data.token);
       
       const jwtToken = response.data.token;
       sessionStorage.setItem('jwtToken', jwtToken);
       sessionStorage.setItem('userId', response.data.id)
 
-      history.push('/create-recipe');
+      // retrieve sessionStorage, if found, login is successful
+      const token = sessionStorage.getItem('jwtToken');
+      const currentId = sessionStorage.getItem('id');
+
+      if (token) {
+        // set state for login to be true so user can access private routes
+        dispatch({type: 'IS_LOGGED_IN', payload: true})
+        // set the userId with the user that just logged in
+        dispatch({type: 'SET_USER_ID', payload: Number(currentId)})
+        history.push('/create-recipe');
+      }
+      
 
     } catch (err) {
-      console.log("Error: ", err);
+      // err.response.status = 400 set error state
+      if (err.response.status === 400) {
+        setError(true);
+        setTimeout(() => {
+          setError(null)
+        },4000)
+      }
+      console.log("Error: ", err.response.status);
     }
   }
 
@@ -61,15 +89,16 @@ export default function SignInSide() {
     <CssBaseline />
     <Box
       sx={{
-        marginTop: 8,
+        marginTop: 0,
+        paddingTop: 0,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
       }}
     >
-      <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-        <LockOutlinedIcon />
-      </Avatar>
+      <Box sx={{ m: 1, mt: 0, pt: 0, width: 115, height: 115, borderRadius: 10 }}>
+      <img src={kirby} alt="kirby as a chef" style={{ width: '100%', height: '100%', borderRadius: 'inherit' }} />
+      </Box>
       <Typography component="h1" variant="h5">
         Sign in
       </Typography>
@@ -94,6 +123,7 @@ export default function SignInSide() {
           id="password"
           autoComplete="current-password"
         />
+        {/* {error?  } */}
         <FormControlLabel
           control={<Checkbox value="remember" color="primary" />}
           label="Remember me"
@@ -106,6 +136,11 @@ export default function SignInSide() {
         >
           Sign In
         </Button>
+        {error && (
+          <div>
+            <p style={{color: 'red'}}>Your password is incorrect or this account does not exist, please try again.</p>
+          </div>
+        )}
         <Grid container>
           <Grid item xs>
             <Link href="#" variant="body2">
@@ -118,6 +153,7 @@ export default function SignInSide() {
             </Link>
           </Grid>
         </Grid>
+        
       </Box>
     </Box>
     <Copyright sx={{ mt: 8, mb: 4 }} />
