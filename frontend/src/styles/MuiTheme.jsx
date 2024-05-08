@@ -45,6 +45,11 @@ const customColorScheme = (themeColors) => {
         fontSize: 18,
         fontWeight: 600,
       },
+      body2: {
+        fontFamily: 'Kanit',
+        fontSize: 14,
+        fontWeight: 400
+      },
       button: {
         textTransform: 'none'
       }
