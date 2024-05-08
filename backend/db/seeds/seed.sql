@@ -37,7 +37,23 @@ INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Cheese', 15
 INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Chicken Breast', 2.00, 'units');
 INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Lemons', 2.00, 'units');
 
-INSERT INTO ingredients (user_id, name) VALUES (3, 'Olive oil');
+-- Slow-Cooker Flank Steak Au Jus Sandwiches
+INSERT INTO ingredients (user_id, name, quantity, units) VALUES
+(3, 'Olive oil', 1.5, 'tablespoons'),
+(3, 'Dark brown sugar', 2, 'tablespoons'),
+(3, 'Kosher salt', 0.75, 'teaspoon'),
+(3, 'Ground cumin', 1, 'teaspoon'),
+(3, 'Paprika', 1, 'teaspoon'),
+(3, 'Black pepper', 1, 'teaspoon'),
+(3, 'Garlic cloves', 3, 'units'),
+(3, 'Flank steak', 2, 'pounds'),
+(3, 'Large onion', 1, 'units'),
+(3, 'Yuengling Lager', 12, 'ounce'),
+(3, 'Lower-sodium soy sauce', 2, 'tablespoons'),
+(3, 'Bay leaf', 1, 'units'),
+(3, 'Cornstarch', 2, 'teaspoons'),
+(3, 'Hoagie rolls', 8, 'units');
+
 
 
 -- Seed recipe_ingredients
