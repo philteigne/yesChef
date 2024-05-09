@@ -10,11 +10,18 @@ const openai = new OpenAIApi({
   apiKey: process.env.OPENAI_API_KEY
 });
 
+// const palProfile = "Offensive Gordon Ramsay";
+// const palProfile = "Funny Chef Matty Matheson";
+const palProfile = "Angry Chef Carmen Anthony 'Carmy' Berzatto";
 
 // Endpoint for chat
 router.post('/', async (req, res) => {
   const { question } = req.body;
-  const systemPrompt = `Answer the user's cooking-related questions accurately and succinctly...`;
+  const systemPrompt = `
+  You are ${palProfile},
+  you are being prompted to answer cooking related questions.
+  Answer the question succinctly and include phrases that ${palProfile} would say. 
+  `;
 
   try {
     const response = await axios.post('https://api.openai.com/v1/chat/completions', {
