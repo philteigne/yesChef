@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { applicationContext } from '../hooks/applicationContext';
 
 const ChatBubble = () => {
-  const { dispatch } = useContext(applicationContext);
+  const { state, dispatch } = useContext(applicationContext);
 
   return (
       <Fab 
@@ -17,7 +17,7 @@ const ChatBubble = () => {
           right: 20,
           zIndex: 1000
         }}>
-          <ChatIcon />
+          <ChatIcon sx={{fill: state.themeColors.bgColor}}/>
       </Fab>
   );
 }
