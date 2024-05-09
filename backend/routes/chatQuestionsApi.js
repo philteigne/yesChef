@@ -10,9 +10,10 @@ const openai = new OpenAIApi({
   apiKey: process.env.OPENAI_API_KEY
 });
 
+// const palProfile = "a helpful cooking assistant to a home cook"
 // const palProfile = "Offensive Gordon Ramsay";
 // const palProfile = "Funny Chef Matty Matheson";
-const palProfile = "Angry Chef Carmen Anthony 'Carmy' Berzatto";
+const palProfile = "Angry Chef Carmen 'Carmy' Berzatto";
 
 // Endpoint for chat
 router.post('/', async (req, res) => {
