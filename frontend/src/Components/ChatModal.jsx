@@ -73,7 +73,7 @@ const ChatModal = () => {
       <DialogTitle>
         Chat Assistance
         <Box style={{ position: 'absolute', right: 8, top: 8 }}>
-          <IconButton onClick={() => dispatch({ type: "TOGGLE_CHAT_SETTINGS" })}>
+          <IconButton onClick={() => dispatch({ type: "SET_CHAT_VIEW", payload: state.chatView === "chat" ? "settings" : "chat" })}>
             <SettingsIcon />
           </IconButton>
           <IconButton onClick={() => dispatch({ type: "TOGGLE_CHAT" })} >
@@ -81,31 +81,11 @@ const ChatModal = () => {
           </IconButton>
         </Box>
       </DialogTitle>
-      <DialogContent>
-        <Select
-          value={chatVoice.name}
-          onChange={handleChangeSettings}
-          sx={{ minWidth: 1 }}
-        >
-          {Object.keys(chatVoiceList).map((name) => {
-            return(
-              <MenuItem
-                key={name}
-                value={name}
-              >
-                {name}
-              </MenuItem>
-            )
-          })}
-        </Select>
-        <Stack flexDirection="row">
-          <Button onClick={handleSettingsApply}>apply</Button>
-          <Button onClick={handleSettingsCancel}>reset</Button>
-        </Stack>
-      </DialogContent>
-      {/*
-      <DialogContent>
-        {state.chatHistory.map((chat) => {
+      
+      {/* CHAT VIEW */}
+      {state.chatView === "chat" &&
+        <DialogContent>
+          {state.chatHistory.map((chat) => {
             return(
               <Typography
                 variant="body2"
@@ -118,22 +98,47 @@ const ChatModal = () => {
               </Typography>
             )
 
-        })}
-        <TextField
-          fullWidth
-          label="Ask me anything about cooking!"
-          variant="outlined"
-          value={userQuery}
-          onChange={handleInputChange}
-          onKeyPress={(e) => { if (e.key === 'Enter' && userQuery.trim()) handleSubmitQuery() }}
-          autoFocus
-          style={{ marginTop: 8 }}
-        />
-        <Button variant="contained" color="primary" onClick={handleSubmitQuery} style={{ marginTop: 8 }}>
-          Send
-        </Button>
-      </DialogContent>
-      */}
+          })}
+          <TextField
+            fullWidth
+            label="Ask me anything about cooking!"
+            variant="outlined"
+            value={userQuery}
+            onChange={handleInputChange}
+            onKeyPress={(e) => { if (e.key === 'Enter' && userQuery.trim()) handleSubmitQuery() }}
+            autoFocus
+            style={{ marginTop: 8 }}
+          />
+          <Button variant="contained" color="primary" onClick={handleSubmitQuery} style={{ marginTop: 8 }}>
+            Send
+          </Button>
+        </DialogContent>
+      }
+      {/* SETTINGS VIEW */}
+      {state.chatView === "settings" &&
+        <DialogContent>
+          <Select
+            value={chatVoice.name}
+            onChange={handleChangeSettings}
+            sx={{ minWidth: 1 }}
+          >
+            {Object.keys(chatVoiceList).map((name) => {
+              return(
+                <MenuItem
+                  key={name}
+                  value={name}
+                >
+                  {name}
+                </MenuItem>
+              )
+            })}
+          </Select>
+          <Stack flexDirection="row">
+            <Button onClick={handleSettingsApply}>apply</Button>
+            <Button onClick={handleSettingsCancel}>reset</Button>
+          </Stack>
+        </DialogContent>
+      }
     </Dialog>
   );
 }

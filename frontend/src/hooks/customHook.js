@@ -64,7 +64,8 @@ const INITIAL_STATE_CHATBOT = {
   ],
   chatSettings: {
     chatVoice: {name: 'Yes Chef Bot', description: 'a helpful cooking assistant to a home cook'}
-  }
+  },
+  chatView: "chat"
 }
 
 // ----- COMPLETE INITIAL STATE -----
@@ -116,6 +117,7 @@ export const ACTIONS = {
   RECEIVE_AI_CHAT_RESPONSE: "RECEIVE_AI_CHAT_RESPONSE",
   SET_CHAT_QUERY: "SET_CHAT_QUERY",
   SET_CHAT_SETTINGS: "SET_CHAT_SETTINGS",
+  SET_CHAT_VIEW: "SET_CHAT_VIEW"
 }
 
 export function reducer(state, action) {
@@ -259,6 +261,11 @@ export function reducer(state, action) {
       return {
         ...state,
         chatSettings: action.payload
+      }
+    case ACTIONS.SET_CHAT_VIEW:
+      return {
+        ...state,
+        chatView: action.payload
       }
       
     default:
