@@ -50,17 +50,19 @@ const ChatModal = () => {
         </IconButton>
       </DialogTitle>
       <DialogContent>
-        {console.log(state.chatHistory)}
         {state.chatHistory.map((chat) => {
-          return(
-            <Typography
-              variant="body2"
-              component="p"
-              style={{ marginTop: 16 }}
-            >
-              {chat.message}
-            </Typography>
-          )
+            return(
+              <Typography
+                variant="body2"
+                component="p"
+                style={{ marginTop: 16 }}
+                align={chat.sender === "user" ? "right" : "left"}
+                bgcolor={chat.sender === "user" ? state.themeColors.accentColor : state.themeColors.bgColor}
+              >
+                {chat.message}
+              </Typography>
+            )
+
         })}
         <TextField
           fullWidth
