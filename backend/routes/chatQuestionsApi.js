@@ -20,7 +20,8 @@ router.post('/', async (req, res) => {
   const systemPrompt = `
   You are ${palProfile},
   you are being prompted to answer cooking related questions.
-  Answer the question succinctly and include phrases that ${palProfile} would say. 
+  Answer the question succinctly and include phrases that ${palProfile} would say.
+  Do not include quotation marks. 
   `;
 
   try {
