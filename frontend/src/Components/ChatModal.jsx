@@ -1,8 +1,10 @@
-import { Dialog, DialogTitle, DialogContent, IconButton, Slide, TextField, Button, Typography } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, IconButton, Slide, TextField, Select, Button, Typography, MenuItem, Box, Stack } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { useContext, useState } from 'react';
 import { applicationContext } from '../hooks/applicationContext';
 import React from 'react';
+import { ClassNames } from '@emotion/react';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -11,12 +13,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const ChatModal = () => {
   const { state, dispatch } = useContext(applicationContext);
-  const [userQuery, setUserQuery] = useState('');
 
+  const [userQuery, setUserQuery] = useState('');
+  
   const handleInputChange = (event) => {
     setUserQuery(event.target.value);
   };
-
+  
   const handleSubmitQuery = () => {
     if (userQuery.trim()) {
       dispatch({ type: "SET_CHAT_QUERY", payload: {sender: "user", message: userQuery} });
@@ -24,6 +27,21 @@ const ChatModal = () => {
     }
   };
 
+  const [chatVoice, setChatVoice] = useState({name: 'Yes Chef Bot', description: 'a helpful cooking assistant to a home cook'});
+
+  const chatVoiceList = {
+    'Yes Chef Bot': 'a helpful cooking assistant to a home cook',
+    'Gordon Ramsay': 'Offensive Gordon Ramsay',
+    'Matty Matheson': 'Funny Chef Matty Matheson',
+    'Carmen "Carmy" Berzatto': 'Angry Chef Carmen "Carmy" Berzatto',
+  }
+
+  const handleChangeSettings = (event) => {
+    setChatVoice({name: event.target.value, description: chatVoiceList[event.target.value]})
+  }
+
+
+  
   return (
     <Dialog 
       open={state.chatModalOpen}
@@ -45,10 +63,38 @@ const ChatModal = () => {
     >
       <DialogTitle>
         Chat Assistance
-        <IconButton onClick={() => dispatch({ type: "TOGGLE_CHAT" })} style={{ position: 'absolute', right: 8, top: 8 }}>
-          <CloseIcon />
-        </IconButton>
+        <Box style={{ position: 'absolute', right: 8, top: 8 }}>
+          <IconButton onClick={() => dispatch({ type: "TOGGLE_CHAT_SETTINGS" })}>
+            <SettingsIcon />
+          </IconButton>
+          <IconButton onClick={() => dispatch({ type: "TOGGLE_CHAT" })} >
+            <CloseIcon />
+          </IconButton>
+        </Box>
       </DialogTitle>
+      <DialogContent>
+        <Select
+          value={chatVoice.name}
+          onChange={handleChangeSettings}
+          sx={{ minWidth: 1 }}
+        >
+          {Object.keys(chatVoiceList).map((name) => {
+            return(
+              <MenuItem
+                key={name}
+                value={name}
+              >
+                {name}
+              </MenuItem>
+            )
+          })}
+        </Select>
+        <Stack flexDirection="row">
+          <Button>apply</Button>
+          <Button>cancel</Button>
+        </Stack>
+      </DialogContent>
+      {/*
       <DialogContent>
         {state.chatHistory.map((chat) => {
             return(
@@ -78,6 +124,7 @@ const ChatModal = () => {
           Send
         </Button>
       </DialogContent>
+      */}
     </Dialog>
   );
 }
