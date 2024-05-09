@@ -62,6 +62,9 @@ const INITIAL_STATE_CHATBOT = {
       message: "How can I help you Chef?"
     }
   ],
+  chatSettings: {
+    chatVoice: {name: 'Yes Chef Bot', description: 'a helpful cooking assistant to a home cook'}
+  }
 }
 
 // ----- COMPLETE INITIAL STATE -----
@@ -111,7 +114,8 @@ export const ACTIONS = {
   TOGGLE_CHAT: "TOGGLE_CHAT",
   REQUEST_AI_CHAT: "REQUEST_AI_CHAT",
   RECEIVE_AI_CHAT_RESPONSE: "RECEIVE_AI_CHAT_RESPONSE",
-  SET_CHAT_QUERY: "SET_CHAT_QUERY"
+  SET_CHAT_QUERY: "SET_CHAT_QUERY",
+  SET_CHAT_SETTINGS: "SET_CHAT_SETTINGS",
 }
 
 export function reducer(state, action) {
@@ -251,6 +255,11 @@ export function reducer(state, action) {
         chatQuery: action.payload,
         chatHistory: [...state.chatHistory, action.payload]
       }
+    case ACTIONS.SET_CHAT_SETTINGS:
+      return {
+        ...state,
+        chatSettings: action.payload
+      }
       
     default:
       throw new Error(
@@ -337,14 +346,14 @@ const useApplicationData = () => {
   };
 
   // post user question to backend and return response
-  const handleAIChatRequest = useCallback((userQuery) => {
+  const handleAIChatRequest = useCallback((userQuery, userChatVoice) => {
     dispatch({ type: ACTIONS.REQUEST_AI_CHAT });
     fetch(`${API_CALL_URL}cooking-questions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ question: userQuery })
+      body: JSON.stringify({ question: userQuery, chatVoice: userChatVoice })
     })
     .then(response => response.json())
     .then(data => {
@@ -455,7 +464,7 @@ const useApplicationData = () => {
   // AI CHATBOT
   useEffect(() => {
     if (state.chatQuery) {
-      handleAIChatRequest(state.chatQuery.message);
+      handleAIChatRequest(state.chatQuery.message, state.chatSettings.chatVoice);
     }
   }, [state.chatQuery, handleAIChatRequest]);
 

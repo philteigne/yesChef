@@ -10,18 +10,15 @@ const openai = new OpenAIApi({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-// const palProfile = "a helpful cooking assistant to a home cook"
-// const palProfile = "Offensive Gordon Ramsay";
-// const palProfile = "Funny Chef Matty Matheson";
-const palProfile = "Angry Chef Carmen 'Carmy' Berzatto";
-
 // Endpoint for chat
 router.post('/', async (req, res) => {
-  const { question } = req.body;
+
+  const { question, chatVoice } = req.body;
+
   const systemPrompt = `
-  You are ${palProfile},
+  You are ${chatVoice.description},
   you are being prompted to answer cooking related questions.
-  Answer the question succinctly and include phrases that ${palProfile} would say.
+  Answer the question succinctly and include phrases that ${chatVoice.description} would say.
   Do not include quotation marks. 
   `;
 

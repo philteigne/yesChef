@@ -27,7 +27,7 @@ const ChatModal = () => {
     }
   };
 
-  const [chatVoice, setChatVoice] = useState({name: 'Yes Chef Bot', description: 'a helpful cooking assistant to a home cook'});
+  const [chatVoice, setChatVoice] = useState(state.chatSettings.chatVoice);
 
   const chatVoiceList = {
     'Yes Chef Bot': 'a helpful cooking assistant to a home cook',
@@ -39,6 +39,15 @@ const ChatModal = () => {
   const handleChangeSettings = (event) => {
     setChatVoice({name: event.target.value, description: chatVoiceList[event.target.value]})
   }
+
+  const handleSettingsApply = () => {
+    dispatch({ type: "SET_CHAT_SETTINGS", payload: {chatVoice: chatVoice} })
+  }
+  const handleSettingsCancel = () => {
+    setChatVoice(state.chatSettings.chatVoice)
+  }
+
+  console.log("stateChat", state.chatSettings)
 
 
   
@@ -90,8 +99,8 @@ const ChatModal = () => {
           })}
         </Select>
         <Stack flexDirection="row">
-          <Button>apply</Button>
-          <Button>cancel</Button>
+          <Button onClick={handleSettingsApply}>apply</Button>
+          <Button onClick={handleSettingsCancel}>reset</Button>
         </Stack>
       </DialogContent>
       {/*
