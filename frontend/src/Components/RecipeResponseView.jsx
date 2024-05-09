@@ -76,7 +76,7 @@ function RecipeResponseView() {
           sx={{ minWidth: 'auto', marginRight: 1 }}
         >
           <span>
-            {state.isRecipeSaved ? 'Saved' : 'Save'}
+            {state.isRecipeSaved ? 'Saved' : state.saveRecipeLoading ? 'Saving':'Save'}
           </span>
         </LoadingButton>
 

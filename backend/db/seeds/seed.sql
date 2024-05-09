@@ -1,5 +1,8 @@
 INSERT INTO users (email, password_hash) VALUES ('john.doe@example.com', 'hashedpassword123');
 INSERT INTO users (email, password_hash) VALUES ('jane.smith@example.com', 'hashedpassword456');
+-- password for carmen is yeschef
+INSERT INTO users (email, password_hash) VALUES ('carmy', '$2b$10$9Dhf.a82S8YXKm6iw6pxhOZqLXmRCfA6Bl7Q1vYje6v5U0yK2vIQe');
+
 -- Seed recipes
 INSERT INTO recipes (saved_by, title, tags, steps) VALUES
 (1, 'Classic Bread', 'baking, bread', '1. Mix ingredients. 2. Knead dough. 3. Let rise. 4. Bake at 200°C for 30 minutes.');
@@ -33,6 +36,26 @@ INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Black Peppe
 INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Cheese', 150.00, 'grams');
 INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Chicken Breast', 2.00, 'units');
 INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Lemons', 2.00, 'units');
+
+-- Slow-Cooker Flank Steak Au Jus Sandwiches
+INSERT INTO ingredients (user_id, name, quantity, units) VALUES
+(3, 'Olive oil', 1.5, 'tablespoons'),
+(3, 'Dark brown sugar', 2, 'tablespoons'),
+(3, 'Kosher salt', 0.75, 'teaspoon'),
+(3, 'Ground cumin', 1, 'teaspoon'),
+(3, 'Paprika', 1, 'teaspoon'),
+(3, 'Black pepper', 1, 'teaspoon'),
+(3, 'Garlic cloves', 3, 'units'),
+(3, 'Flank steak', 2, 'pounds'),
+(3, 'Large onion', 1, 'units'),
+(3, 'Yuengling Lager', 12, 'ounce'),
+(3, 'Lower-sodium soy sauce', 2, 'tablespoons'),
+(3, 'Bay leaf', 1, 'units'),
+(3, 'Cornstarch', 2, 'teaspoons'),
+(3, 'Hoagie rolls', 8, 'units');
+
+
+
 -- Seed recipe_ingredients
   -- Classic Bread
 INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (1, 1, 500.00, 'grams');

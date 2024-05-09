@@ -4,6 +4,7 @@ import { applicationContext } from "../hooks/applicationContext";
 
 import { Box, Typography, Paper, IconButton, ListItem } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
+import kirby from '../assets/images/kirby-chocolate-pie.png';
 
 function RecipeFullView() {
 
@@ -21,7 +22,26 @@ function RecipeFullView() {
   }
 
   
-  if (!recipe) return <div>No recipe found</div>;
+  if (!recipe) {
+    return (
+      <Box sx={{ width: 0.43, display: 'flex', flexDirection: 'column'}}>
+        <Typography
+        variant="h1"
+        component="h1"
+        color="primary"
+        >
+          &#8226; recipe viewer
+        </Typography>
+        <Typography variant="h2" sx={{marginTop: 3, marginBottom: 3}}>
+          Please select or create a recipe!
+        </Typography>
+        <Box>
+          <img src={kirby} alt="chef kirby holding a chocolate pie" style={{width: 'auto', height: '70%'}}></img>
+        </Box>
+      </Box>
+    )
+    
+  }
 
   return (
     <Box sx={{ width: 0.43}}>
