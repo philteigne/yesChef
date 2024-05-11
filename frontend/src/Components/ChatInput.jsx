@@ -1,6 +1,6 @@
 import React from "react";
 import { DialogContent, DialogActions, TextField, Typography, Button } from "@mui/material";
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect, useRef } from 'react';
 import { applicationContext } from '../hooks/applicationContext';
 
 const ChatInput = () => {
@@ -19,22 +19,36 @@ const ChatInput = () => {
       setUserQuery(''); // Clear the input after submission
     }
   };
+
+  // AUTO SCROLL TO BOTTOM
+  const messagesEndRef = useRef(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [state.chatHistory]);
   
   return(
     <React.Fragment>
       <DialogContent>
       {state.chatHistory.map((chat) => {
         return(
-          <Typography
-            variant="body2"
-            component="p"
-            style={{ marginTop: 16, padding: 10 }}
-            align={chat.sender === "user" ? "right" : "left"}
-            color={chat.sender === "user" ? state.themeColors.bgColor : state.themeColors.textColor}
-            bgcolor={chat.sender === "user" ? state.themeColors.accentColor : state.themeColors.bgColor}
-          >
-            {chat.message}
-          </Typography>
+          <div>
+            <Typography
+              variant="body2"
+              component="p"
+              style={{ marginTop: 16, padding: 10 }}
+              align={chat.sender === "user" ? "right" : "left"}
+              color={chat.sender === "user" ? state.themeColors.bgColor : state.themeColors.textColor}
+              bgcolor={chat.sender === "user" ? state.themeColors.accentColor : state.themeColors.bgColor}
+            >
+              {chat.message}
+            </Typography>
+            <div ref={messagesEndRef} />
+          </div>
         )
       })}
       </DialogContent>
