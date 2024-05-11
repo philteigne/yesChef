@@ -106,31 +106,35 @@ function RecipeResponseView() {
         </Box>
       </Box>
       <Box sx={{overflow: 'auto', height: '474px'}}>
-        <Box sx={{ padding: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography variant="h2"
-            component="h2"
-            color="primary">
-            {state.recipeResponse.title} - {state.recipeResponse.tags.join(', ')}
-          </Typography>
-        </Box>
-        <Paper sx={{ margin: 'auto', mt: 2, mb: 2, padding: 2 }}>
-          <Typography variant="h2" component="h2" color="secondary">
-            {state.recipeResponse.ingredients.map(ing => `${ing.ingredient} - ${ing.quantity} ${ing.units}`).join(', ')}
-          </Typography>
-        </Paper>
-        <Paper sx={{ margin: 'auto', mt: 2, mb: 2, padding: 2 }}>
-        {state.recipeResponse.steps.map((step) => {
-          return (
-            <Typography 
-            variant="h2"
-            component="h2"
-            color="secondary" 
-            sx={{ marginTop: 1, marginBottom: 1 }}
-            >
-              {step}
-            </Typography>
-          )
-        })}
+        {/*RECIPE TITLE AND TAGS*/}
+        <Typography variant="h2" component="h2">
+          {state.recipeResponse.title}
+        </Typography>
+        <Typography variant="body2" component="p">
+          {state.recipeResponse.tags.join(', ')}
+        </Typography>
+
+        <Paper sx={{ margin: 'auto', mb: 2, padding: 1, pr: 1 }}>
+          {/*RECIPE INGREDIENTS*/}
+          {state.recipeResponse.ingredients.map(ing => {
+            return(
+              <Typography variant="body2" component="p">
+                &#8226; {ing.ingredient} - {ing.quantity} {ing.units}
+              </Typography>
+            )
+          })}
+          {/*RECIPE STEPS*/}
+          {state.recipeResponse.steps.map((step) => {
+            return (
+              <Typography 
+                variant="body2"
+                component="p" 
+                sx={{ marginTop: 1, marginBottom: 1 }}
+              >
+                {step}
+              </Typography>
+            )
+          })}
         </Paper>
       </Box>
     </Box>
