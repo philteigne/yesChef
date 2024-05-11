@@ -94,7 +94,7 @@ function RecipeFullView() {
             Please select or create a recipe!
           </Typography>
           <Box width='0.5'>
-            <img src={kirby} alt="chef kirby holding a chocolate pie" style={{width: 'auto', height: '50%'}}></img>
+            <img src={kirby} alt="chef kirby holding a chocolate pie" style={{width: '100%', height: 'auto'}}></img>
           </Box>
         </Box>
       }
