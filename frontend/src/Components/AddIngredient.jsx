@@ -65,7 +65,7 @@ const AddIngredient = () => {
           type="submit"
           onClick={handleSubmit}
         >
-          submit
+          add ingredient
         </Button>
       </Box>
     </Stack>
