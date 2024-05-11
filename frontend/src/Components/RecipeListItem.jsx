@@ -6,11 +6,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 const RecipeListItem = ({ recipe }) => {
   const { state, dispatch } = useContext(applicationContext);
 
-const handleDelete = () => {
-  dispatch({ type: 'DELETE_RECIPE', payload: recipe.id });
-  
-};
-
   return (
     <Box
       sx={{
