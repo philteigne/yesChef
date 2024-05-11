@@ -57,6 +57,7 @@ const Parameters = () => {
             color="primary"
             value={recipeTags}
             onChange={(e) => setRecipeTags(e.target.value)}
+            onKeyPress={(e) => { if (e.key === 'Enter') handleSubmit() }}
           />
           <Typography
             variant="h2"
@@ -68,6 +69,7 @@ const Parameters = () => {
           <TextField
             value={recipeFocus}
             onChange={(e) => setRecipeFocus(e.target.value)}
+            onKeyPress={(e) => { if (e.key === 'Enter') handleSubmit() }}
           />
           <Typography
             variant="h2"
@@ -79,6 +81,7 @@ const Parameters = () => {
           <TextField
             value={recipeAvoid}
             onChange={(e) => setRecipeAvoid(e.target.value)}
+            onKeyPress={(e) => { if (e.key === 'Enter') handleSubmit() }}
           />
           <FormControlLabel
             label=<Typography variant="h2" component="h2" sx={{ marginTop: 1 }}>Only include pantry ingredients</Typography>
@@ -95,7 +98,7 @@ const Parameters = () => {
           type="submit"
           onClick={handleSubmit}
         >
-          submit
+          generate
         </Button>
       </Box>
     </Stack>
