@@ -54,6 +54,14 @@ INSERT INTO ingredients (user_id, name, quantity, units) VALUES
 (3, 'Cornstarch', 2, 'teaspoons'),
 (3, 'Hoagie rolls', 8, 'units');
 
+-- Adding the Slow-Cooker Flank Steak Au Jus Sandwiches recipe
+INSERT INTO recipes (saved_by, title, tags, steps) VALUES
+(3, 'Slow-Cooker Flank Steak Au Jus Sandwiches', 'slow cooker, beef',
+'1. Combine spices, sugar, and oil to create a marinade. 2. Rub marinade on steak and place in slow cooker.
+3. Add onions, garlic, bay leaf, and Yuengling Lager. 4. Cook on low for 8 hours. 5. Remove steak and shred.
+6. Mix cornstarch with water and add to slow cooker to thicken sauce. 7. Serve on hoagie rolls.');
+
+
 
 
 -- Seed recipe_ingredients
@@ -76,3 +84,21 @@ INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUE
 INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (4, 11, 50.00, 'ml');
 INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (4, 20, 2.00, 'units');
 INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES (4, 17, 5.00, 'grams');
+
+
+-- Slow-Cooker Flank Steak Au Jus Sandwiches
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id, quantity, units) VALUES
+(5, 21, 1.5, 'tablespoons'),
+(5, 22, 2, 'tablespoons'),
+(5, 23, 0.75, 'teaspoon'),
+(5, 24, 1, 'teaspoon'),
+(5, 25, 1, 'teaspoon'),
+(5, 26, 1, 'teaspoon'),
+(5, 27, 3, 'units'),
+(5, 28, 2, 'pounds'),
+(5, 29, 1, 'units'),
+(5, 30, 12, 'ounce'),
+(5, 31, 2, 'tablespoons'),
+(5, 32, 1, 'units'),
+(5, 33, 2, 'teaspoons'),
+(5, 34, 8, 'units');
