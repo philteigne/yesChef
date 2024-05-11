@@ -77,9 +77,9 @@ function RecipeResponseView() {
         {/* Recipe Generation Control */}
         <Box>
           <IconButton onClick={() => {if (!state.isRecipeSaved) {handleSave()}}}>
-            <Avatar sx={{ bgcolor: state.themeColors.accentColor }}>
+            <Avatar sx={{ bgcolor: !state.isRecipeSaved ? state.themeColors.accentColor : state.themeColors.textColor }}>
               {!state.isRecipeSaved && !state.saveRecipeLoading && <SaveIcon fontSize="20" sx={{ fill: state.themeColors.bgColor}}/>}
-              {state.isRecipeSaved && !state.saveRecipeLoading && <DoneIcon fontSize="20" sx={{ fill: state.themeColors.bgColor}}/>}
+              {state.isRecipeSaved && <DoneIcon fontSize="20" sx={{ fill: state.themeColors.bgColor}}/>}
               {state.saveRecipeLoading && <CircularProgress size={16} sx={{color: state.themeColors.bgColor}} />}
             </Avatar>
           </IconButton>
