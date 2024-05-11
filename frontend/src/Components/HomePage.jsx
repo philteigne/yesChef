@@ -28,7 +28,7 @@ const HomePage = () => {
     <div className="homepage-container" style={{
       backgroundColor: state.themeColors.bgColor
     }}>
-      <div className="app-introduction">
+      <div className="app-introduction" data-testid="app-intro-div">
         <Typography
           variant="h1"
           component="h1"
