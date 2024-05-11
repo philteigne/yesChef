@@ -35,6 +35,7 @@ const AddIngredient = () => {
             value={ingredientName}
             fullWidth
             onChange={(e) => setIngredientName(e.target.value)}
+            onKeyPress={(e) => { if (e.key === 'Enter') handleSubmit() }}
           />
         </Stack>
       </Box>
