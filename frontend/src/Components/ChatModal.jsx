@@ -40,7 +40,12 @@ const ChatModal = () => {
           <IconButton onClick={() => dispatch({ type: "SET_CHAT_VIEW", payload: state.chatView === "chat" ? "settings" : "chat" })}>
             <SettingsIcon />
           </IconButton>
-          <IconButton onClick={() => dispatch({ type: "TOGGLE_CHAT" })} >
+          <IconButton
+            onClick={() => {
+              dispatch({ type: "TOGGLE_CHAT" })
+              dispatch({ type: "SET_CHAT_VIEW", payload: "chat" })
+            }}
+          >
             <CloseIcon />
           </IconButton>
         </Box>
