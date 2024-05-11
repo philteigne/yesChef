@@ -105,7 +105,7 @@ function RecipeResponseView() {
           </IconButton>
         </Box>
       </Box>
-      <Box sx={{overflow: 'auto', height: '474px'}}>
+      <Box sx={{overflow: 'auto', height: '474px', ml: 1}}>
         {/*RECIPE TITLE AND TAGS*/}
         <Typography variant="h2" component="h2">
           {state.recipeResponse.title}
