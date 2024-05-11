@@ -47,7 +47,7 @@ const customColorScheme = (themeColors) => {
       },
       body2: {
         fontFamily: 'Kanit',
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 400
       },
       button: {
@@ -164,7 +164,16 @@ const customColorScheme = (themeColors) => {
             justifyContent: 'space-between',
           }
         }
-      },      
+      },
+      MuiDialogActions: {
+        styleOverrides: {
+          root: {
+            marginBottom: 20,
+            marginLeft: 20,
+            marginRight: 20,
+          }
+        }
+      }   
     }
   })
 
