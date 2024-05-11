@@ -1,11 +1,12 @@
-import { Dialog, DialogTitle, DialogContent, IconButton, Slide, TextField, Select, Button, Typography, MenuItem, Box, Stack } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogActions, IconButton, Slide, TextField, Select, Button, Typography, MenuItem, Box, Stack } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { applicationContext } from '../hooks/applicationContext';
 import React from 'react';
-import { ClassNames } from '@emotion/react';
 
+import ChatInput from './ChatInput';
+import ChatSettings from './ChatSettings';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -14,44 +15,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const ChatModal = () => {
   const { state, dispatch } = useContext(applicationContext);
 
-  const [userQuery, setUserQuery] = useState('');
-  
-  const handleInputChange = (event) => {
-    setUserQuery(event.target.value);
-  };
-  
-  const handleSubmitQuery = () => {
-    if (userQuery.trim()) {
-      dispatch({ type: "SET_CHAT_QUERY", payload: {sender: "user", message: userQuery} });
-      setUserQuery(''); // Clear the input after submission
-    }
-  };
-
-  const [chatVoice, setChatVoice] = useState(state.chatSettings.chatVoice);
-
-  const chatVoiceList = {
-    'Yes Chef Bot': 'a helpful cooking assistant to a home cook',
-    'Gordon Ramsay': 'Offensive Gordon Ramsay',
-    'Matty Matheson': 'Funny Chef Matty Matheson',
-    'Carmen "Carmy" Berzatto': 'Angry Chef Carmen "Carmy" Berzatto',
-  }
-
-  const handleChangeSettings = (event) => {
-    setChatVoice({name: event.target.value, description: chatVoiceList[event.target.value]})
-  }
-
-  const handleSettingsApply = () => {
-    dispatch({ type: "SET_CHAT_SETTINGS", payload: {chatVoice: chatVoice} })
-  }
-  const handleSettingsCancel = () => {
-    setChatVoice(state.chatSettings.chatVoice)
-  }
-
-  console.log("stateChat", state.chatSettings)
-
-
-  
-  return (
+  return(
     <Dialog 
       open={state.chatModalOpen}
       onClose={() => dispatch({ type: "TOGGLE_CHAT"})}
@@ -81,66 +45,13 @@ const ChatModal = () => {
           </IconButton>
         </Box>
       </DialogTitle>
-      
       {/* CHAT VIEW */}
-      {state.chatView === "chat" &&
-        <DialogContent>
-          {state.chatHistory.map((chat) => {
-            return(
-              <Typography
-                variant="body2"
-                component="p"
-                style={{ marginTop: 16 }}
-                align={chat.sender === "user" ? "right" : "left"}
-                bgcolor={chat.sender === "user" ? state.themeColors.accentColor : state.themeColors.bgColor}
-              >
-                {chat.message}
-              </Typography>
-            )
-
-          })}
-          <TextField
-            fullWidth
-            label="Ask me anything about cooking!"
-            variant="outlined"
-            value={userQuery}
-            onChange={handleInputChange}
-            onKeyPress={(e) => { if (e.key === 'Enter' && userQuery.trim()) handleSubmitQuery() }}
-            autoFocus
-            style={{ marginTop: 8 }}
-          />
-          <Button variant="contained" color="primary" onClick={handleSubmitQuery} style={{ marginTop: 8 }}>
-            Send
-          </Button>
-        </DialogContent>
-      }
+      {state.chatView === "chat" && <ChatInput />}
       {/* SETTINGS VIEW */}
-      {state.chatView === "settings" &&
-        <DialogContent>
-          <Select
-            value={chatVoice.name}
-            onChange={handleChangeSettings}
-            sx={{ minWidth: 1 }}
-          >
-            {Object.keys(chatVoiceList).map((name) => {
-              return(
-                <MenuItem
-                  key={name}
-                  value={name}
-                >
-                  {name}
-                </MenuItem>
-              )
-            })}
-          </Select>
-          <Stack flexDirection="row">
-            <Button onClick={handleSettingsApply}>apply</Button>
-            <Button onClick={handleSettingsCancel}>reset</Button>
-          </Stack>
-        </DialogContent>
-      }
+      {state.chatView === "settings" && <ChatSettings />}
     </Dialog>
-  );
+  )
+
 }
 
 
