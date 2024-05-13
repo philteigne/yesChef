@@ -3,6 +3,7 @@ import axios from 'axios';
 import { applicationContext } from '../hooks/applicationContext';
 import useLastVisitedUrl from '../hooks/useLastVisitedUrl';
 import { API_CALL_URL } from '../hooks/customHook';
+import { Redirect } from 'react-router-dom';
 import { Button, 
   CssBaseline, 
   TextField, 
@@ -37,7 +38,10 @@ export default function SignInSide() {
 
   // if user is alread logged in redirect to create-recipe
   if (state.isLoggedIn) {
-    history.push('/create-recipe')
+    return <Redirect
+            to={ history[history.length - 1 ]}
+          />
+    // history.push('/create-recipe')
   } 
 
   

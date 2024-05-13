@@ -9,7 +9,7 @@ const INITIAL_STATE_APP = {
   // For handling save recipe button loading animation
   saveRecipeLoading: false,
   error: null,
-  
+  isLoggedIn: true,
 }
 
 // Pantry Component

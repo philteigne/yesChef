@@ -15,6 +15,7 @@ const CreateRecipe = () => {
       direction="row"
       justifyContent='center'
       spacing={12}
+      data-testid="pantry-component"
     >
       <Pantry  />
       {state.isLoading && <Loading />}
