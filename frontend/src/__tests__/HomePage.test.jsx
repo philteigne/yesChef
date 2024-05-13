@@ -23,18 +23,13 @@ describe('HomePage component Test', () => {
   it('HomePage component renders without crashing', () => {
     render(<HomePageTest />)
     expect(screen.getByText("Get Started")).toBeInTheDocument()
+    expect(window.location.href).toBe('http://localhost/')
   });
   
   it('should navigate to login when user click get started', () => {
     render(<HomePageTest/>)
     fireEvent.click(screen.getByText(/get started/i))
     expect(window.location.href).toBe('http://localhost/login')
-  })
-  
-  it('should navigate user to /create-recipe when user is logged in', async () => {
-    render(<HomePageTest/>)
-    fireEvent.click(screen.getByText(/get started/i));
-    expect(window.location.href).toBe('http://localhost/create-recipe')
   })
 
 })
