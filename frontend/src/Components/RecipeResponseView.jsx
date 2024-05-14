@@ -62,7 +62,7 @@ function RecipeResponseView() {
       borderRadius: '4px', 
       overflow: 'hidden',
       width: '0.43'
-      }}>
+      }} data-testid="recipe-response-box">
     
       <Box sx={{ padding: 0, display: 'flex', alignItems: 'center' }}> 
         <LoadingButton
@@ -112,12 +112,13 @@ function RecipeResponseView() {
         </Typography>
       </Paper>
       <Paper sx={{ margin: 'auto', mt: 2, mb: 2, padding: 2 }}>
-      {state.recipeResponse.steps.map((step) => {
+      {state.recipeResponse.steps.map((step, i) => {
         return (
           <Typography 
           variant="h2"
           component="h2"
           color="secondary" 
+          key={i}
           sx={{ marginTop: 1, marginBottom: 1 }}
           >
             {step}

@@ -40,6 +40,7 @@ const Parameters = () => {
           variant="h1"
           component="h1"
           color="primary"
+          data-testid="recipe-generation"
         >
           &#8226; recipe generation
         </Typography>
