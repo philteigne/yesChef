@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import CreateRecipe from "../Components/CreateRecipe";
-import useApplicationData from "../hooks/customHook";
-import { applicationContext } from "../hooks/applicationContext";
+import CreateRecipe from "../CreateRecipe";
+import useApplicationData from "../../hooks/customHook";
+import { applicationContext } from "../../hooks/applicationContext";
 
-jest.mock('../hooks/customHook')
+jest.mock('../../hooks/customHook')
 
 describe("CreateRecipe component test", () => {
   afterEach(() => {

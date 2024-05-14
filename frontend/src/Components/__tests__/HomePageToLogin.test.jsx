@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import HomePage from '../Components/HomePage';
-import { applicationContext } from '../hooks/applicationContext';
-import useApplicationData from '../hooks/customHook';
+import HomePage from '../HomePage';
+import { applicationContext } from '../../hooks/applicationContext';
+import useApplicationData from '../../hooks/customHook';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import CreateRecipe from '../Components/CreateRecipe';
+import CreateRecipe from '../CreateRecipe';
 import { MemoryRouter } from 'react-router-dom';
 
-jest.mock('../hooks/customHook')
+jest.mock('../../hooks/customHook')
 
 describe('HomePage component Test', () => {
   afterEach(() => {

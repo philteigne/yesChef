@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen, cleanup, fireEvent, renderHook, act, waitFor } from '@testing-library/react';
-import HomePage from '../Components/HomePage';
-import { applicationContext } from '../hooks/applicationContext';
-import useApplicationData from '../hooks/customHook';
+import { render, screen, cleanup, fireEvent } from '@testing-library/react';
+import HomePage from '../HomePage';
+import { applicationContext } from '../../hooks/applicationContext';
+import useApplicationData from '../../hooks/customHook';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 describe('HomePage component Test', () => {
