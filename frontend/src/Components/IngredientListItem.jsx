@@ -10,7 +10,7 @@ const IngredientListItem = ({ingredient}) => {
   const { state, dispatch } = useContext(applicationContext);
 
   return (
-    <Box sx={{
+    <Box data-testid='ingredientListItem-container' sx={{
       flexGrow: 1,
       width: 0.48,
       maxWidth: 0.48,
@@ -28,6 +28,7 @@ const IngredientListItem = ({ingredient}) => {
             edge="end"
             aria-label="delete"
             onClick={() => dispatch({type: "DELETE_INGREDIENTS_USER", payload: ingredient.id})}
+            data-testid="delete-ingredient-btn"
           >
             <RemoveCircleOutlineRoundedIcon color="secondary" />
           </IconButton>
@@ -40,6 +41,7 @@ const IngredientListItem = ({ingredient}) => {
           {ingredient.name}
         </Typography>
       </ListItem>
+      
     </Box>
   )
 }
