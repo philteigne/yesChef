@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import RecipeFullView from "../RecipeFullView";
 import { applicationContext } from "../../hooks/applicationContext";
 import useApplicationData from "../../hooks/customHook";

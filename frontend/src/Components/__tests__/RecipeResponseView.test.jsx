@@ -2,9 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import RecipeResponseView from "../RecipeResponseView";
 import { applicationContext } from "../../hooks/applicationContext";
 import useApplicationData from "../../hooks/customHook";
-import SaveIcon from '@mui/icons-material/Save';
-import ClearIcon from '@mui/icons-material/Clear';
-import RefreshIcon from '@mui/icons-material/Refresh';
+
 
 jest.mock('../../hooks/customHook');
 
