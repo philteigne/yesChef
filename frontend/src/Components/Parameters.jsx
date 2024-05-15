@@ -55,6 +55,7 @@ const Parameters = () => {
             What should we cook tonight?
           </Typography>
           <TextField
+            data-testid="recipeTags-input"
             color="primary"
             value={recipeTags}
             onChange={(e) => setRecipeTags(e.target.value)}
@@ -67,6 +68,7 @@ const Parameters = () => {
             Which ingredients should we use?
           </Typography>
           <TextField
+            data-testid="recipeFocus-input"
             value={recipeFocus}
             onChange={(e) => setRecipeFocus(e.target.value)}
           />
@@ -78,12 +80,13 @@ const Parameters = () => {
             Which ingredients should we avoid?
           </Typography>
           <TextField
+            data-testid="recipeAvoid-input"
             value={recipeAvoid}
             onChange={(e) => setRecipeAvoid(e.target.value)}
           />
           <FormControlLabel
             label=<Typography variant="h2" component="h2" sx={{ marginTop: 1 }}>Only include pantry ingredients</Typography>
-            control={<Checkbox checked={recipeLimit} onChange={(e) => setRecipeLimit(recipeLimit ? false : true)} />}
+            control={<Checkbox data-testid="recipeLimit-input" checked={recipeLimit} onChange={(e) => setRecipeLimit(recipeLimit ? false : true)} />}
           />
         </Stack>
       </Box>
@@ -93,6 +96,7 @@ const Parameters = () => {
         sx={{ marginTop: 5.6 }}
       >
         <Button
+          data-testid="submit-btn"
           type="submit"
           onClick={handleSubmit}
         >
