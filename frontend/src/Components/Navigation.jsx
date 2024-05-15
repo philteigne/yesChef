@@ -61,46 +61,32 @@ export default function ButtonAppBar() {
   const [open, setOpen] = useState(false);
   const [userIdInput, setUserIdInput] = useState('');
   return (
-    <>
-    <AppBar sx={{maxHeight: '29vh'}}>
-      <Toolbar >
-        <Box sx={{ visibility: 'hidden', display: 'flex', justifyContent: "flex-end", justifySelf: 'flex-end', m: 0.4 }} >
-          {pages.map((page) => (
-            <Box sx={{ marginRight: 3 }}>
-              <Typography
-                variant="h3"
-                component="h3"
-                key={page.id}
-                onClick={page.action}
-              >
-                {page.text}
-              </Typography>
-            </Box>
-          ))}
-        </Box>
-        <Icon sx={{ height: 135, width: 212}}>
-          <YesChefLogo fillColor={state.themeColors.accentColor}/>
-        </Icon>
-        <Box sx={{ display: 'flex', justifyContent: "flex-end", justifySelf: 'flex-end', m: 0.4 }} >
-          {pages.map((page) => (
-            <Box sx={{ marginRight: 3 }}>
-              <Typography
-                variant="h3"
-                component="h3"
-                key={page.id}
-                onClick={page.action}
-                sx={{'&:hover': {
-                  cursor: 'pointer'
-                }}}
-              >
-                {page.text}
-              </Typography>
-            </Box>
-          ))}
-        </Box>
-      </Toolbar>
-    </AppBar>
-    <Dialog open={open} onClose={() => setOpen(false)}>
+    <React.Fragment>
+      <AppBar >
+        <Toolbar sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', m: 2 }}>
+          <Icon sx={{ height: 135, width: 212 }}>
+            <YesChefLogo fillColor={state.themeColors.accentColor}/>
+          </Icon>
+          <Box sx={{ display: 'flex', justifyContent: "flex-end", justifySelf: 'flex-end', m: 0.4, position: 'absolute', top: '20%', right: '20px' }} >
+            {pages.map((page) => (
+              <Box sx={{ marginRight: 3 }}>
+                <Typography
+                  variant="h3"
+                  component="h3"
+                  key={page.id}
+                  onClick={page.action}
+                  sx={{'&:hover': {
+                    cursor: 'pointer'
+                  }}}
+                >
+                  {page.text}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogContent>
           <DialogContentText>
             Please enter your user ID to login:
@@ -125,6 +111,6 @@ export default function ButtonAppBar() {
           }}>Login</Button>
         </DialogActions>
       </Dialog>
-      </>
+    </React.Fragment>
   );
 }
