@@ -77,8 +77,8 @@ function RecipeResponseView() {
         <Box>
           <IconButton onClick={() => {if (!state.isRecipeSaved) {handleSave()}}}>
             <Avatar sx={{ bgcolor: !state.isRecipeSaved ? state.themeColors.accentColor : state.themeColors.textColor }}>
-              {!state.isRecipeSaved && !state.saveRecipeLoading && <SaveIcon fontSize="20" sx={{ fill: state.themeColors.bgColor}}/>}
-              {state.isRecipeSaved && <DoneIcon fontSize="20" sx={{ fill: state.themeColors.bgColor}}/>}
+              {!state.isRecipeSaved && !state.saveRecipeLoading && <SaveIcon fontSize="small" sx={{ fill: state.themeColors.bgColor}}/>}
+              {state.isRecipeSaved && <DoneIcon fontSize="small" sx={{ fill: state.themeColors.bgColor}}/>}
               {state.saveRecipeLoading && <CircularProgress size={16} sx={{color: state.themeColors.bgColor}} />}
             </Avatar>
           </IconButton>
@@ -87,7 +87,7 @@ function RecipeResponseView() {
             <Avatar sx={{ bgcolor: state.themeColors.accentColor }}>
               <RefreshIcon
                 onClick={handleRegenerate}
-                fontSize="20"
+                fontSize="small"
                 sx={{ fill: state.themeColors.bgColor}}
               />
             </Avatar>
@@ -97,7 +97,7 @@ function RecipeResponseView() {
             <Avatar sx={{ bgcolor: state.themeColors.accentColor }}>
               <ClearIcon
                 onClick={handleClear}
-                fontSize="20"
+                fontSize="small"
                 sx={{ fill: state.themeColors.bgColor}}
               />
             </Avatar>
