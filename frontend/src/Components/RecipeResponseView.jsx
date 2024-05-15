@@ -9,12 +9,13 @@ import {
   CircularProgress
 } from "@mui/material";
 import { applicationContext } from "../hooks/applicationContext";
+import RecipeOutput from "./RecipeOutput";
 import ClearIcon from '@mui/icons-material/Clear';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import SaveIcon from '@mui/icons-material/Save';
 import DoneIcon from '@mui/icons-material/Done';
 
-function RecipeResponseView() {
+function RecipeResponseView({recipe}) {
   const { state, dispatch } = useContext(applicationContext);
 
   const handleSave = () => {
@@ -104,38 +105,7 @@ function RecipeResponseView() {
           </IconButton>
         </Box>
       </Box>
-      <Box sx={{overflow: 'auto', height: '474px', ml: 1}}>
-        {/*RECIPE TITLE AND TAGS*/}
-        <Typography variant="h2" component="h2">
-          {state.recipeResponse.title}
-        </Typography>
-        <Typography variant="body2" component="p">
-          {state.recipeResponse.tags.join(', ')}
-        </Typography>
-
-        <Paper sx={{ margin: 'auto', mb: 2, padding: 1, pr: 1 }}>
-          {/*RECIPE INGREDIENTS*/}
-          {state.recipeResponse.ingredients.map(ing => {
-            return(
-              <Typography variant="body2" component="p">
-                &#8226; {ing.ingredient} - {ing.quantity} {ing.units}
-              </Typography>
-            )
-          })}
-          {/*RECIPE STEPS*/}
-          {state.recipeResponse.steps.map((step) => {
-            return (
-              <Typography 
-                variant="body2"
-                component="p" 
-                sx={{ marginTop: 1, marginBottom: 1 }}
-              >
-                {step}
-              </Typography>
-            )
-          })}
-        </Paper>
-      </Box>
+      <RecipeOutput recipe={state.recipeResponse}/>
     </Box>
   );
 }
