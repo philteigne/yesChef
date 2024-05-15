@@ -46,7 +46,7 @@ function RecipeFullView() {
           <IconButton>
             <Avatar sx={{ bgcolor: state.themeColors.accentColor }}>
               <EditIcon
-                fontSize="20"
+                fontSize="small"
                 sx={{ fill: state.themeColors.bgColor}}
               />
             </Avatar>
