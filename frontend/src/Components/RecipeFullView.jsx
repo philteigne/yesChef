@@ -2,27 +2,27 @@ import React, { useContext } from "react";
 
 import { applicationContext } from "../hooks/applicationContext";
 
-import { Box, Typography, Paper, IconButton, ListItem, Avatar, Icon } from "@mui/material";
+import { Box, Typography, IconButton, Avatar, Icon } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import MascotAssistant from "../icons/MascotAssistant";
+import RecipeOutput from "./RecipeOutput";
 
 function RecipeFullView() {
 
-  const { state, dispatch } = useContext(applicationContext);
+  const { state } = useContext(applicationContext);
   
   const { activeRecipe, recipes, recipeIngredients } = state;
   
   const recipe = recipes.find(r => r.id === activeRecipe);
   
-  function splitRecipe(recipe) {
-    const arr = recipe.split(/\d+\. /).filter(step => step.trim() !== '');
-    return arr.map((step, index) => {
-      return `${index + 1}. ${step}`
-    })
-  }
-
-  if (recipe && !Array.isArray(recipe.steps)) {
-    recipe.steps = splitRecipe(recipe.steps)
+  if (recipe) {
+    if (!Array.isArray(recipe.tags)) {
+      recipe.tags = recipe.tags.split(', ')
+    }
+    if (!Array.isArray(recipe.steps)) {
+      recipe.steps = recipe.steps.split(/(?=\b\d+\.\s)/).map(a => a.trim())
+    }
+    recipe.ingredients = recipeIngredients
   }
 
   return (
@@ -55,38 +55,7 @@ function RecipeFullView() {
       </Box>
 
       {recipe &&
-        <Box sx={{overflow: 'auto', height: '474px', ml: 1}}>
-          {/*RECIPE TITLE AND TAGS*/}
-          <Typography variant="h2" component="h2">
-            {recipe.title}
-          </Typography>
-          <Typography variant="body2" component="p">
-            {recipe.tags}
-          </Typography>
-  
-          <Paper sx={{ margin: 'auto', mb: 2, padding: 1, pr: 1 }}>
-            {/*RECIPE INGREDIENTS*/}
-            {recipeIngredients.map(ing => {
-              return(
-                <Typography variant="body2" component="p" key={ing.id}>
-                  &#8226; {ing.name} - {ing.quantity} {ing.units}
-                </Typography>
-              )
-            })}
-            {/*RECIPE STEPS*/}
-            {recipe.steps.map((step) => {
-              return (
-                <Typography 
-                  variant="body2"
-                  component="p" 
-                  sx={{ marginTop: 1, marginBottom: 1 }}
-                >
-                  {step}
-                </Typography>
-              )
-            })}
-          </Paper>
-        </Box>
+        <RecipeOutput recipe={recipe} />
       }
       {!recipe &&
         <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: "center", alignItems: "center"}}>
