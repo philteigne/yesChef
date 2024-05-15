@@ -62,17 +62,17 @@ describe('IngredientList test', () => {
     });
 
     render(<IngredientListItemTest />)
-      const ingredientListItemContainer = screen.getByTestId('ingredientListItem-container');
-  
-      const oliveOilListItem = within(ingredientListItemContainer).getByText('Olive oil');
-      expect(oliveOilListItem).toBeInTheDocument();
-  
-      const deleteButton = within(ingredientListItemContainer).getByTestId('delete-ingredient-btn');
-      expect(deleteButton).toBeInTheDocument();
-  
-      fireEvent.click(deleteButton);
-  
-      expect(mockDispatch).toHaveBeenCalledWith({ type: 'DELETE_INGREDIENTS_USER', payload: mockIngredientList[0].id });
+    const ingredientListItemContainer = screen.getByTestId('ingredientListItem-container');
+
+    const oliveOilListItem = within(ingredientListItemContainer).getByText('Olive oil');
+    expect(oliveOilListItem).toBeInTheDocument();
+
+    const deleteButton = within(ingredientListItemContainer).getByTestId('delete-ingredient-btn');
+    expect(deleteButton).toBeInTheDocument();
+
+    fireEvent.click(deleteButton);
+
+    expect(mockDispatch).toHaveBeenCalledWith({ type: 'DELETE_INGREDIENTS_USER', payload: mockIngredientList[0].id });
   })
 
 })

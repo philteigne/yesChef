@@ -38,10 +38,11 @@ export default function SignInSide() {
 
   // if user is alread logged in redirect to create-recipe
   if (state.isLoggedIn) {
-    return <Redirect
-            to={ history[history.length - 1 ]}
-          />
-    // history.push('/create-recipe')
+    // return <Redirect
+    //         to={ history[history.length - 1 ]}
+    //       />
+    history.push('/create-recipe')
+    return
   } 
 
   
