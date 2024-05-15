@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 
 import { applicationContext } from "../hooks/applicationContext";
 
-import { Box, Typography, Paper, IconButton, ListItem, Avatar } from "@mui/material";
+import { Box, Typography, Paper, IconButton, ListItem, Avatar, Icon } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
-import kirby from '../assets/images/kirby-chocolate-pie.png';
+import MascotAssistant from "../icons/MascotAssistant";
 
 function RecipeFullView() {
 
@@ -29,7 +29,7 @@ function RecipeFullView() {
     <Box sx={{ 
       margin: 2,
       borderRadius: '4px', 
-      width: '0.43'
+      width: '0.43',
       }}>
       
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', direction: 'row', marginRight: 4.2, marginBottom: 0.5 }}>
@@ -89,13 +89,13 @@ function RecipeFullView() {
         </Box>
       }
       {!recipe &&
-        <Box sx={{ width: 0.43, display: 'flex', flexDirection: 'column'}}>
+        <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: "center", alignItems: "center"}}>
           <Typography variant="h2" sx={{marginTop: 3, marginBottom: 3}}>
             Please select or create a recipe!
           </Typography>
-          <Box width='0.5'>
-            <img src={kirby} alt="chef kirby holding a chocolate pie" style={{width: '100%', height: 'auto'}}></img>
-          </Box>
+          <Icon sx={{ height: 300, width: 300 }}>
+            <MascotAssistant />
+          </Icon>
         </Box>
       }
     </Box>
