@@ -68,12 +68,10 @@ describe('IngredientList test', () => {
       dispatch: jest.fn()
     });
     render(<IngredientListTest />)
-    const oliveOilElements = screen.queryAllByText('Olive oil');
-    const avocadoElements = screen.queryAllByText('Avocado');
-
-    //At least one instance of each text is present
-    expect(oliveOilElements.length).toBeGreaterThan(0);
-    expect(avocadoElements.length).toBeGreaterThan(0);
+    const oliveOilIngredient = screen.getByText('Olive oil');
+    const avocadoIngredient = screen.getByText('Avocado')
+    expect(oliveOilIngredient).toBeInTheDocument()
+    expect(avocadoIngredient).toBeInTheDocument()
     
   })
 })
