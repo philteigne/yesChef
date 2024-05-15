@@ -4,12 +4,15 @@ import {
   Typography,
   Paper,
   Button,
+  IconButton,
+  Avatar,
+  CircularProgress
 } from "@mui/material";
 import { applicationContext } from "../hooks/applicationContext";
 import ClearIcon from '@mui/icons-material/Clear';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
+import DoneIcon from '@mui/icons-material/Done';
 
 function RecipeResponseView() {
   const { state, dispatch } = useContext(applicationContext);
@@ -28,7 +31,6 @@ function RecipeResponseView() {
     
     dispatch({type: "SET_SAVE_RECIPE_LOADING", payload: true})
 
-   
   };
 
   const handleClear = () => {
@@ -57,74 +59,83 @@ function RecipeResponseView() {
 
   return (
     <Box sx={{ 
-      margin: 2, 
-      border: '1px solid #ccc', 
+      margin: 2,
       borderRadius: '4px', 
-      overflow: 'hidden',
       width: '0.43'
       }}>
-    
-      <Box sx={{ padding: 0, display: 'flex', alignItems: 'center' }}> 
-        <LoadingButton
-          size="small"
-          color="secondary"
-          onClick={handleSave}
-          loading={state.saveRecipeLoading}
-          loadingPosition="start"
-          startIcon={<SaveIcon />}
-          variant="contained"
-          sx={{ minWidth: 'auto', marginRight: 1 }}
+      
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', direction: 'row', marginRight: 4.2, marginBottom: 0.5 }}>
+        <Typography
+          variant="h1"
+          component="h1"
+          color="primary"
         >
-          <span>
-            {state.isRecipeSaved ? 'Saved' : state.saveRecipeLoading ? 'Saving':'Save'}
-          </span>
-        </LoadingButton>
+          &#8226; recipe generation
+        </Typography>
 
-        <Button
-          type="submit"
-          onClick={handleRegenerate}
-          variant="contained"
-          endIcon={<RefreshIcon/>}
-          sx={{ minWidth: 'auto', marginRight: 1 }}
-        >
-          Regenerate
-        </Button>
-        <Button
-          type="submit"
-          onClick={handleClear}
-          variant="contained"
-          endIcon={<ClearIcon/>}
-          sx={{ minWidth: 'auto', marginRight: 1 }}
-        >
-          Clear
-        </Button>
+        {/* Recipe Generation Control */}
+        <Box>
+          <IconButton onClick={() => {if (!state.isRecipeSaved) {handleSave()}}}>
+            <Avatar sx={{ bgcolor: !state.isRecipeSaved ? state.themeColors.accentColor : state.themeColors.textColor }}>
+              {!state.isRecipeSaved && !state.saveRecipeLoading && <SaveIcon fontSize="small" sx={{ fill: state.themeColors.bgColor}}/>}
+              {state.isRecipeSaved && <DoneIcon fontSize="small" sx={{ fill: state.themeColors.bgColor}}/>}
+              {state.saveRecipeLoading && <CircularProgress size={16} sx={{color: state.themeColors.bgColor}} />}
+            </Avatar>
+          </IconButton>
+
+          <IconButton>
+            <Avatar sx={{ bgcolor: state.themeColors.accentColor }}>
+              <RefreshIcon
+                onClick={handleRegenerate}
+                fontSize="small"
+                sx={{ fill: state.themeColors.bgColor}}
+              />
+            </Avatar>
+          </IconButton>
+
+          <IconButton>
+            <Avatar sx={{ bgcolor: state.themeColors.accentColor }}>
+              <ClearIcon
+                onClick={handleClear}
+                fontSize="small"
+                sx={{ fill: state.themeColors.bgColor}}
+              />
+            </Avatar>
+          </IconButton>
+        </Box>
       </Box>
-      <Box sx={{ padding: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography variant="h2"
-          component="h2"
-          color="primary">
-          {state.recipeResponse.title} - {state.recipeResponse.tags.join(', ')}
+      <Box sx={{overflow: 'auto', height: '474px', ml: 1}}>
+        {/*RECIPE TITLE AND TAGS*/}
+        <Typography variant="h2" component="h2">
+          {state.recipeResponse.title}
         </Typography>
+        <Typography variant="body2" component="p">
+          {state.recipeResponse.tags.join(', ')}
+        </Typography>
+
+        <Paper sx={{ margin: 'auto', mb: 2, padding: 1, pr: 1 }}>
+          {/*RECIPE INGREDIENTS*/}
+          {state.recipeResponse.ingredients.map(ing => {
+            return(
+              <Typography variant="body2" component="p">
+                &#8226; {ing.ingredient} - {ing.quantity} {ing.units}
+              </Typography>
+            )
+          })}
+          {/*RECIPE STEPS*/}
+          {state.recipeResponse.steps.map((step) => {
+            return (
+              <Typography 
+                variant="body2"
+                component="p" 
+                sx={{ marginTop: 1, marginBottom: 1 }}
+              >
+                {step}
+              </Typography>
+            )
+          })}
+        </Paper>
       </Box>
-      <Paper sx={{ margin: 'auto', mt: 2, mb: 2, padding: 2 }}>
-        <Typography variant="h2" component="h2" color="secondary">
-          {state.recipeResponse.ingredients.map(ing => `${ing.ingredient} - ${ing.quantity} ${ing.units}`).join(', ')}
-        </Typography>
-      </Paper>
-      <Paper sx={{ margin: 'auto', mt: 2, mb: 2, padding: 2 }}>
-      {state.recipeResponse.steps.map((step) => {
-        return (
-          <Typography 
-          variant="h2"
-          component="h2"
-          color="secondary" 
-          sx={{ marginTop: 1, marginBottom: 1 }}
-          >
-            {step}
-          </Typography>
-        )
-      })}
-      </Paper>
     </Box>
   );
 }

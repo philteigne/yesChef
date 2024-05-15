@@ -9,15 +9,11 @@ const AddIngredient = () => {
   const { dispatch } = useContext(applicationContext)
 
   const [ingredientName, setIngredientName] = useState('')
-  const [ingredientCategory, setIngredientCategory] = useState('')
-  const [ingredientExpiry, setIngredientExpiry] = useState('')
 
   const handleSubmit = () => {
     const inputIngredient = {
       name: ingredientName,
       user_id: 1,
-      quantity: 5.00,
-      units: 'ml'
     }
 
     // Dispatch action to add ingredient
@@ -25,8 +21,6 @@ const AddIngredient = () => {
 
     // Clear input values
     setIngredientName('');
-    setIngredientCategory('');
-    setIngredientExpiry('');
   };
 
   return (
@@ -37,22 +31,11 @@ const AddIngredient = () => {
           justifyContent="space-between"
         >
           <TextField
-            label="Ingredient"
+            label="Ingredient Name"
             value={ingredientName}
-            sx={{ width: 0.32 }}
+            fullWidth
             onChange={(e) => setIngredientName(e.target.value)}
-          />
-          <TextField
-            label="Category"
-            value={ingredientCategory}
-            sx={{ width: 0.32 }}
-            onChange={(e) => setIngredientCategory(e.target.value)}
-          />
-          <TextField
-            label="Best Before"
-            value={ingredientExpiry}
-            sx={{ width: 0.32 }}
-            onChange={(e) => setIngredientExpiry(e.target.value)}
+            onKeyPress={(e) => { if (e.key === 'Enter') handleSubmit() }}
           />
         </Stack>
       </Box>
@@ -65,7 +48,7 @@ const AddIngredient = () => {
           type="submit"
           onClick={handleSubmit}
         >
-          submit
+          add ingredient
         </Button>
       </Box>
     </Stack>

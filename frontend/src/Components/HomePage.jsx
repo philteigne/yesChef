@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import { applicationContext } from "../hooks/applicationContext";
 
-import kirby from '../assets/images/HnK_Cook_2.webp'
 import '../HomePage.css'
 import useLastVisitedUrl from "../hooks/useLastVisitedUrl";
 
 import Button from '@mui/material/Button';
-import { Typography } from '@mui/material';
+import { Icon, Typography } from '@mui/material';
+import MascotChef from "../icons/MascotChef";
 
 const HomePage = () => {
 
@@ -55,9 +55,9 @@ const HomePage = () => {
         </Typography>
         <Button size="large" variant="contained" onClick={handleClick} styles={{margin: '10px'}}>Get Started</Button>
       </div>
-      <div className="main-image">
-        <img src={kirby} alt="person cooking with the help of AI generate recipe"></img>
-      </div>
+      <Icon sx={{ height: 500, width: 500 }}>
+        <MascotChef />
+      </Icon>
 
     </div>
 
