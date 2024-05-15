@@ -12,10 +12,11 @@ import { Button,
   Container, 
   Box, 
   Grid, 
-  Typography 
+  Typography,
+  Avatar
 } from '@mui/material';
 
-import kirby from '../assets/images/Everyone_loves_to_cook.webp';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 
 function Copyright(props) {
   return (
@@ -95,9 +96,12 @@ export default function SignInSide() {
         alignItems: 'center',
       }}
     >
-      <Box sx={{ m: 1, mt: 0, pt: 0, width: 115, height: 115, borderRadius: 10 }}>
-      <img src={kirby} alt="kirby as a chef" style={{ width: '100%', height: '100%', borderRadius: 'inherit' }} />
-      </Box>
+      <Avatar sx={{ bgcolor: state.themeColors.accentColor, height: '50px', width: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <AccountCircle
+          fontSize="large"
+          sx={{ fill: state.themeColors.bgColor }}
+        />
+      </Avatar>
       <Typography component="h1" variant="h5">
         Sign in
       </Typography>
