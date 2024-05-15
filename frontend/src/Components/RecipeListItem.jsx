@@ -26,6 +26,7 @@ const RecipeListItem = ({ recipe }) => {
     >
       <ListItem
         onClick={() => dispatch({ type: 'SET_ACTIVE_RECIPE', payload: recipe.id })}
+        data-testid="recipe-list-item"
       >
         <Typography variant="h2" component="h2">
           {recipe.title}
