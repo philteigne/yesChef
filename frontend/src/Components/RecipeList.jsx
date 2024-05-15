@@ -12,7 +12,7 @@ const RecipeList = () => {
   console.log("recipes", recipes)
 
   return(
-    <Box sx={{ display:'block', height: 1, overflow: "auto" }}>
+    <Box sx={{ display:'block', height: 1, overflow: "auto" }} data-testid="recipe-list-container">
         {recipes.map((recipe) => {
           return(
             <RecipeListItem
