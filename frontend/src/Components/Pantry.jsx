@@ -27,7 +27,7 @@ const Pantry = () => {
         <IconButton>
           <Avatar sx={{ bgcolor: state.themeColors.accentColor }}>
             <FolderRoundedIcon
-              fontSize="20"
+              fontSize="small"
               sx={{ fill: state.themeColors.bgColor}}
             />
           </Avatar>
