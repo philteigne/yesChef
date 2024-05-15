@@ -19,7 +19,7 @@ function Loading() {
           marginTop: '20px',
           padding: '2.5'
           }}>
-          <CircularProgress size={80} />
+          <CircularProgress size={80} data-testid='Loading-animation'/>
         </div>
       </Box>
   );

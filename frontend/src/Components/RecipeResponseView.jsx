@@ -58,7 +58,7 @@ function RecipeResponseView() {
   }
 
   return (
-    <Box sx={{ 
+    <Box data-testid="recipe-response-box" sx={{ 
       margin: 2,
       borderRadius: '4px', 
       width: '0.43'
