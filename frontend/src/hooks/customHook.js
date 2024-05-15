@@ -40,7 +40,7 @@ const INITIAL_STATE_PARAMETERS = {
 const INITIAL_STATE_THEME = {
   themeColors: {
     bgColor: '#EAE7DC',
-    textColor: '#4A4A45',
+    textColor: '#20201E',
     accentColor: '#E85A4F'
   },
 }
