@@ -1,7 +1,8 @@
 import React from "react";
-import { DialogContent, DialogActions, TextField, Typography, Button } from "@mui/material";
+import { DialogContent, DialogActions, TextField, Typography, Button, Icon, Box } from "@mui/material";
 import { useContext, useState, useEffect, useRef } from 'react';
 import { applicationContext } from '../hooks/applicationContext';
+import MascotChatBot from '../icons/MascotChatbot';
 
 const ChatInput = () => {
 
@@ -34,19 +35,22 @@ const ChatInput = () => {
       <DialogContent>
       {state.chatHistory.map((chat) => {
         return(
-          <div>
+          <Box display="flex" justifyContent={chat.sender === "user" ? "flex-end" : "flex-start"} >
+            {chat.sender === "user" ? null: <Icon sx={{ height: 70, width: 70 }}>
+              < MascotChatBot/>
+            </Icon>}
             <Typography
               variant="body2"
               component="p"
-              style={{ marginTop: 16, padding: 10 }}
-              align={chat.sender === "user" ? "right" : "left"}
+              style={{ marginTop: 16, padding: "8px 12px 8px 12px", borderRadius: "12px"}}
+              // align={chat.sender === "user" ? "right" : "left"}
               color={chat.sender === "user" ? state.themeColors.bgColor : state.themeColors.textColor}
               bgcolor={chat.sender === "user" ? state.themeColors.accentColor : state.themeColors.bgColor}
             >
               {chat.message}
             </Typography>
             <div ref={messagesEndRef} />
-          </div>
+          </Box>
         )
       })}
       </DialogContent>

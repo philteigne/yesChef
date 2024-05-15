@@ -28,7 +28,7 @@ const ChatModal = () => {
           bottom: 0,
           right: 0,
           maxHeight: '90vh',
-          maxWidth: '350px',
+          maxWidth: '420px',
           minHeight: '300px',
           borderRadius: '10px 10px 0 0',
         }
