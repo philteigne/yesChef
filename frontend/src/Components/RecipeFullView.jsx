@@ -15,9 +15,9 @@ function RecipeFullView() {
   const recipe = recipes.find(r => r.id === activeRecipe);
   
   function splitRecipe(recipe) {
-    const arr = recipe.split(/\d+\./).filter(step => step.trim() !== '');
+    const arr = recipe.split(/\d+\. /).filter(step => step.trim() !== '');
     return arr.map((step, index) => {
-      return `${index + 1}.${step}`
+      return `${index + 1}. ${step}`
     })
   }
 
