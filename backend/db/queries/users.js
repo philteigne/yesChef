@@ -138,10 +138,10 @@ const deleteIngredient = (userId, ingredientId) => {
 const addIngredient = (userId, ingredient) => {
   // Add a new ingredient to the users saved list
   const queryText = `
-  INSERT INTO ingredients (user_id, name, quantity, units)
-  VALUES ($1, $2, $3, $4);
+  INSERT INTO ingredients (user_id, name)
+  VALUES ($1, $2);
   `;
-  return db.query(queryText, [userId, ingredient.name, ingredient.quantity, ingredient.units])
+  return db.query(queryText, [userId, ingredient.name])
     .catch(err => {
       console.error('Error executing query', err.stack);
       throw err;
