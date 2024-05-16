@@ -21,8 +21,8 @@ const exampleJson = {
     "4. Bake at 200°C for 30 minutes."
   ],
   "ingredients": [
-    { "ingredient": "Flour", "quantity": 15.00, "units": "grams", "id": "1" },
-    { "ingredient": "Yeast", "quantity": 5.00, "units": "grams", "id": "2" }
+    { "name": "Flour", "quantity": 15.00, "units": "grams", "id": "1" },
+    { "name": "Yeast", "quantity": 5.00, "units": "grams", "id": "2" }
   ]
 }
 // check if the ingredient id it returns is correct!!
