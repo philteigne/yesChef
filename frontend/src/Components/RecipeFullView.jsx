@@ -38,7 +38,7 @@ function RecipeFullView() {
           component="h1"
           color="primary"
         >
-          &#8226; recipe generation
+          &#8226; recipe viewer
         </Typography>
 
         {/* Recipe Generation Control */}
