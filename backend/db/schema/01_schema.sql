@@ -14,9 +14,7 @@ CREATE TABLE users (
 CREATE TABLE ingredients (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) on DELETE CASCADE,
-    name VARCHAR(255) NOT NULL,
-    quantity NUMERIC(5,2),
-    units TEXT
+    name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE recipes (

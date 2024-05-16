@@ -16,43 +16,43 @@ INSERT INTO recipes (saved_by, title, tags, steps) VALUES
 INSERT INTO recipes (saved_by, title, tags, steps) VALUES
 (2, 'Grilled Chicken', 'dinner, healthy', '1. Marinate chicken in lemon juice and herbs. 2. Grill until cooked. 3. Serve with vegetables.');
 -- Seed ingredients
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (1, 'Flour', 500.00, 'grams');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (1, 'Sugar', 200.00, 'grams');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (1, 'Salt', 5.00, 'grams');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (1, 'Yeast', 15.00, 'grams');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (1, 'Milk', 250.00, 'ml');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (1, 'Butter', 100.00, 'grams');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (1, 'Eggs', 3.00, 'units');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (1, 'Baking Powder', 10.00, 'grams');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (1, 'Cocoa Powder', 50.00, 'grams');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (1, 'Vanilla Extract', 5.00, 'ml');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Olive Oil', 100.00, 'ml');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Garlic', 30.00, 'grams');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Onions', 0.50, 'units');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Tomatoes', 200.00, 'grams');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Basil', 20.00, 'grams');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Parsley', 20.00, 'grams');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Black Pepper', 5.00, 'grams');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Cheese', 150.00, 'grams');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Chicken Breast', 2.00, 'units');
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES (2, 'Lemons', 2.00, 'units');
+INSERT INTO ingredients (user_id, name) VALUES (1, 'Flour');
+INSERT INTO ingredients (user_id, name) VALUES (1, 'Sugar');
+INSERT INTO ingredients (user_id, name) VALUES (1, 'Salt');
+INSERT INTO ingredients (user_id, name) VALUES (1, 'Yeast');
+INSERT INTO ingredients (user_id, name) VALUES (1, 'Milk');
+INSERT INTO ingredients (user_id, name) VALUES (1, 'Butter');
+INSERT INTO ingredients (user_id, name) VALUES (1, 'Eggs');
+INSERT INTO ingredients (user_id, name) VALUES (1, 'Baking Powder');
+INSERT INTO ingredients (user_id, name) VALUES (1, 'Cocoa Powder');
+INSERT INTO ingredients (user_id, name) VALUES (1, 'Vanilla Extract');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Olive Oil');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Garlic');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Onions');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Tomatoes');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Basil');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Parsley');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Black Pepper');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Cheese');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Chicken Breast');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Lemons');
 
 -- Slow-Cooker Flank Steak Au Jus Sandwiches
-INSERT INTO ingredients (user_id, name, quantity, units) VALUES
-(3, 'Olive oil', 1.5, 'tablespoons'),
-(3, 'Dark brown sugar', 2, 'tablespoons'),
-(3, 'Kosher salt', 0.75, 'teaspoon'),
-(3, 'Ground cumin', 1, 'teaspoon'),
-(3, 'Paprika', 1, 'teaspoon'),
-(3, 'Black pepper', 1, 'teaspoon'),
-(3, 'Garlic cloves', 3, 'units'),
-(3, 'Flank steak', 2, 'pounds'),
-(3, 'Large onion', 1, 'units'),
-(3, 'Yuengling Lager', 12, 'ounce'),
-(3, 'Lower-sodium soy sauce', 2, 'tablespoons'),
-(3, 'Bay leaf', 1, 'units'),
-(3, 'Cornstarch', 2, 'teaspoons'),
-(3, 'Hoagie rolls', 8, 'units');
+INSERT INTO ingredients (user_id, name) VALUES
+(3, 'Olive oil'),
+(3, 'Dark brown sugar'),
+(3, 'Kosher salt'),
+(3, 'Ground cumin'),
+(3, 'Paprika'),
+(3, 'Black pepper'),
+(3, 'Garlic cloves'),
+(3, 'Flank steak'),
+(3, 'Large onion'),
+(3, 'Yuengling Lager'),
+(3, 'Lower-sodium soy sauce'),
+(3, 'Bay leaf'),
+(3, 'Cornstarch'),
+(3, 'Hoagie rolls');
 
 -- Adding the Slow-Cooker Flank Steak Au Jus Sandwiches recipe
 INSERT INTO recipes (saved_by, title, tags, steps) VALUES
