@@ -7,10 +7,10 @@ const RecipeOutput = ({recipe}) => {
     <Box sx={{overflow: 'auto', height: '474px', ml: 1}}>
         {/*RECIPE TITLE AND TAGS*/}
         {console.log("state.recipeResponse", recipe)}
-        <Typography variant="h2" component="h2">
+        <Typography variant="h2" component="h2" data-testid="recipe-title">
           {recipe.title}
         </Typography>
-        <Typography variant="body2" component="p">
+        <Typography variant="body2" component="p" data-testid="recipe-tags">
           {recipe.tags.join(', ')}
         </Typography>
 
