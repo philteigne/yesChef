@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
 
-import { applicationContext } from "../hooks/applicationContext";
-
 import { Box, Typography, IconButton, Avatar, Icon } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
+
 import MascotAssistant from "../icons/MascotAssistant";
+
 import RecipeOutput from "./RecipeOutput";
+
+import { applicationContext } from "../hooks/applicationContext";
+
 
 function RecipeFullView() {
 
