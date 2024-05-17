@@ -1,6 +1,8 @@
 import React from "react";
-import { DialogContent, DialogActions, Select, MenuItem, Button } from "@mui/material";
 import { useContext, useState } from 'react';
+
+import { DialogContent, DialogActions, Select, MenuItem, Button } from "@mui/material";
+
 import { applicationContext } from '../hooks/applicationContext';
 
 const ChatSettings = () => {
