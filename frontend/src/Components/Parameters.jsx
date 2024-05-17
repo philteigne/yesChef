@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 
-import { applicationContext } from '../hooks/applicationContext';
-
 import { TextField, Button, Box, Stack, Typography, Checkbox, FormControlLabel } from '@mui/material';
+
+import { applicationContext } from '../hooks/applicationContext';
 
 const Parameters = () => {
 
