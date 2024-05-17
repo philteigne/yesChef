@@ -29,6 +29,7 @@ router.delete('/:userId/:ingredientId', (req, res) => {
 });
 
 router.post('/:userId', (req, res) => {
+  // Add a new ingredient to the users saved list
   const userId = req.params.userId;
   const ingredient = req.body;
   console.log("req.body", req.body);
@@ -36,7 +37,7 @@ router.post('/:userId', (req, res) => {
   addIngredient(userId, ingredient)
     .then(() => res.status(200).end())
     .catch(error => {
-      console.error('Error deleting ingredient:', error);
+      console.error('Error adding ingredient:', error);
       res.status(500).json({ error: "Internal server error" });
     });
 });
@@ -54,27 +55,5 @@ router.get('/recipe/:recipeId', (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     });
 });
-
-router.post('/:userId', (req, res) => {
-  // Add a new ingredient to the users saved list
-  const userId = req.params.userId;
-
-})
-
-router.put('/:userId/:ingredientId', (req, res) => {
-  // Change the name of a users stored ingredient
-
-  const userId = req.params.userId;
-  const ingredientId = req.params.ingredientId;
-
-
-})
-
-router.delete('/:userId/:ingredientId', (req, res) => {
-  const userId = req.params.userId;
-  const ingredientId = req.params.ingredientId;
-
-  // Delete saved ingredient from users ingredients list
-})
 
 module.exports = router;
