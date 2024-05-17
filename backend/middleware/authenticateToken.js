@@ -11,6 +11,8 @@ const authenticateToken = (req, res, next) => {
   jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => {
     if (err) return res.sendStatus(403); // If token is invalid
     req.user = user;
+    // req.user is a obj, it contains iat: and userId
+    // user.userId, it decodes the jwt
     next();
   });
 };
