@@ -2,7 +2,6 @@ const express = require('express');
 const router  = express.Router();
 const { getSavedRecipes, addRecipe, addRecipeIngredient, deleteRecipe } = require('../db/queries/users');
 
-
 router.get('/user/:userId', (req, res) => {
   // return all saved recipes with a user_id that matches the current users id
   const userId = req.params.userId;

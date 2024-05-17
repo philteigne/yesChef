@@ -283,7 +283,11 @@ const useApplicationData = () => {
   // fetch recipes from backend
   const fetchRecipes = useCallback((userId) => {
     dispatch({ type: ACTIONS.ERROR, payload: null })
-    fetch(`/api/saved-recipes/user/${userId}`)
+    fetch(`/api/saved-recipes/user/${userId}`, {
+      headers: {
+        'Authorization': `Bearer ${sessionStorage.getItem('jwtToken')}`
+      }
+    })
       .then(response => response.json())
       .then(data => {
         dispatch({ type: 'SET_RECIPES', payload: data })
@@ -295,7 +299,11 @@ const useApplicationData = () => {
 
   const fetchIngredients = useCallback((recipeId) => {
     dispatch({ type: ACTIONS.ERROR, payload: null })
-    fetch(`/api/ingredients/recipe/${recipeId}`)
+    fetch(`/api/ingredients/recipe/${recipeId}`, {
+      headers: {
+        'Authorization': `Bearer ${sessionStorage.getItem('jwtToken')}`
+      }
+    })
       .then(response => response.json())
       .then(data => {
         dispatch({ type: ACTIONS.SET_RECIPE_INGREDIENTS, payload: data });
@@ -310,7 +318,8 @@ const useApplicationData = () => {
     fetch(`${API_CALL_URL}saved-recipes/recipe/${recipeData.userId}`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${sessionStorage.getItem('jwtToken')}`
       },
       body: JSON.stringify(recipeData.recipe)
     })
@@ -338,7 +347,8 @@ const useApplicationData = () => {
     const userId = state.userId;
     if (state.deleteRecipeState) {
       fetch(`http://localhost:8080/api/saved-recipes/${userId}/${state.deleteRecipeState}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('jwtToken')}` }
       })
       .then(() => {dispatch({type: ACTIONS.DELETE_RECIPE, payload: null})
       })
@@ -373,7 +383,11 @@ const useApplicationData = () => {
   // INGREDIENTS 
   // fetch ingredients from backend
   useEffect(() => {
-    fetch(`${API_CALL_URL}ingredients/${state.userId}`)
+    fetch(`${API_CALL_URL}ingredients/${state.userId}`, {
+      headers: {
+        'Authorization': `Bearer ${sessionStorage.getItem('jwtToken')}`
+      }
+    })
       .then((res) => res.json())
       .then((data) => dispatch({ type: ACTIONS.GET_INGREDIENTS_USER, payload: data }))
   }, [state.deleteIngredientState, state.addIngredientState, state.userId]);
@@ -383,7 +397,8 @@ const useApplicationData = () => {
     if (state.deleteIngredientState) {
       const ingredientId = state.deleteIngredientState;
       fetch(`${API_CALL_URL}ingredients/${state.userId}/${ingredientId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('jwtToken')}` }
       })
         .then(() => dispatch({ type: ACTIONS.DELETE_INGREDIENTS_USER, payload: null }))
     }
@@ -397,7 +412,8 @@ const useApplicationData = () => {
       fetch(`${API_CALL_URL}ingredients/${state.userId}`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionStorage.getItem('jwtToken')}`
         },
         body: JSON.stringify(ingredient)
       })
@@ -414,7 +430,8 @@ const useApplicationData = () => {
       fetch(`${API_CALL_URL}chat-gpt`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionStorage.getItem('jwtToken')}`
         },
         body: JSON.stringify(state.requestRecipe)
       })
