@@ -1,8 +1,11 @@
 import React from "react";
-import { DialogContent, DialogActions, TextField, Typography, Button, Icon, Box } from "@mui/material";
 import { useContext, useState, useEffect, useRef } from 'react';
-import { applicationContext } from '../hooks/applicationContext';
+
+import { DialogContent, DialogActions, TextField, Typography, Button, Icon, Box } from "@mui/material";
+
 import MascotChatBot from '../icons/MascotChatbot';
+
+import { applicationContext } from '../hooks/applicationContext';
 
 const ChatInput = () => {
 
@@ -43,7 +46,6 @@ const ChatInput = () => {
               variant="body2"
               component="p"
               style={{ marginTop: 16, padding: "8px 12px 8px 12px", borderRadius: "12px"}}
-              // align={chat.sender === "user" ? "right" : "left"}
               color={chat.sender === "user" ? state.themeColors.bgColor : state.themeColors.textColor}
               bgcolor={chat.sender === "user" ? state.themeColors.accentColor : state.themeColors.bgColor}
             >
