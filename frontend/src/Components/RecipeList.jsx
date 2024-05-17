@@ -9,7 +9,6 @@ const RecipeList = () => {
 
   const { state } = useContext(applicationContext)
   const { recipes } = state;
-  console.log("recipes", recipes)
 
   return(
     <Box sx={{ display:'block', height: 1, overflow: "auto" }} data-testid="recipe-list-container">
