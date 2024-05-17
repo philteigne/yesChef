@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
-import { applicationContext } from '../hooks/applicationContext';
+
 import { ListItem, Typography, Box, IconButton } from '@mui/material';
 import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutlineRounded';
+
+import { applicationContext } from '../hooks/applicationContext';
 
 const RecipeListItem = ({ recipe }) => {
   const { state, dispatch } = useContext(applicationContext);
