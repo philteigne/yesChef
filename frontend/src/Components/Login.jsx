@@ -1,9 +1,6 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
-import { applicationContext } from '../hooks/applicationContext';
-import useLastVisitedUrl from '../hooks/useLastVisitedUrl';
-import { API_CALL_URL } from '../hooks/customHook';
-import { Redirect } from 'react-router-dom';
+
 import { Button, 
   CssBaseline, 
   TextField, 
@@ -16,8 +13,11 @@ import { Button,
   Typography,
   Avatar
 } from '@mui/material';
-
 import AccountCircle from '@mui/icons-material/AccountCircle';
+
+import { applicationContext } from '../hooks/applicationContext';
+import useLastVisitedUrl from '../hooks/useLastVisitedUrl';
+import { API_CALL_URL } from '../hooks/customHook';
 
 function Copyright(props) {
   return (
