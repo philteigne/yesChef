@@ -71,13 +71,6 @@ router.get('/:userId/:recipeId', (req, res) => {
   res.json(mockRecipe)
 })
 
-router.put('/:userId/:recipeId', (req, res) => {
-  // Alter characteristics of a recipe
-
-  const userId = req.params.userId;
-  const recipeId = req.params.recipeId;
-})
-
 router.delete('/:userId/:recipeId', (req, res) => {
   const userId = req.params.userId;
   const recipeId = req.params.recipeId;
