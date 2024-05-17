@@ -56,6 +56,7 @@ function RecipeResponseView({recipe}) {
     }
 
     dispatch({ type: "REQUEST_RECIPE", payload: quickRegenerateRequest });
+    dispatch({ type: "CLEAR_RECIPE_SAVE_STATE" })
   }
 
   return (
