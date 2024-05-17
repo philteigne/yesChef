@@ -2,7 +2,6 @@
 require('dotenv').config();
 const authenticateToken = require('./middleware/authenticateToken')
 // Web server config
-const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
@@ -15,14 +14,6 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(
-  '/styles',
-  sassMiddleware({
-    source: __dirname + '/styles',
-    destination: __dirname + '/public/styles',
-    isSass: false, // false => scss, true => sass
-  })
-);
 app.use(express.static('public'));
 
 // Separated Routes for each Resource
