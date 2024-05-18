@@ -1,6 +1,6 @@
 // load .env data into process.env
 require('dotenv').config();
-
+const authenticateToken = require('./middleware/authenticateToken')
 // Web server config
 const express = require('express');
 const morgan = require('morgan');
@@ -22,14 +22,14 @@ const savedRecipesApiRoutes = require('./routes/savedRecipesApi');
 const ingredientsApiRoutes = require('./routes/ingredientsApi');
 const chatGPTApiRoutes = require('./routes/chatGPTApi');
 const chatQuestionsApiRoutes = require('./routes/chatQuestionsApi')
-const loginRoutes = require('./routes/login')
+const loginRoutes = require('./routes/login');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
-app.use('/api/saved-recipes', savedRecipesApiRoutes);
-app.use('/api/ingredients', ingredientsApiRoutes);
-app.use('/api/chat-gpt', chatGPTApiRoutes);
+app.use('/api/saved-recipes',authenticateToken, savedRecipesApiRoutes);
+app.use('/api/ingredients', authenticateToken,ingredientsApiRoutes);
+app.use('/api/chat-gpt', authenticateToken, chatGPTApiRoutes);
 app.use('/api/cooking-questions', chatQuestionsApiRoutes);
 
 app.use('/api/login', loginRoutes);
