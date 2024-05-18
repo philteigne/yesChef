@@ -20,8 +20,8 @@ const exampleJson = {
     "4. Bake at 200°C for 30 minutes."
   ],
   "ingredients": [
-    { "name": "Flour", "quantity": 15.00, "units": "grams", "id": "1" },
-    { "name": "Yeast", "quantity": 5.00, "units": "grams", "id": "2" }
+    { "name": "Flour", "quantity": "15", "units": "grams", "id": "1" },
+    { "name": "Yeast", "quantity": "5", "units": "grams", "id": "2" }
   ]
 }
 
@@ -32,7 +32,7 @@ It should include the title of the recipe, ingredients that it needs,
 tags that it fits into and the steps that are required to make it.
 The data schema should follow this example \`${JSON.stringify(exampleJson)}\`
 ONLY use the ingredients provied by the user, DO NOT ADD ANY OTHERS
-ONLY USE FLOATING POINT UNITS AND MEASUREMENTS`
+ONLY USE FLOATING POINT FOR QUANTITY`
 
 router.post('/', async (req, res) => {
   const { recipeTags, recipeFocus, recipeAvoid, allIngredients, oldRecipeTitle } = req.body;
