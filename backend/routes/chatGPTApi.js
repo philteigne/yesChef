@@ -5,7 +5,6 @@ const OpenAIApi = require('openai')
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
-
 const openai = new OpenAIApi({
   apiKey: process.env.OPENAI_API_KEY
 });
@@ -25,7 +24,6 @@ const exampleJson = {
     { "name": "Yeast", "quantity": 5.00, "units": "grams", "id": "2" }
   ]
 }
-// check if the ingredient id it returns is correct!!
 
 const recipeSystemPrompt = `
 Provide and format a Valid JSON format response.
@@ -37,9 +35,6 @@ ONLY use the ingredients provied by the user, DO NOT ADD ANY OTHERS`
 
 router.post('/', async (req, res) => {
   const { recipeTags, recipeFocus, recipeAvoid, allIngredients, oldRecipeTitle } = req.body;
-
-  // console.log("Ingredient List", allIngredients)
-  // Prompt needs some tweaking, it is recognizing when it is a regenerate but it is still making a similar dish
 
   const initialUserPrompt = `
     Given ONLY these ingredients: ${JSON.stringify(allIngredients)}, your task is to craft a recipe that fits the provided tags: ${recipeTags}.
@@ -55,9 +50,8 @@ router.post('/', async (req, res) => {
     DO NOT ADD INGREDIENTS THAT I DON'T HAVE.
   `;
 
+  // if oldRecipe is in req.body, use userPromptRegenerate
   const userPrompt = !oldRecipeTitle? initialUserPrompt : userPromptRegenerate;
-
-  // console.log(userPrompt);
 
   try {
     // Make the API request to OpenAI
@@ -84,7 +78,8 @@ router.post('/', async (req, res) => {
     const aiResponseRaw = (response.data.choices[0].message.content);
     const aiResponse = aiResponseRaw.replace(/`{3}(json)?/g, '');  // Regular expression to remove all backticks
     // ensure response type is in json format
-    // console.log("aiResponse", aiResponse);
+    console.log('AI recipe response:',aiResponse);
+
     res.type('json');
     res.status(200).send(aiResponse);
   } catch (error) {
@@ -92,8 +87,5 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: 'An error occurred' });
   }
 });
-
-
-
 
 module.exports = router;

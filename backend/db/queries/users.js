@@ -22,9 +22,6 @@ const getUser = (email) => {
 
 }
 
-// getUser('john.doe@example.com')
-//   .then((data) => console.log(data))
-
 const getSavedRecipes = (userId) => {
   const queryText = 'SELECT * FROM recipes WHERE saved_by = $1;';
   return db.query(queryText, [userId])
@@ -69,14 +66,6 @@ const addRecipeIngredient = (recipeId, ingredientObj) => {
       console.error('Error executing query', err.stack);
       throw err;
     });
-}
-
-const getRecipeById = (recipeId) => {
-  // View saved recipe item with an id that matches recipe_id
-}
-
-const changeRecipe = () => {
-  // Alter characteristics of a recipe
 }
 
 const deleteRecipe = (userId, recipeId) => {
@@ -146,10 +135,6 @@ const addIngredient = (userId, ingredient) => {
       console.error('Error executing query', err.stack);
       throw err;
     });
-};
-
-const editIngredientName = (userId, ingredientId) => {
-  // Change the name of a users stored ingredient
 };
 
 module.exports = {

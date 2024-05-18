@@ -5,21 +5,19 @@ const OpenAIApi = require('openai')
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
-
 const openai = new OpenAIApi({
   apiKey: process.env.OPENAI_API_KEY
 });
 
 // Endpoint for chat
 router.post('/', async (req, res) => {
-
   const { question, chatVoice } = req.body;
 
   const systemPrompt = `
   You are ${chatVoice.description},
   you are being prompted to answer cooking related questions.
   Answer the question succinctly and include phrases that ${chatVoice.description} would say.
-  Do not include quotation marks. 
+  Do not include quotation marks.
   `;
 
   try {
@@ -37,7 +35,6 @@ router.post('/', async (req, res) => {
       }
     });
     console.log("OpenAI API full response:", response);
-
 
     const aiAnswer = response.data.choices[0].message.content;
     res.json(aiAnswer);
