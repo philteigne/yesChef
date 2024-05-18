@@ -70,11 +70,10 @@ export default function ButtonAppBar() {
           </Icon>
           <Box sx={{ display: 'flex', justifyContent: "flex-end", justifySelf: 'flex-end', m: 0.4, position: 'absolute', top: '20%', right: '20px' }} >
             {pages.map((page) => (
-              <Box sx={{ marginRight: 3 }}>
+              <Box sx={{ marginRight: 3 }} key={page.id}>
                 <Typography
                   variant="h3"
                   component="h3"
-                  key={page.id}
                   onClick={page.action}
                   sx={{'&:hover': {
                     cursor: 'pointer'
