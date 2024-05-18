@@ -32,7 +32,7 @@ It should include the title of the recipe, ingredients that it needs,
 tags that it fits into and the steps that are required to make it.
 The data schema should follow this example \`${JSON.stringify(exampleJson)}\`
 ONLY use the ingredients provied by the user, DO NOT ADD ANY OTHERS
-ONLY USE FLOATING POINT FOR QUANTITY`
+Each ingredients object values should be in string format.`
 
 router.post('/', async (req, res) => {
   const { recipeTags, recipeFocus, recipeAvoid, allIngredients, oldRecipeTitle } = req.body;
@@ -52,7 +52,7 @@ router.post('/', async (req, res) => {
   `;
 
   // if oldRecipe is in req.body, use userPromptRegenerate
-  const userPrompt = !oldRecipeTitle? initialUserPrompt : userPromptRegenerate;
+  const userPrompt = !oldRecipeTitle ? initialUserPrompt : userPromptRegenerate;
 
   try {
     // Make the API request to OpenAI
