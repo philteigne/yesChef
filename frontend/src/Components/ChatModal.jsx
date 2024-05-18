@@ -1,9 +1,11 @@
-import { Dialog, DialogTitle, DialogContent, DialogActions, IconButton, Slide, TextField, Select, Button, Typography, MenuItem, Box, Stack } from '@mui/material';
+import React from 'react';
+import { useContext } from 'react';
+
+import { Dialog, DialogTitle, IconButton, Slide, Box } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { useContext } from 'react';
+
 import { applicationContext } from '../hooks/applicationContext';
-import React from 'react';
 
 import ChatInput from './ChatInput';
 import ChatSettings from './ChatSettings';

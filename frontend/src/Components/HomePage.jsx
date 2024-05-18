@@ -1,18 +1,19 @@
 import React, { useContext } from "react";
-import { applicationContext } from "../hooks/applicationContext";
 
 import '../HomePage.css'
-import useLastVisitedUrl from "../hooks/useLastVisitedUrl";
-
 import Button from '@mui/material/Button';
 import { Icon, Typography } from '@mui/material';
+
 import MascotChef from "../icons/MascotChef";
+
+import useLastVisitedUrl from "../hooks/useLastVisitedUrl";
+import { applicationContext } from "../hooks/applicationContext";
 
 const HomePage = () => {
 
   const { state } = useContext(applicationContext);
   const history = useLastVisitedUrl()
-  // console.log(history);
+
   const handleClick = () => {
     // Navigate to create-recipe if user is logged in
     if (state.isLoggedIn) {
@@ -24,7 +25,6 @@ const HomePage = () => {
 
 
   return (
-    // <ThemeProvider theme={theme}>
     <div className="homepage-container" style={{
       backgroundColor: state.themeColors.bgColor
     }}>
@@ -60,8 +60,6 @@ const HomePage = () => {
       </Icon>
 
     </div>
-
-    // </ThemeProvider>
   );
 };
 

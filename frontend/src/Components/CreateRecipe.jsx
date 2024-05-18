@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
+
 import { Stack } from '@mui/material'; 
 
 import { applicationContext } from "../hooks/applicationContext";
+
 import Loading from "./Loading";
 import Parameters from "./Parameters";
 import RecipeResponseView from "./RecipeResponseView";

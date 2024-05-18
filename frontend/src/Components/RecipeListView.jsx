@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 
-import RecipeList from "./RecipeList";
-import { applicationContext } from '../hooks/applicationContext';
-
 import { Box, Typography } from "@mui/material";
+
+import RecipeList from "./RecipeList";
+
+import { applicationContext } from '../hooks/applicationContext';
 
 function RecipeListView() {
 

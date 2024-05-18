@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useRef } from 'react';
-
-import IngredientListItem from './IngredientListItem';
-import { applicationContext } from '../hooks/applicationContext';
+import React, { useContext } from 'react';
 
 import { Box } from '@mui/material';
+
+import { applicationContext } from '../hooks/applicationContext';
+
+import IngredientListItem from './IngredientListItem';
 
 const IngredientList = () => {
 

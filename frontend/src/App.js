@@ -1,26 +1,24 @@
 import React from 'react';
 
+import './assets/fonts/fonts.css';
+import customColorScheme from './styles/MuiTheme';
+
+import CssBaseline from '@mui/material/CssBaseline'
+import { ThemeProvider } from '@mui/material/styles'
+
 import { Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import CreateRecipe from './Components/CreateRecipe.jsx';
 import ButtonAppBar from './Components/Navigation';
-import { applicationContext } from './hooks/applicationContext';
-import useApplicationData from './hooks/customHook';
-import Parameters from './Components/Parameters';
-import { Stack } from '@mui/material';
 import HomePage from './Components/HomePage.jsx';
 import SignInSide from './Components/Login.jsx';
-
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import CssBaseline from '@mui/material/CssBaseline'
-
-
-import { ThemeProvider } from '@mui/material/styles'
-import customColorScheme from './styles/MuiTheme';
-import './assets/fonts/fonts.css';
 import ViewRecipe from './Components/ViewRecipe.jsx';
-
 import ChatBubble from './Components/ChatBubble.jsx';
 import ChatModal from './Components/ChatModal.jsx';
+
+import { applicationContext } from './hooks/applicationContext';
+import useApplicationData from './hooks/customHook';
 
 function App() {
   const { state, dispatch } = useApplicationData();

@@ -95,6 +95,7 @@ export const ACTIONS = {
   CLEAR_RECIPE_RESPONSE: "CLEAR_RECIPE_RESPONSE",
   RERENDER_RECIPES_TRIGGER: "RERENDER_RECIPES_TRIGGER",
   DELETE_RECIPE: "DELETE_RECIPE",
+  CLEAR_RECIPE_SAVE_STATE: "CLEAR_RECIPE_SAVE_STATE",
 
   // APP MANAGEMENT ACTIONS
   IS_LOADING: "IS_LOADING",
@@ -174,6 +175,12 @@ export function reducer(state, action) {
       return {
         ...state,
         deleteRecipeState: action.payload
+      }
+    case ACTIONS.CLEAR_RECIPE_SAVE_STATE:
+      return {
+        ...state,
+        isRecipeSaved: null,
+        saveRecipeLoading: null
       }
 
     // ----- APP MANAGEMENT -----

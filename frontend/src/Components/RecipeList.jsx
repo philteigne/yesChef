@@ -1,15 +1,15 @@
 import React, { useContext } from 'react'
 
-import RecipeListItem from './RecipeListItem';
+import { Box } from '@mui/material';
+
 import { applicationContext } from '../hooks/applicationContext';
 
-import { Box } from '@mui/material';
+import RecipeListItem from './RecipeListItem';
 
 const RecipeList = () => {
 
   const { state } = useContext(applicationContext)
   const { recipes } = state;
-  console.log("recipes", recipes)
 
   return(
     <Box sx={{ display:'block', height: 1, overflow: "auto" }} data-testid="recipe-list-container">

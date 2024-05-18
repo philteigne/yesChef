@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 
-import { applicationContext } from '../hooks/applicationContext';
-import IngredientList from './IngredientList';
-import AddIngredient from './AddIngredient';
-
 import { Box, Typography, IconButton, Avatar } from '@mui/material';
 import FolderRoundedIcon from '@mui/icons-material/FolderRounded';
+
+import { applicationContext } from '../hooks/applicationContext';
+
+import IngredientList from './IngredientList';
+import AddIngredient from './AddIngredient';
 
 const Pantry = () => {
 

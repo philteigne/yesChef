@@ -1,9 +1,12 @@
 import React, {useContext, useState} from 'react';
-import useLastVisitedUrl from '../hooks/useLastVisitedUrl';
-import YesChefLogo from '../icons/yesChefLogo';
-import { applicationContext } from '../hooks/applicationContext';
 
 import { AppBar, Toolbar, Typography, Box, Icon, Dialog, DialogContent, DialogContentText, TextField, DialogActions, Button } from '@mui/material';
+
+import YesChefLogo from '../icons/yesChefLogo';
+
+import useLastVisitedUrl from '../hooks/useLastVisitedUrl';
+import { applicationContext } from '../hooks/applicationContext';
+
 
 
 export default function ButtonAppBar() {
@@ -54,8 +57,6 @@ export default function ButtonAppBar() {
       action: () => console.log("Signup Clicked")
     },
   ]
-  
-  // const pages = ['HOME', 'RECIPES', 'LOGIN', 'SIGNUP']
   
   const { state, dispatch } = useContext(applicationContext);
   const [open, setOpen] = useState(false);

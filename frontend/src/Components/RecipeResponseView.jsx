@@ -1,21 +1,17 @@
 import React, { useContext } from "react";
-import {
-  Box,
-  Typography,
-  Paper,
-  Button,
-  IconButton,
-  Avatar,
-  CircularProgress
-} from "@mui/material";
-import { applicationContext } from "../hooks/applicationContext";
-import RecipeOutput from "./RecipeOutput";
+
+import { Box, Typography, IconButton, Avatar, CircularProgress } from "@mui/material";
+
 import ClearIcon from '@mui/icons-material/Clear';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import SaveIcon from '@mui/icons-material/Save';
 import DoneIcon from '@mui/icons-material/Done';
 
-function RecipeResponseView({recipe}) {
+import RecipeOutput from "./RecipeOutput";
+
+import { applicationContext } from "../hooks/applicationContext";
+
+function RecipeResponseView() {
   const { state, dispatch } = useContext(applicationContext);
 
   const handleSave = () => {
@@ -56,6 +52,7 @@ function RecipeResponseView({recipe}) {
     }
 
     dispatch({ type: "REQUEST_RECIPE", payload: quickRegenerateRequest });
+    dispatch({ type: "CLEAR_RECIPE_SAVE_STATE" })
   }
 
   return (
