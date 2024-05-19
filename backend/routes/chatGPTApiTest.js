@@ -21,37 +21,75 @@ const verifyObj = (object) => {
     return errorLog;
   }
 
-
-
   object = JSON.parse(object);
-
+  // .title
   if (!object.hasOwnProperty("title")) {
     errorLog.push("Missing title");
   }
+  else if (typeof object.title !== "string") {
+    errorLog.push(`Unexpected title type ${typeof object.title}`)
+  }
+  // .tags
   if (!Array.isArray(object.tags)) {
     errorLog.push("Format tags not array");
+  } else if (object.tags.length > 0) {
+    for (let item of object.tags) {
+      if (typeof item !== "string") {
+        errorLog.push(`Unexpected tag type ${typeof item}`)
+      }
+    }
   }
+  // .steps
   if (!Array.isArray(object.steps)) {
     errorLog.push("Format steps not array");
+  } else if (object.steps.length > 0) {
+    for (let item of object.tags) {
+      if (typeof item !== "string") {
+        errorLog.push(`Unexpected tag type ${typeof item}`)
+      }
+    }
   }
+
   if (!Array.isArray(object.ingredients)) {
     errorLog.push("Format ingredients not array");
-  }
-  for (let item of object.ingredients) {
-    if (!item.hasOwnProperty("name")) {
-      errorLog.push("Missing ingredient.name");
-    }
-    if (!item.hasOwnProperty("quantity")) {
-      errorLog.push("Missing ingredient.quantity");
-    }
-    if (item.quantity.search("/") !== -1) {
-      errorLog.push(`Format quantity fraction ${item.id}`);
-    }
-    if (!item.hasOwnProperty("units")) {
-      errorLog.push("Missing ingredient.units");
-    }
-    if (!item.hasOwnProperty("id")) {
-      errorLog.push("Missing ingredient.id");
+  } else {
+    for (let item of object.ingredients) {
+      // .name
+      if (!item.hasOwnProperty("name")) {
+        errorLog.push("Missing ingredient.name");
+      }
+      else if (typeof item.name !== "string") {
+        errorLog.push(`Unexpected name type ${typeof item.name}`)
+      }
+
+      // .quantity
+      if (!item.hasOwnProperty("quantity")) {
+        errorLog.push("Missing ingredient.quantity");
+      }
+      else if (typeof item.quantity !== "number") {
+        if (item.quantity === null) {
+          errorLog.push(`Format quantity null ${item.id}`);
+        }
+        else if (item.quantity.search("/") !== -1) {
+          errorLog.push(`Format quantity fraction ${item.id}`);
+        }
+      }
+
+      // .units
+      if (!item.hasOwnProperty("units")) {
+        errorLog.push("Missing ingredient.units");
+      }
+      else if (typeof item.name !== "string") {
+        errorLog.push("Unexpected units type")
+      }
+
+      // .id
+      if (!item.hasOwnProperty("id")) {
+        errorLog.push("Missing ingredient.id");
+      }
+      else if (typeof item.name !== "number" && typeof item.name !== "string") {
+        errorLog.push(`Unexpected id type ${typeof item.id}`)
+      }
     }
   }
   return errorLog;
@@ -91,7 +129,7 @@ const exampleJson = {
   ],
   "ingredients": [
     { "name": "Flour", "quantity": 15, "units": "grams", "id": "1" },
-    { "name": "Yeast", "quantity": 5, "units": "grams", "id": "2" }
+    { "name": "Yeast", "quantity": 0.5, "units": "tablespoons", "id": "2" }
   ]
 }
 
@@ -101,10 +139,15 @@ Create a recipe based on user's prompt.
 It should include the title of the recipe, ingredients that it needs,
 tags that it fits into and the steps that are required to make it.
 The data schema should follow this example \`${JSON.stringify(exampleJson)}\`
-ONLY use the ingredients provied by the user, DO NOT ADD ANY OTHERS
-Each ingredients object values should be in string format.
-The units key cannot be left blank.
-DO NOT USE FRACTIONS AT ALL`
+Only use the ingredients provied by the user.
+Do not add any ingredients that are not provided by the user.
+Within the ingredients array,
+the name key should contain a string of the ingredient name.
+the quantity key should contain a numerical decimal value representing the quantity of the ingredient,
+the units key should contain a string containing the measuring unit of the ingredient,
+the id key should contain a numerical integer representing the id of the ingredient that was provided by the user.
+All keys in the example object are necessary and will result in an error if they are not all present or have an incorrect value type.
+`
 
 const testPost = async (testObject) => {
   const { recipeTags, recipeFocus, recipeAvoid, allIngredients, oldRecipeTitle } = testObject.body;
@@ -131,7 +174,7 @@ const testPost = async (testObject) => {
   let errorCount = 0;
   let validCount = 0;
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 100; i++) {
     axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
@@ -152,16 +195,10 @@ const testPost = async (testObject) => {
       }
     )
       .then((response) => {
-        // Extract AI response from the API response
-        const aiResponseRaw = (response.data.choices[0].message.content);
-        const aiResponse = aiResponseRaw.replace(/`{3}(json)?/g, '');  // Regular expression to remove all backticks
-        return aiResponse;
-        // ensure response type is in json format
-        // console.log('AI recipe response:',aiResponse);
-      })
-      .then((data) => {
-        const errors = verifyObj(data);
-        console.log(data);
+        const aiResponse = (response.data.choices[0].message.content)
+        console.log("-----")
+        console.log("aiResponse", aiResponse);
+        const errors = verifyObj(aiResponse);
         if (errors.length > 0) {
           errorCount++;
         } else {
@@ -171,8 +208,8 @@ const testPost = async (testObject) => {
         console.log(errors);
         console.log("errorCount", errorCount);
         console.log("validCount", validCount);
+        console.log("-----")
       });
-
   }
 };
 
