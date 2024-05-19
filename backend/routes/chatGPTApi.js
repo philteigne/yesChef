@@ -20,8 +20,8 @@ const exampleJson = {
     "4. Bake at 200°C for 30 minutes."
   ],
   "ingredients": [
-    { "name": "Flour", "quantity": "15", "units": "grams", "id": "1" },
-    { "name": "Yeast", "quantity": "5", "units": "grams", "id": "2" }
+    { "name": "Flour", "quantity": 15, "units": "grams", "id": "1" },
+    { "name": "Yeast", "quantity": 0.5, "units": "tablespoons", "id": "2" }
   ]
 }
 
@@ -31,11 +31,105 @@ Create a recipe based on user's prompt.
 It should include the title of the recipe, ingredients that it needs,
 tags that it fits into and the steps that are required to make it.
 The data schema should follow this example \`${JSON.stringify(exampleJson)}\`
-ONLY use the ingredients provied by the user, DO NOT ADD ANY OTHERS
-Each ingredients object values should be in string format.`
+Only use the ingredients provied by the user.
+Do not add any ingredients that are not provided by the user.
+Within the ingredients array,
+the name key should contain a string of the ingredient name.
+the quantity key should contain a numerical decimal value representing the quantity of the ingredient,
+the units key should contain a string containing the measuring unit of the ingredient,
+the id key should contain a numerical integer representing the id of the ingredient that was provided by the user.
+All keys in the example object are necessary and will result in an error if they are not all present or have an incorrect value type.
+`
+const verifyResponseObj = (object) => {
 
-router.post('/', async (req, res) => {
-  const { recipeTags, recipeFocus, recipeAvoid, allIngredients, oldRecipeTitle } = req.body;
+  try {
+    JSON.parse(object);
+  } catch {
+    return false;
+  }
+
+  object = JSON.parse(object);
+  // .title
+  if (!object.hasOwnProperty("title")) {
+    return false;
+  }
+  else if (typeof object.title !== "string") {
+    return false;
+  }
+  // .tags
+  if (!Array.isArray(object.tags)) {
+    return false;
+  } else if (object.tags.length > 0) {
+    for (let item of object.tags) {
+      if (typeof item !== "string") {
+        return false;
+      }
+    }
+  }
+  // .steps
+  if (!Array.isArray(object.steps)) {
+    return false;
+  } else if (object.steps.length > 0) {
+    for (let item of object.tags) {
+      if (typeof item !== "string") {
+        return false;
+      }
+    }
+  }
+
+  if (!Array.isArray(object.ingredients)) {
+    return false;
+  } else {
+    for (let item of object.ingredients) {
+      // .name
+      if (!item.hasOwnProperty("name")) {
+        return false;
+      }
+      else if (typeof item.name !== "string") {
+        return false;
+      }
+
+      // .quantity
+      if (!item.hasOwnProperty("quantity")) {
+        return false;
+      }
+      else if (typeof item.quantity !== "number") {
+        if (item.quantity === null) {
+          return false;
+        }
+        else if (item.quantity.search("/") !== -1) {
+          return false;
+        }
+      }
+
+      // .units
+      if (!item.hasOwnProperty("units")) {
+        return false;
+      }
+      else if (typeof item.name !== "string") {
+        return false;
+      }
+
+      // .id
+      if (!item.hasOwnProperty("id")) {
+        return false;
+      }
+      else if (typeof item.name !== "number" && typeof item.name !== "string") {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+const cleanResponseObj = (object) => {
+  let objectParse = JSON.parse(object)
+  objectParse.ingredients = objectParse.ingredients.filter((a) => a.quantity > 0)
+  return JSON.stringify(objectParse)
+}
+
+const requestRecipeGen = async (requestBody) => {
+  const { recipeTags, recipeFocus, recipeAvoid, allIngredients, oldRecipeTitle } = requestBody;
 
   const initialUserPrompt = `
     Given ONLY these ingredients: ${JSON.stringify(allIngredients)}, your task is to craft a recipe that fits the provided tags: ${recipeTags}.
@@ -54,12 +148,12 @@ router.post('/', async (req, res) => {
   // if oldRecipe is in req.body, use userPromptRegenerate
   const userPrompt = !oldRecipeTitle ? initialUserPrompt : userPromptRegenerate;
 
-  try {
-    // Make the API request to OpenAI
-    const response = await axios.post(
+  for (let i = 0; i < 10; i++) {
+    return axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
         model: 'gpt-3.5-turbo',
+        response_format: { type: "json_object" },
         messages: [
           { role: 'system', content: recipeSystemPrompt },
           { role: 'user', content: userPrompt }
@@ -73,20 +167,27 @@ router.post('/', async (req, res) => {
           Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
         }
       }
-    );
-
-    // Extract AI response from the API response
-    const aiResponseRaw = (response.data.choices[0].message.content);
-    const aiResponse = aiResponseRaw.replace(/`{3}(json)?/g, '');  // Regular expression to remove all backticks
-    // ensure response type is in json format
-    console.log('AI recipe response:',aiResponse);
-
-    res.type('json');
-    res.status(200).send(aiResponse);
-  } catch (error) {
-    console.error('An error occurred:', error.message);
-    res.status(500).json({ error: 'An error occurred' });
+    )
+      .then((response) => {
+        console.log("response", response.data.choices[0].message.content)
+        const aiResponse = (response.data.choices[0].message.content)
+        if (verifyResponseObj(aiResponse)) {
+          return cleanResponseObj(aiResponse);
+        };
+      })
   }
+}
+
+router.post('/', async (req, res) => {
+  requestRecipeGen(req.body)
+    .then((response) => {
+      res.type('json');
+      res.status(200).send(response);
+    })
+    .catch((error) => {
+      console.error('An error occurred:', error.message);
+      res.status(500).json({ error: 'An error occurred' });
+    })
 });
 
 module.exports = router;
