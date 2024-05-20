@@ -34,8 +34,23 @@ INSERT INTO ingredients (user_id, name) VALUES (2, 'Basil');
 INSERT INTO ingredients (user_id, name) VALUES (2, 'Parsley');
 INSERT INTO ingredients (user_id, name) VALUES (2, 'Black Pepper');
 INSERT INTO ingredients (user_id, name) VALUES (2, 'Cheese');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Pasta');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Rice');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Bread Crumbs');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Parmesan Reggiano');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Spaghetti');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Linguine');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Heavy Cream');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Shrimp');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Ground Beef');
 INSERT INTO ingredients (user_id, name) VALUES (2, 'Chicken Breast');
-INSERT INTO ingredients (user_id, name) VALUES (2, 'Lemons');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Peeled Can Tomato');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Pesto');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Flour');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Eggs');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Lemon');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Ravioli');
+INSERT INTO ingredients (user_id, name) VALUES (2, 'Milk');
 
 -- Slow-Cooker Flank Steak Au Jus Sandwiches
 INSERT INTO ingredients (user_id, name) VALUES
@@ -49,7 +64,7 @@ INSERT INTO ingredients (user_id, name) VALUES
 (3, 'Flank steak'),
 (3, 'Large onion'),
 (3, 'Yuengling Lager'),
-(3, 'Lower-sodium soy sauce'),
+(3, 'Soy Sauce'),
 (3, 'Bay leaf'),
 (3, 'Cornstarch'),
 (3, 'Hoagie rolls');
